@@ -33,11 +33,6 @@ Upon completing this course, you will:
 - [Unit 8: Understanding Pointers - Introduction](#unit-8-understanding-pointers---introduction)
 - [Unit 9: Programming with Pointers](#unit-9-programming-with-pointers)
 - [Unit 10: Characters and Strings](#unit-10-characters-and-strings)
-- [Unit 11: Pointers and Arrays](#unit-11-pointers-and-arrays)
-- [Unit 12: Dynamic Memory Allocation](#unit-12-dynamic-memory-allocation)
-- [Unit 13: Understanding Structures and Unions](#unit-13-understanding-structures-and-unions)
-- [Unit 14: File Management](#unit-14-file-management)
-- [Lab Experiments](#-lab-experiments)
 
 ---
 

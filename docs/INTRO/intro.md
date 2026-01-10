@@ -21,25 +21,25 @@ Welcome to the **IMPACT Reference Library** — a comprehensive resource hub bui
   - 🎯 **Misc Activities** (Sem 2) - Projects, quizzes, and activities
 
 ### 🎯 9 Semester 1 Subjects
-- 💻 C Programming
-- 🔢 CFOA (Computer Fundamentals and Office Automation)
-- ⚡ Digital Logic & Design
-- 🎤 English Communication Skills
-- 🌍 Environmental Science
-- 🔢 FMCA (Fundamental Mathematics in Computer Application)
-- 🧠 Psychology
-- 🔗 Shared Resources
-- 🇮🇳 Understanding India
+- 💻 [C Programming](/docs/Semester 1/C-Programming/)
+- 🔢 [CFOA](/docs/Semester 1/CFOA/) (Computer Fundamentals and Office Automation)
+- ⚡ [Digital Logic & Design](/docs/Semester 1/Digital-Logic&Design/)
+- 🎤 [English Communication Skills](/docs/Semester 1/English-Communication-Skills/)
+- 🌍 [Environmental Science](/docs/Semester 1/Environmental-Science/)
+- 🔢 [FMCA](/docs/Semester 1/FMCA/) (Fundamental Mathematics in Computer Application)
+- 🧠 [Psychology](/docs/Semester 1/Psychology/)
+- 🔗 [Shared Resources](/docs/Semester 1/Shared-Resources/)
+- 🇮🇳 [Understanding India](/docs/Semester 1/Understanding-India/)
 
 ### 7 Semester 2 Subjects
-- 💻 Computer Programming – II
-- 🔢 Discrete Mathematics
-- 🐧 Linux & Shell Programming
-- 📊 Statistics
-- 📝 Functional English
-- ✍️ Technical Report Writing
-- 🎥 Multimedia System
-- 📂 Extras
+- 💻 [Computer Programming – II](/docs/Semester 2/Computer Programming – II/)
+- 🔢 [Discrete Mathematics](/docs/Semester 2/Discrete Mathematics/)
+- 🐧 [Linux & Shell Programming](/docs/Semester 2/Linux & Shell Programming/)
+- 📊 [Statistics](/docs/Semester 2/Statistics/)
+- 📝 [Functional English](/docs/Semester 2/Functional English/)
+- ✍️ [Technical Report Writing](/docs/Semester 2/Technical Report Writing/)
+- 🎥 [Multimedia System](/docs/Semester 2/Multimedia System/)
+- 📂 [Extras](/docs/Semester 2/extras/)
 
 ### 🔧 Developer-Friendly Features
 - ✏️ **Edit on GitHub** - Easily contribute and improve content
@@ -102,7 +102,7 @@ Welcome to the **IMPACT Reference Library** — a comprehensive resource hub bui
 - Documentation improvements
 - Semester 1 & 2 content coordination
 
-**Rahul Sutteri**
+**Rahul Saini**
 - Content contribution and review
 - Quality assurance and feedback
 - Issue tracking and resolution

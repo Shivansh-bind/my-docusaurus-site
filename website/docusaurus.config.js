@@ -68,7 +68,7 @@ markdown: {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/Shivansh-bind/my-docusaurus-site/tree/main/',
+            'https://github.com/Shivansh-bind/my-docusaurus-site/tree/main/website/',
           showLastUpdateTime: true,
           showLastUpdateAuthor: true,
         },
@@ -81,7 +81,7 @@ markdown: {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/Shivansh-bind/my-docusaurus-site/tree/main/',
+            'https://github.com/Shivansh-bind/my-docusaurus-site/tree/main/website/',
           // Useful options to enforce blogging best practices
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',

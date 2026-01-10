@@ -82,6 +82,357 @@ Pick a subject below to dive in ⬇️
 
 ---
 
+## ⏮️ Previous Semester(s)
+
+Revisit materials from earlier semesters. Perfect for reference and building foundational concepts.
+
+<div className={styles.grid}>
+  <div className={styles.card}>
+    <h3>📚 Semester 1</h3>
+    <p>Foundational concepts and core subjects from Semester 1.</p>
+    <Link to="/docs/Semester 1" className="button button--secondary button--sm">View Semester 1</Link>
+  </div>
+</div>
+
+---
+
+## 📖 Docusaurus Linking & Routing Guide
+
+### How links work in this project
+
+Docusaurus automatically generates URLs from your file structure. Understanding how this works helps you write correct links.
+
+#### File → URL conversion
+
+| File Path | Generated URL |
+|-----------|---------------|
+| `docs/Semester 2/Computer Programming – II/index.mdx` | `/docs/Semester 2/Computer Programming – II/` |
+| `docs/Semester 2/Computer Programming – II/Notes/index.mdx` | `/docs/Semester 2/Computer Programming – II/Notes/` |
+| `docs/Semester 2/Computer Programming – II/Handout.mdx` | `/docs/Semester 2/Computer Programming – II/Handout` |
+| `docs/Semester 2/Computer Programming – II/Assignments.mdx` | `/docs/Semester 2/Computer Programming – II/Assignments` |
+| `docs/INTRO/intro.mdx` | `/docs/INTRO/` |
+
+**Key Rules:**
+- `index.mdx` files generate folder URLs (with trailing `/`)
+- Regular `.mdx` files generate page URLs (no trailing `/`)
+- Folder names and file names become part of the URL
+- Spaces in folder names are preserved in URLs
+
+#### Link types in Docusaurus
+
+**1) Relative links (inside subject folders)**
+
+Best for linking between pages in the same subject:
+
+```
+<Link to="./Notes/">View Notes</Link>
+<Link to="./Assignments">View Assignments</Link>
+<Link to="./">Back to Subject</Link>
+```
+
+Use when: You're inside a subject folder linking to sibling pages or parent folder.
+
+**2) Absolute links (full document path)**
+
+Best for homepage or cross-subject linking:
+
+```
+<Link to="/docs/Semester 2/Computer Programming – II/">Open Subject</Link>
+<Link to="/docs/Semester 2/Computer Programming – II/Notes/">View Notes</Link>
+<Link to="/docs/Semester 2/Discrete Mathematics/Assignments">DM Assignments</Link>
+```
+
+Use when: Linking from homepage or different subjects.
+
+**3) URL-encoded absolute links**
+
+For links in plain text/buttons without JSX:
+
+```
+[Go to Notes](/docs/Semester%202/Computer%20Programming%20–%20II/Notes/)
+```
+
+Spaces → `%20`, special characters → encoded
+
+#### Current link structure example
+
+Homepage linking to a subject:
+
+```jsx
+<Link to="/docs/Semester 2/Computer Programming – II" className="button">
+  Open Subject
+</Link>
+```
+
+Subject index linking to materials:
+
+```jsx
+<Link to="./Notes/" className="button">View Notes</Link>
+<Link to="./Handout" className="button">View Handout</Link>
+<Link to="./Assignments" className="button">View Assignments</Link>
+```
+
+Notes folder index (if you add one):
+
+```jsx
+<Link to="./">Back to Subject</Link>
+```
+
+#### Frontmatter: The metadata header
+
+Every `.mdx` file needs frontmatter (YAML at the top):
+
+```yaml
+---
+title: Computer Programming – II
+description: Advanced programming concepts
+sidebar_label: CP – II
+---
+```
+
+**Fields:**
+- `title` - Page heading & browser tab title (required)
+- `description` - Short summary (optional)
+- `sidebar_label` - How it appears in sidebar (optional, defaults to title)
+
+#### File naming conventions in this project
+
+- **Folder names:** Full subject names (`Computer Programming – II`, `Discrete Mathematics`)
+- **Index files:** All folders use `index.mdx` to create folder URLs
+- **Material files:** Capitalized (`Handout.mdx`, `Assignments.mdx`, `MiscActivities.mdx`, `Notes/index.mdx`)
+- **Note:** File/folder names are case-sensitive on Linux/Vercel; match exactly in links
+
+#### Special cases & gotchas
+
+**1) Notes is now a folder, not a file**
+
+Old way:
+```jsx
+<Link to="./Notes">Notes</Link>  ❌ This won't work
+```
+
+New way:
+```jsx
+<Link to="./Notes/">Notes</Link>  ✅ Folder links need trailing /
+```
+
+**2) Deep nesting within Notes**
+
+If you add pages inside `Notes/` folder:
+
+```
+docs/Semester 2/Computer Programming – II/Notes/
+├── index.mdx                    → /docs/Semester 2/.../Notes/
+├── Unit 1.mdx                   → /docs/Semester 2/.../Notes/Unit 1
+├── Unit 2.mdx                   → /docs/Semester 2/.../Notes/Unit 2
+```
+
+Link inside `Unit 1.mdx`:
+
+```jsx
+<Link to="./Unit 2">Go to Unit 2</Link>       // relative
+<Link to="./">Back to Notes</Link>            // relative
+```
+
+**3) INTRO folder special case**
+
+The INTRO/intro.mdx is your introduction doc:
+
+```jsx
+<Link to="/docs/INTRO/">Go to Intro</Link>
+```
+
+#### Sidebar navigation
+
+Currently uses auto-generation (`autoCategoryCreation: true` in `docusaurus.config.js`). This means:
+- All folders automatically appear in sidebar
+- All `.mdx` files automatically create sidebar items
+- Order follows alphabetical sorting by default
+
+If you want custom ordering, you can define `sidebars.js` - but it's not needed now.
+
+#### Common linking mistakes
+
+| ❌ Wrong | ✅ Correct | Reason |
+|---------|-----------|--------|
+| `/docs/Semester 2/CP-II` | `/docs/Semester 2/Computer Programming – II` | Use full folder name, not abbreviation |
+| `./Notes` | `./Notes/` | Folder links need trailing slash |
+| `./notes` | `./Notes` | File/folder names are case-sensitive |
+| `/Semester 2/Computer Programming – II` | `/docs/Semester 2/Computer Programming – II` | Include `/docs/` prefix |
+| `docs/Semester 2/Notes` | `/docs/Semester 2/Computer Programming – II/Notes/` | Use full path with subject folder |
+
+#### How to test links locally
+
+1. Start dev server: `npm start`
+2. Navigate to http://localhost:3000
+3. Click the link
+4. If it shows a 404 page, the link is broken
+5. Check the file path matches exactly
+
+#### Build-time link checking
+
+When you run `npm run build`, Docusaurus checks:
+- All `<Link>` components point to existing pages
+- Markdown links `[text](url)` are valid
+- No 404 pages will be generated
+
+If a link is broken, build fails with clear error message showing which page and which link.
+
+**Fix strategy:**
+1. Read error message (shows file and line number)
+2. Verify the target file exists
+3. Check file path spelling and capitalization
+4. Ensure folder links have trailing `/`
+5. Rebuild: `npm run build`
+
+---
+
+## 🧾 Contribution Guide (For Team Members)
+
+Want to update notes/handouts or fix something? Follow this workflow so the site stays stable, your contributions show publicly, and approval becomes fast.
+
+:::info
+Do not push directly to `main`. Always create a branch and open a PR.
+:::
+
+### 🧩 How our pipeline works
+
+Think of the **main branch** as the final published book. You write on a draft copy (your branch), and then we merge it into the final book after review.
+
+Team member branch → Pull Request → Vercel Preview Link → Review → Merge → Live Website
+
+:::success
+**Preview Deployment:** A temporary live link created by Vercel for your PR so everyone can test changes.
+:::
+
+### ✅ Step-by-step: from start to approval
+
+**1) Pull latest changes before starting**
+
+```
+git checkout main
+git pull origin main
+```
+
+**2) Create a new branch (one task = one branch)**
+
+```
+git checkout -b docs/add-sem2-datesheet
+```
+
+Branch naming rules:
+- `docs/...` → docs, notes, handouts updates
+- `fix/...` → bug fixes / broken links
+- `feature/...` → new feature (new section/page)
+- `chore/...` → cleanup, formatting
+
+**3) Make your changes**
+
+Update docs content, add handout links, datesheet pages, etc.
+
+Test locally before pushing:
+```
+npm install
+npm start
+```
+
+**4) Stage and commit changes**
+
+```
+git status
+git add .
+git commit -m "docs(sem2): add datesheet page and exam instructions"
+```
+
+### ✍️ Commit messages that get quick approval
+
+Good commit messages make review fast. Format: `type(scope): message`
+
+Types:
+- `docs` → Notes, syllabus, handout pages
+- `feat` → New pages/features/sections
+- `fix` → Broken links, errors, build issues
+- `style` → Formatting changes only
+- `chore` → Cleanup, dependency updates
+
+Examples:
+- `docs(evs): add unit 1 notes and handout links`
+- `fix(sidebar): resolve broken assignments link`
+- `feat(news): add announcement page template`
+
+**5) Push branch to GitHub**
+
+```
+git push -u origin docs/add-sem2-datesheet
+```
+
+**6) Create a Pull Request (PR)**
+
+Go to GitHub → Pull Requests → New Pull Request. Base = `main`, Compare = your branch.
+
+:::warning
+**PR Title Tips:** Make it short and meaningful. Example: `docs: semester 2 datesheet + exam rules`
+:::
+
+**7) Use the Vercel Preview Link**
+
+As soon as PR is created, Vercel generates a preview link automatically. Test your pages there:
+- Check sidebar navigation
+- Open docs pages
+- Test PDF links
+- Confirm no broken links
+
+**8) Review → Approve → Merge**
+
+After testing, owner reviews PR. When approved, PR merges into `main`. Vercel then deploys the live site.
+
+### 🧪 What are "pipelines" and "checks"?
+
+When you open a PR, GitHub/Vercel runs automatic checks (like tests/build). These checks show under the PR as status: **passing** ✅ or **failed** ❌.
+
+- **Build check:** whether the website successfully builds
+- **Broken links check:** Docusaurus fails if internal links point to missing pages
+- **Preview check:** Vercel preview build status
+
+:::danger
+**Common failure:** Broken links. If you link to a page that doesn't exist, Docusaurus build fails. Fix by creating that page or correcting the link.
+:::
+
+### ⚡ Quick Git commands cheat sheet
+
+| Command | Purpose |
+|---------|---------|
+| `git status` | check changed files |
+| `git log --oneline` | see commit history |
+| `git diff` | see changes |
+| `git pull origin main` | update your local main |
+| `git checkout -b name` | create branch |
+| `git push -u origin branch` | push branch |
+
+### 🧠 PR Template (copy & paste)
+
+```
+## What did you change?
+- Added/updated ...
+
+## Why is it needed?
+- Helps students because ...
+
+## What should reviewer test?
+- Open /docs/...
+- Test PDF links
+- Check sidebar navigation
+
+## Notes
+- Any special info
+```
+
+:::success
+✅ If you follow this guide, your PR will get reviewed faster, merge cleanly, and deploy smoothly.
+:::
+
+---
+
 <footer className={styles.footer}>
   © {new Date().getFullYear()} Shiwansh Bind & Dhananjay BCA(GENERAL) · *Where Study Meets Focus* · Built with ❤️ using Docusaurus
 </footer>

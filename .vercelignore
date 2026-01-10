@@ -1,0 +1,13 @@
+apps/
+shared/
+
+# Flutter build artifacts
+.dart_tool/
+build/
+ios/
+android/.gradle/
+android/app/build/
+android/build/
+*.apk
+*.aab
+*.ipa

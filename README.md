@@ -1,11 +1,6 @@
 # 📚 IMPACT Reference Library
 > A clean, student-friendly Semester 2 library built with Docusaurus and deployed on Vercel.
 
-[![Vercel Deploy](https://img.shields.io/badge/Vercel-Deployed-success?style=for-the-badge&logo=vercel)](YOUR_VERCEL_URL)
-[![Stars](https://img.shields.io/github/stars/YOUR_GITHUB_REPO?style=for-the-badge)](https://github.com/YOUR_GITHUB_REPO/stargazers)
-[![Contributors](https://img.shields.io/github/contributors/YOUR_GITHUB_REPO?style=for-the-badge)](https://github.com/YOUR_GITHUB_REPO/graphs/contributors)
-[![License](https://img.shields.io/github/license/YOUR_GITHUB_REPO?style=for-the-badge)](LICENSE)
-
 ---
 
 ## 🌟 What is this?

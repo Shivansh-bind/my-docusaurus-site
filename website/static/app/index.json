@@ -1,0 +1,1100 @@
+{
+  "appVersion": "1.0.0",
+  "generatedAt": "2026-01-10T10:08:54.164Z",
+  "announcements": {
+    "feedUrl": "https://referencelibrary.vercel.app/blog/rss.xml",
+    "latestPosts": []
+  },
+  "handouts": [],
+  "semesters": [
+    {
+      "name": "Semester 1",
+      "subjects": [
+        {
+          "name": "C-Programming",
+          "sections": [
+            {
+              "name": "Handout",
+              "items": [
+                {
+                  "id": "Semester 1/C-Programming/Handout/index",
+                  "title": "index",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/C-Programming/Handout/index",
+                  "localKey": "Semester_1_C_Programming_Handout_index",
+                  "hash": "df2a623922f4698cdbfa51c726254ed76759e6e9",
+                  "updatedAt": "2026-01-10T07:28:11.114Z",
+                  "sizeBytes": 105
+                }
+              ]
+            },
+            {
+              "name": "Notes",
+              "items": [
+                {
+                  "id": "Semester 1/C-Programming/Notes/1.introduction-to-C",
+                  "title": "1.introduction to C",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/C-Programming/Notes/1.introduction-to-C",
+                  "localKey": "Semester_1_C_Programming_Notes_1_introduction_to_C",
+                  "hash": "c54a01c41ae6a1ba85a93b432831fef286cb4d8d",
+                  "updatedAt": "2026-01-09T10:19:08.558Z",
+                  "sizeBytes": 6219
+                },
+                {
+                  "id": "Semester 1/C-Programming/Notes/2.Data-types",
+                  "title": "2.Data types",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/C-Programming/Notes/2.Data-types",
+                  "localKey": "Semester_1_C_Programming_Notes_2_Data_types",
+                  "hash": "b3a838d05acc28acc51db7a3e0fc02caf5c248b3",
+                  "updatedAt": "2026-01-09T10:19:08.560Z",
+                  "sizeBytes": 6887
+                },
+                {
+                  "id": "Semester 1/C-Programming/Notes/3.if-else, else-if, switch and nested ifs",
+                  "title": "3.if else, else if, switch and nested ifs",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/C-Programming/Notes/3.if-else%2C%20else-if%2C%20switch%20and%20nested%20ifs",
+                  "localKey": "Semester_1_C_Programming_Notes_3_if_else__else_if__switch_and_nested_ifs",
+                  "hash": "8b83ddce1e8e4d15a9b94616f0513d9f3ca46f78",
+                  "updatedAt": "2026-01-09T10:19:08.560Z",
+                  "sizeBytes": 4711
+                },
+                {
+                  "id": "Semester 1/C-Programming/Notes/4.Loops-while-do-while",
+                  "title": "4.Loops while do while",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/C-Programming/Notes/4.Loops-while-do-while",
+                  "localKey": "Semester_1_C_Programming_Notes_4_Loops_while_do_while",
+                  "hash": "6e6b1a3a70dbb8d98fc6f0405d31005673650660",
+                  "updatedAt": "2026-01-09T10:19:08.560Z",
+                  "sizeBytes": 4068
+                },
+                {
+                  "id": "Semester 1/C-Programming/Notes/5.Arrays",
+                  "title": "5.Arrays",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/C-Programming/Notes/5.Arrays",
+                  "localKey": "Semester_1_C_Programming_Notes_5_Arrays",
+                  "hash": "c4af0d9478b8add35add8919616a4c1a6c474107",
+                  "updatedAt": "2026-01-09T10:19:08.561Z",
+                  "sizeBytes": 6848
+                },
+                {
+                  "id": "Semester 1/C-Programming/Notes/index",
+                  "title": "index",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/C-Programming/Notes/index",
+                  "localKey": "Semester_1_C_Programming_Notes_index",
+                  "hash": "8b2bbb89aa7ad166914570cd77942139c066a301",
+                  "updatedAt": "2026-01-10T07:25:33.051Z",
+                  "sizeBytes": 171
+                },
+                {
+                  "id": "Semester 1/C-Programming/Notes/Program-&-reference",
+                  "title": "Program & reference",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/C-Programming/Notes/Program-%26-reference",
+                  "localKey": "Semester_1_C_Programming_Notes_Program___reference",
+                  "hash": "f558bd690dd7d4a2b382c536160ccbe1f4c0fcc8",
+                  "updatedAt": "2026-01-09T10:19:08.561Z",
+                  "sizeBytes": 38727
+                }
+              ]
+            },
+            {
+              "name": "PYQ",
+              "items": [
+                {
+                  "id": "Semester 1/C-Programming/PYQ/index",
+                  "title": "index",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/C-Programming/PYQ/index",
+                  "localKey": "Semester_1_C_Programming_PYQ_index",
+                  "hash": "8aebd4eba515b1ffc777238b7461a769549c1717",
+                  "updatedAt": "2026-01-10T07:28:11.161Z",
+                  "sizeBytes": 118
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "CFOA",
+          "sections": [
+            {
+              "name": "Handout",
+              "items": [
+                {
+                  "id": "Semester 1/CFOA/Handout/index",
+                  "title": "index",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/CFOA/Handout/index",
+                  "localKey": "Semester_1_CFOA_Handout_index",
+                  "hash": "b305d74aaff01196e94486c55fc04974c14a3a42",
+                  "updatedAt": "2026-01-10T07:28:11.161Z",
+                  "sizeBytes": 96
+                }
+              ]
+            },
+            {
+              "name": "Notes",
+              "items": [
+                {
+                  "id": "Semester 1/CFOA/Notes/intro",
+                  "title": "intro",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/CFOA/Notes/intro",
+                  "localKey": "Semester_1_CFOA_Notes_intro",
+                  "hash": "f468ec087351a6f6feec713ff7d4c7010ed0cd78",
+                  "updatedAt": "2026-01-09T10:19:08.561Z",
+                  "sizeBytes": 3966
+                },
+                {
+                  "id": "Semester 1/CFOA/Notes/index",
+                  "title": "index",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/CFOA/Notes/index",
+                  "localKey": "Semester_1_CFOA_Notes_index",
+                  "hash": "3c71cdea43cbc2c4313da254e7a0b74ff431dd20",
+                  "updatedAt": "2026-01-10T07:25:33.052Z",
+                  "sizeBytes": 153
+                }
+              ]
+            },
+            {
+              "name": "PYQ",
+              "items": [
+                {
+                  "id": "Semester 1/CFOA/PYQ/index",
+                  "title": "index",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/CFOA/PYQ/index",
+                  "localKey": "Semester_1_CFOA_PYQ_index",
+                  "hash": "b6803b889740bbfa1ce723eda9896661f7e19837",
+                  "updatedAt": "2026-01-10T07:28:11.161Z",
+                  "sizeBytes": 109
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Digital-Logic&Design",
+          "sections": [
+            {
+              "name": "Handout",
+              "items": [
+                {
+                  "id": "Semester 1/Digital-Logic&Design/Handout/index",
+                  "title": "index",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/Digital-Logic%26Design/Handout/index",
+                  "localKey": "Semester_1_Digital_Logic_Design_Handout_index",
+                  "hash": "47bbcaa7746e0a50977bb94c48632739c7b0b271",
+                  "updatedAt": "2026-01-10T07:28:11.162Z",
+                  "sizeBytes": 114
+                }
+              ]
+            },
+            {
+              "name": "Notes",
+              "items": [
+                {
+                  "id": "Semester 1/Digital-Logic&Design/Notes/intro",
+                  "title": "intro",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/Digital-Logic%26Design/Notes/intro",
+                  "localKey": "Semester_1_Digital_Logic_Design_Notes_intro",
+                  "hash": "f468ec087351a6f6feec713ff7d4c7010ed0cd78",
+                  "updatedAt": "2026-01-09T10:19:08.561Z",
+                  "sizeBytes": 3966
+                },
+                {
+                  "id": "Semester 1/Digital-Logic&Design/Notes/index",
+                  "title": "index",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/Digital-Logic%26Design/Notes/index",
+                  "localKey": "Semester_1_Digital_Logic_Design_Notes_index",
+                  "hash": "f1660b829252da55eef9864a62f6f72eabdd7d9b",
+                  "updatedAt": "2026-01-10T07:25:33.052Z",
+                  "sizeBytes": 189
+                }
+              ]
+            },
+            {
+              "name": "PYQ",
+              "items": [
+                {
+                  "id": "Semester 1/Digital-Logic&Design/PYQ/index",
+                  "title": "index",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/Digital-Logic%26Design/PYQ/index",
+                  "localKey": "Semester_1_Digital_Logic_Design_PYQ_index",
+                  "hash": "f4f0d1f035c1b4fa1d1d49015a1f519d90505354",
+                  "updatedAt": "2026-01-10T07:28:11.162Z",
+                  "sizeBytes": 127
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "English-Communication-Skills",
+          "sections": [
+            {
+              "name": "Handout",
+              "items": [
+                {
+                  "id": "Semester 1/English-Communication-Skills/Handout/index",
+                  "title": "index",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/English-Communication-Skills/Handout/index",
+                  "localKey": "Semester_1_English_Communication_Skills_Handout_index",
+                  "hash": "01e7b2455bad013de32f1f2c351ae86bbd14266a",
+                  "updatedAt": "2026-01-10T07:44:48.637Z",
+                  "sizeBytes": 120
+                }
+              ]
+            },
+            {
+              "name": "Notes",
+              "items": [
+                {
+                  "id": "Semester 1/English-Communication-Skills/Notes/index",
+                  "title": "index",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/English-Communication-Skills/Notes/index",
+                  "localKey": "Semester_1_English_Communication_Skills_Notes_index",
+                  "hash": "27cc8fabe5927fbccbdc541dc75347d3e21769de",
+                  "updatedAt": "2026-01-10T07:44:48.637Z",
+                  "sizeBytes": 162
+                }
+              ]
+            },
+            {
+              "name": "PYQ",
+              "items": [
+                {
+                  "id": "Semester 1/English-Communication-Skills/PYQ/index",
+                  "title": "index",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/English-Communication-Skills/PYQ/index",
+                  "localKey": "Semester_1_English_Communication_Skills_PYQ_index",
+                  "hash": "e425447d529b3f2632cb9ef10a395ba44b1656fd",
+                  "updatedAt": "2026-01-10T07:44:48.638Z",
+                  "sizeBytes": 133
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Environmental-Science",
+          "sections": [
+            {
+              "name": "Handout",
+              "items": [
+                {
+                  "id": "Semester 1/Environmental-Science/Handout/index",
+                  "title": "index",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/Environmental-Science/Handout/index",
+                  "localKey": "Semester_1_Environmental_Science_Handout_index",
+                  "hash": "eab1d86ee6149f2910eaf3d7b5abdd2a4fe3be42",
+                  "updatedAt": "2026-01-10T07:28:11.162Z",
+                  "sizeBytes": 113
+                }
+              ]
+            },
+            {
+              "name": "Notes",
+              "items": [
+                {
+                  "id": "Semester 1/Environmental-Science/Notes/intro",
+                  "title": "intro",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/Environmental-Science/Notes/intro",
+                  "localKey": "Semester_1_Environmental_Science_Notes_intro",
+                  "hash": "880d47df2405cb77bca8326c12495b16c1d8a754",
+                  "updatedAt": "2026-01-09T10:19:08.563Z",
+                  "sizeBytes": 3966
+                },
+                {
+                  "id": "Semester 1/Environmental-Science/Notes/env_science_guide",
+                  "title": "env science guide",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/Environmental-Science/Notes/env_science_guide",
+                  "localKey": "Semester_1_Environmental_Science_Notes_env_science_guide",
+                  "hash": "9b1c0ec3cb617d8b63d32fba0b9b9362b4583582",
+                  "updatedAt": "2026-01-09T10:19:08.563Z",
+                  "sizeBytes": 32017
+                },
+                {
+                  "id": "Semester 1/Environmental-Science/Notes/index",
+                  "title": "index",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/Environmental-Science/Notes/index",
+                  "localKey": "Semester_1_Environmental_Science_Notes_index",
+                  "hash": "272a398b5d58d050e101b4639dc37ab721863a3c",
+                  "updatedAt": "2026-01-10T07:25:33.052Z",
+                  "sizeBytes": 187
+                },
+                {
+                  "id": "Semester 1/Environmental-Science/Notes/UNIT_1",
+                  "title": "UNIT 1",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/Environmental-Science/Notes/UNIT_1",
+                  "localKey": "Semester_1_Environmental_Science_Notes_UNIT_1",
+                  "hash": "ebf4ef9b2222182644ed5d32cb5f1070124dc37f",
+                  "updatedAt": "2026-01-09T10:19:08.563Z",
+                  "sizeBytes": 44109
+                }
+              ]
+            },
+            {
+              "name": "PYQ",
+              "items": [
+                {
+                  "id": "Semester 1/Environmental-Science/PYQ/index",
+                  "title": "index",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/Environmental-Science/PYQ/index",
+                  "localKey": "Semester_1_Environmental_Science_PYQ_index",
+                  "hash": "3d67b424a1d55de52e1e4722e781a5e288a948aa",
+                  "updatedAt": "2026-01-10T07:28:11.163Z",
+                  "sizeBytes": 126
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "FMCA",
+          "sections": [
+            {
+              "name": "Handout",
+              "items": [
+                {
+                  "id": "Semester 1/FMCA/Handout/index",
+                  "title": "index",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/FMCA/Handout/index",
+                  "localKey": "Semester_1_FMCA_Handout_index",
+                  "hash": "81f11753bcba1093b407d8c6dabfdf101eb9e83e",
+                  "updatedAt": "2026-01-10T07:28:11.163Z",
+                  "sizeBytes": 96
+                }
+              ]
+            },
+            {
+              "name": "Notes",
+              "items": [
+                {
+                  "id": "Semester 1/FMCA/Notes/intro",
+                  "title": "intro",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/FMCA/Notes/intro",
+                  "localKey": "Semester_1_FMCA_Notes_intro",
+                  "hash": "880d47df2405cb77bca8326c12495b16c1d8a754",
+                  "updatedAt": "2026-01-09T10:19:08.563Z",
+                  "sizeBytes": 3966
+                },
+                {
+                  "id": "Semester 1/FMCA/Notes/index",
+                  "title": "index",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/FMCA/Notes/index",
+                  "localKey": "Semester_1_FMCA_Notes_index",
+                  "hash": "676be7f059e08134686c4fa3c2113abf3fe5fef0",
+                  "updatedAt": "2026-01-10T07:25:33.053Z",
+                  "sizeBytes": 153
+                }
+              ]
+            },
+            {
+              "name": "PYQ",
+              "items": [
+                {
+                  "id": "Semester 1/FMCA/PYQ/index",
+                  "title": "index",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/FMCA/PYQ/index",
+                  "localKey": "Semester_1_FMCA_PYQ_index",
+                  "hash": "25496cf3047d2271a642837f86492cc357bb49ee",
+                  "updatedAt": "2026-01-10T07:28:11.163Z",
+                  "sizeBytes": 109
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Psychology",
+          "sections": [
+            {
+              "name": "Handout",
+              "items": [
+                {
+                  "id": "Semester 1/Psychology/Handout/index",
+                  "title": "index",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/Psychology/Handout/index",
+                  "localKey": "Semester_1_Psychology_Handout_index",
+                  "hash": "d423dd5d9702ed0d8fa551d7c628f2e95b55a342",
+                  "updatedAt": "2026-01-10T07:28:11.163Z",
+                  "sizeBytes": 102
+                }
+              ]
+            },
+            {
+              "name": "Notes",
+              "items": [
+                {
+                  "id": "Semester 1/Psychology/Notes/1.introduction-to-psychology",
+                  "title": "1.introduction to psychology",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/Psychology/Notes/1.introduction-to-psychology",
+                  "localKey": "Semester_1_Psychology_Notes_1_introduction_to_psychology",
+                  "hash": "c164a387b5abbda2fe90cbcc3dcb08067cd980c7",
+                  "updatedAt": "2026-01-09T10:19:08.563Z",
+                  "sizeBytes": 2746
+                },
+                {
+                  "id": "Semester 1/Psychology/Notes/2.Scope-of-psychology",
+                  "title": "2.Scope of psychology",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/Psychology/Notes/2.Scope-of-psychology",
+                  "localKey": "Semester_1_Psychology_Notes_2_Scope_of_psychology",
+                  "hash": "6155f93c8ea02796ea33c63d57d679f5e8510b51",
+                  "updatedAt": "2026-01-09T10:19:08.565Z",
+                  "sizeBytes": 1922
+                },
+                {
+                  "id": "Semester 1/Psychology/Notes/3.Methods Of Psychology",
+                  "title": "3.Methods Of Psychology",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/Psychology/Notes/3.Methods%20Of%20Psychology",
+                  "localKey": "Semester_1_Psychology_Notes_3_Methods_Of_Psychology",
+                  "hash": "34374b37e6ca2c599409b0b87c9914adc41506ae",
+                  "updatedAt": "2026-01-09T10:19:08.565Z",
+                  "sizeBytes": 1935
+                },
+                {
+                  "id": "Semester 1/Psychology/Notes/index",
+                  "title": "index",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/Psychology/Notes/index",
+                  "localKey": "Semester_1_Psychology_Notes_index",
+                  "hash": "976bb76e3b5fbb9872f3c422d75c7b618c135b32",
+                  "updatedAt": "2026-01-10T07:25:33.053Z",
+                  "sizeBytes": 165
+                }
+              ]
+            },
+            {
+              "name": "PYQ",
+              "items": [
+                {
+                  "id": "Semester 1/Psychology/PYQ/index",
+                  "title": "index",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/Psychology/PYQ/index",
+                  "localKey": "Semester_1_Psychology_PYQ_index",
+                  "hash": "ce96d632ed509a320649e148d17ddafd3a2a7c75",
+                  "updatedAt": "2026-01-10T07:28:11.163Z",
+                  "sizeBytes": 115
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Shared-Resources",
+          "sections": [
+            {
+              "name": "Handout",
+              "items": [
+                {
+                  "id": "Semester 1/Shared-Resources/Handout/index",
+                  "title": "index",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/Shared-Resources/Handout/index",
+                  "localKey": "Semester_1_Shared_Resources_Handout_index",
+                  "hash": "7b8a1c4e70152169433ae2d9ad4864ef686759b9",
+                  "updatedAt": "2026-01-10T07:28:11.164Z",
+                  "sizeBytes": 108
+                }
+              ]
+            },
+            {
+              "name": "Notes",
+              "items": [
+                {
+                  "id": "Semester 1/Shared-Resources/Notes/intro",
+                  "title": "intro",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/Shared-Resources/Notes/intro",
+                  "localKey": "Semester_1_Shared_Resources_Notes_intro",
+                  "hash": "e52a8d4fb7c7174eabd64e0fd0930feeaa91a79b",
+                  "updatedAt": "2026-01-09T10:19:08.565Z",
+                  "sizeBytes": 3966
+                },
+                {
+                  "id": "Semester 1/Shared-Resources/Notes/index",
+                  "title": "index",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/Shared-Resources/Notes/index",
+                  "localKey": "Semester_1_Shared_Resources_Notes_index",
+                  "hash": "1efa59e53724f12b175c83ddc8bb8717a4c91df6",
+                  "updatedAt": "2026-01-10T07:25:33.053Z",
+                  "sizeBytes": 177
+                }
+              ]
+            },
+            {
+              "name": "PYQ",
+              "items": [
+                {
+                  "id": "Semester 1/Shared-Resources/PYQ/index",
+                  "title": "index",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/Shared-Resources/PYQ/index",
+                  "localKey": "Semester_1_Shared_Resources_PYQ_index",
+                  "hash": "fd627fa5721bf38bccaa25bc24421b474940133a",
+                  "updatedAt": "2026-01-10T07:28:11.164Z",
+                  "sizeBytes": 121
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Understanding-India",
+          "sections": [
+            {
+              "name": "Handout",
+              "items": [
+                {
+                  "id": "Semester 1/Understanding-India/Handout/index",
+                  "title": "index",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/Understanding-India/Handout/index",
+                  "localKey": "Semester_1_Understanding_India_Handout_index",
+                  "hash": "14321b5ba6cc51e4adb64e36f9d00f7afcb95629",
+                  "updatedAt": "2026-01-10T07:28:11.164Z",
+                  "sizeBytes": 111
+                }
+              ]
+            },
+            {
+              "name": "Notes",
+              "items": [
+                {
+                  "id": "Semester 1/Understanding-India/Notes/intro",
+                  "title": "intro",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/Understanding-India/Notes/intro",
+                  "localKey": "Semester_1_Understanding_India_Notes_intro",
+                  "hash": "ee3166a2cba2211d2cb4d59bcce0ab0792034f34",
+                  "updatedAt": "2026-01-09T10:19:08.567Z",
+                  "sizeBytes": 3966
+                },
+                {
+                  "id": "Semester 1/Understanding-India/Notes/index",
+                  "title": "index",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/Understanding-India/Notes/index",
+                  "localKey": "Semester_1_Understanding_India_Notes_index",
+                  "hash": "c78d07e315143bad02f9711812bd13c9d05b7692",
+                  "updatedAt": "2026-01-10T07:25:33.053Z",
+                  "sizeBytes": 183
+                }
+              ]
+            },
+            {
+              "name": "PYQ",
+              "items": [
+                {
+                  "id": "Semester 1/Understanding-India/PYQ/index",
+                  "title": "index",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%201/Understanding-India/PYQ/index",
+                  "localKey": "Semester_1_Understanding_India_PYQ_index",
+                  "hash": "5b999f82992e33afe8f15ac93a0f1300dfb29e72",
+                  "updatedAt": "2026-01-10T07:28:11.164Z",
+                  "sizeBytes": 124
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Semester 2",
+      "subjects": [
+        {
+          "name": "Computer Programming – II",
+          "sections": [
+            {
+              "name": "Assignments",
+              "items": [
+                {
+                  "id": "Semester 2/Computer Programming – II/Assignments",
+                  "title": "Assignments",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%202/Computer%20Programming%20%E2%80%93%20II/Assignments",
+                  "localKey": "Semester_2_Computer_Programming___II_Assignments",
+                  "hash": "7484ce0cae5c249d1056192635a6a84c40dd1604",
+                  "updatedAt": "2026-01-10T06:24:09.554Z",
+                  "sizeBytes": 30
+                }
+              ]
+            },
+            {
+              "name": "Handout",
+              "items": [
+                {
+                  "id": "Semester 2/Computer Programming – II/Handout",
+                  "title": "Handout",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%202/Computer%20Programming%20%E2%80%93%20II/Handout",
+                  "localKey": "Semester_2_Computer_Programming___II_Handout",
+                  "hash": "75a8ddb5a98656d43bfad6db0c60961378157253",
+                  "updatedAt": "2026-01-10T06:24:09.552Z",
+                  "sizeBytes": 26
+                }
+              ]
+            },
+            {
+              "name": "MiscActivities",
+              "items": [
+                {
+                  "id": "Semester 2/Computer Programming – II/MiscActivities",
+                  "title": "MiscActivities",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%202/Computer%20Programming%20%E2%80%93%20II/MiscActivities",
+                  "localKey": "Semester_2_Computer_Programming___II_MiscActivities",
+                  "hash": "4fca0e2f8d7b3f9289abcced6ac0287cfa0b4f94",
+                  "updatedAt": "2026-01-10T06:24:09.554Z",
+                  "sizeBytes": 43
+                }
+              ]
+            },
+            {
+              "name": "Notes",
+              "items": [
+                {
+                  "id": "Semester 2/Computer Programming – II/Notes/index",
+                  "title": "index",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%202/Computer%20Programming%20%E2%80%93%20II/Notes/index",
+                  "localKey": "Semester_2_Computer_Programming___II_Notes_index",
+                  "hash": "bf0c1dd25e37b363fd0c542d92c4b85a19ac1104",
+                  "updatedAt": "2026-01-10T06:24:09.553Z",
+                  "sizeBytes": 24
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Discrete Mathematics",
+          "sections": [
+            {
+              "name": "Assignments",
+              "items": [
+                {
+                  "id": "Semester 2/Discrete Mathematics/Assignments",
+                  "title": "Assignments",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%202/Discrete%20Mathematics/Assignments",
+                  "localKey": "Semester_2_Discrete_Mathematics_Assignments",
+                  "hash": "76ac93feb43d63eecabca44c8383680b6e079ed4",
+                  "updatedAt": "2026-01-10T06:24:09.555Z",
+                  "sizeBytes": 30
+                }
+              ]
+            },
+            {
+              "name": "Handout",
+              "items": [
+                {
+                  "id": "Semester 2/Discrete Mathematics/Handout",
+                  "title": "Handout",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%202/Discrete%20Mathematics/Handout",
+                  "localKey": "Semester_2_Discrete_Mathematics_Handout",
+                  "hash": "b3ca7fd19be2a4a9c403d5215cd73671586209cb",
+                  "updatedAt": "2026-01-10T06:24:09.554Z",
+                  "sizeBytes": 26
+                }
+              ]
+            },
+            {
+              "name": "MiscActivities",
+              "items": [
+                {
+                  "id": "Semester 2/Discrete Mathematics/MiscActivities",
+                  "title": "MiscActivities",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%202/Discrete%20Mathematics/MiscActivities",
+                  "localKey": "Semester_2_Discrete_Mathematics_MiscActivities",
+                  "hash": "43ae934d44acc81b50c08f722c6f26bdc83fd1f9",
+                  "updatedAt": "2026-01-10T06:24:09.555Z",
+                  "sizeBytes": 43
+                }
+              ]
+            },
+            {
+              "name": "Notes",
+              "items": [
+                {
+                  "id": "Semester 2/Discrete Mathematics/Notes/index",
+                  "title": "index",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%202/Discrete%20Mathematics/Notes/index",
+                  "localKey": "Semester_2_Discrete_Mathematics_Notes_index",
+                  "hash": "f797eaeb187ed6967cac903640f13a7460744b49",
+                  "updatedAt": "2026-01-10T06:24:09.555Z",
+                  "sizeBytes": 24
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "extras",
+          "sections": []
+        },
+        {
+          "name": "Functional English",
+          "sections": [
+            {
+              "name": "Assignments",
+              "items": [
+                {
+                  "id": "Semester 2/Functional English/Assignments",
+                  "title": "Assignments",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%202/Functional%20English/Assignments",
+                  "localKey": "Semester_2_Functional_English_Assignments",
+                  "hash": "6715fceff39b9bd757843b2ff86500e84279595e",
+                  "updatedAt": "2026-01-10T06:24:09.558Z",
+                  "sizeBytes": 30
+                }
+              ]
+            },
+            {
+              "name": "Handout",
+              "items": [
+                {
+                  "id": "Semester 2/Functional English/Handout",
+                  "title": "Handout",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%202/Functional%20English/Handout",
+                  "localKey": "Semester_2_Functional_English_Handout",
+                  "hash": "d85b30c48f363e6c92a63572c4261bf726fd3837",
+                  "updatedAt": "2026-01-10T06:24:09.558Z",
+                  "sizeBytes": 26
+                }
+              ]
+            },
+            {
+              "name": "MiscActivities",
+              "items": [
+                {
+                  "id": "Semester 2/Functional English/MiscActivities",
+                  "title": "MiscActivities",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%202/Functional%20English/MiscActivities",
+                  "localKey": "Semester_2_Functional_English_MiscActivities",
+                  "hash": "fbc0efb0e42e110415f990355bb2702dc49f98e8",
+                  "updatedAt": "2026-01-10T06:24:09.558Z",
+                  "sizeBytes": 43
+                }
+              ]
+            },
+            {
+              "name": "Notes",
+              "items": [
+                {
+                  "id": "Semester 2/Functional English/Notes/index",
+                  "title": "index",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%202/Functional%20English/Notes/index",
+                  "localKey": "Semester_2_Functional_English_Notes_index",
+                  "hash": "86658ff1fb8b5c1f9da685c25e158be5a3045629",
+                  "updatedAt": "2026-01-10T06:24:09.558Z",
+                  "sizeBytes": 24
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Linux & Shell Programming",
+          "sections": [
+            {
+              "name": "Assignments",
+              "items": [
+                {
+                  "id": "Semester 2/Linux & Shell Programming/Assignments",
+                  "title": "Assignments",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%202/Linux%20%26%20Shell%20Programming/Assignments",
+                  "localKey": "Semester_2_Linux___Shell_Programming_Assignments",
+                  "hash": "89d5434eb6f6153c0e219092503474108a19d0f6",
+                  "updatedAt": "2026-01-10T06:24:09.556Z",
+                  "sizeBytes": 30
+                }
+              ]
+            },
+            {
+              "name": "Handout",
+              "items": [
+                {
+                  "id": "Semester 2/Linux & Shell Programming/Handout",
+                  "title": "Handout",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%202/Linux%20%26%20Shell%20Programming/Handout",
+                  "localKey": "Semester_2_Linux___Shell_Programming_Handout",
+                  "hash": "40beb298e3cfc84ce0f921978361267112b8d36d",
+                  "updatedAt": "2026-01-10T06:24:09.555Z",
+                  "sizeBytes": 26
+                }
+              ]
+            },
+            {
+              "name": "MiscActivities",
+              "items": [
+                {
+                  "id": "Semester 2/Linux & Shell Programming/MiscActivities",
+                  "title": "MiscActivities",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%202/Linux%20%26%20Shell%20Programming/MiscActivities",
+                  "localKey": "Semester_2_Linux___Shell_Programming_MiscActivities",
+                  "hash": "b232be2dcd94eb181b486428bdaa00d07209a619",
+                  "updatedAt": "2026-01-10T06:24:09.556Z",
+                  "sizeBytes": 43
+                }
+              ]
+            },
+            {
+              "name": "Notes",
+              "items": [
+                {
+                  "id": "Semester 2/Linux & Shell Programming/Notes/index",
+                  "title": "index",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%202/Linux%20%26%20Shell%20Programming/Notes/index",
+                  "localKey": "Semester_2_Linux___Shell_Programming_Notes_index",
+                  "hash": "f797eaeb187ed6967cac903640f13a7460744b49",
+                  "updatedAt": "2026-01-10T06:24:09.555Z",
+                  "sizeBytes": 24
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Multimedia System",
+          "sections": [
+            {
+              "name": "Assignments",
+              "items": [
+                {
+                  "id": "Semester 2/Multimedia System/Assignments",
+                  "title": "Assignments",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%202/Multimedia%20System/Assignments",
+                  "localKey": "Semester_2_Multimedia_System_Assignments",
+                  "hash": "cf35f7ce4dad900aa70bc23b72f030f1f7a6efe8",
+                  "updatedAt": "2026-01-10T06:24:09.559Z",
+                  "sizeBytes": 30
+                }
+              ]
+            },
+            {
+              "name": "Handout",
+              "items": [
+                {
+                  "id": "Semester 2/Multimedia System/Handout",
+                  "title": "Handout",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%202/Multimedia%20System/Handout",
+                  "localKey": "Semester_2_Multimedia_System_Handout",
+                  "hash": "b91ecc7149f6af50d2e27bd240d11d7ba68c5c5d",
+                  "updatedAt": "2026-01-10T06:24:09.559Z",
+                  "sizeBytes": 26
+                }
+              ]
+            },
+            {
+              "name": "MiscActivities",
+              "items": [
+                {
+                  "id": "Semester 2/Multimedia System/MiscActivities",
+                  "title": "MiscActivities",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%202/Multimedia%20System/MiscActivities",
+                  "localKey": "Semester_2_Multimedia_System_MiscActivities",
+                  "hash": "af4e4e620a3f73ed4df6602b246c2e3498e7d092",
+                  "updatedAt": "2026-01-10T06:24:09.559Z",
+                  "sizeBytes": 43
+                }
+              ]
+            },
+            {
+              "name": "Notes",
+              "items": [
+                {
+                  "id": "Semester 2/Multimedia System/Notes/index",
+                  "title": "index",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%202/Multimedia%20System/Notes/index",
+                  "localKey": "Semester_2_Multimedia_System_Notes_index",
+                  "hash": "a687b0675ed1a15fecdb5b9e2c11c771c97b8e85",
+                  "updatedAt": "2026-01-10T06:24:09.559Z",
+                  "sizeBytes": 24
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Statistics",
+          "sections": [
+            {
+              "name": "Assignments",
+              "items": [
+                {
+                  "id": "Semester 2/Statistics/Assignments",
+                  "title": "Assignments",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%202/Statistics/Assignments",
+                  "localKey": "Semester_2_Statistics_Assignments",
+                  "hash": "d9a06ea0c26dffc38f2a535999dea9fedd7939ce",
+                  "updatedAt": "2026-01-10T06:24:09.557Z",
+                  "sizeBytes": 30
+                }
+              ]
+            },
+            {
+              "name": "Handout",
+              "items": [
+                {
+                  "id": "Semester 2/Statistics/Handout",
+                  "title": "Handout",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%202/Statistics/Handout",
+                  "localKey": "Semester_2_Statistics_Handout",
+                  "hash": "73c17e3bfad5b3e1ed217138876eee26d2ee6ed8",
+                  "updatedAt": "2026-01-10T06:24:09.556Z",
+                  "sizeBytes": 26
+                }
+              ]
+            },
+            {
+              "name": "MiscActivities",
+              "items": [
+                {
+                  "id": "Semester 2/Statistics/MiscActivities",
+                  "title": "MiscActivities",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%202/Statistics/MiscActivities",
+                  "localKey": "Semester_2_Statistics_MiscActivities",
+                  "hash": "6459f78fcdc8d201983cd9e835e91ed6815cce9a",
+                  "updatedAt": "2026-01-10T06:24:09.557Z",
+                  "sizeBytes": 43
+                }
+              ]
+            },
+            {
+              "name": "Notes",
+              "items": [
+                {
+                  "id": "Semester 2/Statistics/Notes/index",
+                  "title": "index",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%202/Statistics/Notes/index",
+                  "localKey": "Semester_2_Statistics_Notes_index",
+                  "hash": "36d18248cf99d06990faada278712d222f1a9632",
+                  "updatedAt": "2026-01-10T06:24:09.556Z",
+                  "sizeBytes": 24
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Technical Report Writing",
+          "sections": [
+            {
+              "name": "Assignments",
+              "items": [
+                {
+                  "id": "Semester 2/Technical Report Writing/Assignments",
+                  "title": "Assignments",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%202/Technical%20Report%20Writing/Assignments",
+                  "localKey": "Semester_2_Technical_Report_Writing_Assignments",
+                  "hash": "6715fceff39b9bd757843b2ff86500e84279595e",
+                  "updatedAt": "2026-01-10T06:24:09.558Z",
+                  "sizeBytes": 30
+                }
+              ]
+            },
+            {
+              "name": "Handout",
+              "items": [
+                {
+                  "id": "Semester 2/Technical Report Writing/Handout",
+                  "title": "Handout",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%202/Technical%20Report%20Writing/Handout",
+                  "localKey": "Semester_2_Technical_Report_Writing_Handout",
+                  "hash": "d85b30c48f363e6c92a63572c4261bf726fd3837",
+                  "updatedAt": "2026-01-10T06:24:09.558Z",
+                  "sizeBytes": 26
+                }
+              ]
+            },
+            {
+              "name": "MiscActivities",
+              "items": [
+                {
+                  "id": "Semester 2/Technical Report Writing/MiscActivities",
+                  "title": "MiscActivities",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%202/Technical%20Report%20Writing/MiscActivities",
+                  "localKey": "Semester_2_Technical_Report_Writing_MiscActivities",
+                  "hash": "af4e4e620a3f73ed4df6602b246c2e3498e7d092",
+                  "updatedAt": "2026-01-10T06:24:09.559Z",
+                  "sizeBytes": 43
+                }
+              ]
+            },
+            {
+              "name": "Notes",
+              "items": [
+                {
+                  "id": "Semester 2/Technical Report Writing/Notes/index",
+                  "title": "index",
+                  "type": "html_doc",
+                  "url": "https://referencelibrary.vercel.app/docs/Semester%202/Technical%20Report%20Writing/Notes/index",
+                  "localKey": "Semester_2_Technical_Report_Writing_Notes_index",
+                  "hash": "86658ff1fb8b5c1f9da685c25e158be5a3045629",
+                  "updatedAt": "2026-01-10T06:24:09.558Z",
+                  "sizeBytes": 24
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

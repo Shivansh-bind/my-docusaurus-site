@@ -57,6 +57,19 @@ markdown: {
   mermaid: true,
 },
 
+  plugins: [
+    [
+      '@docusaurus/plugin-content-blog',
+      {
+        id: 'news',
+        path: 'news',
+        routeBasePath: 'news',
+        blogSidebarTitle: 'News',
+        blogSidebarCount: 5,
+      },
+    ],
+  ],
+
 
   presets: [
     [
@@ -112,6 +125,7 @@ markdown: {
             position: 'left',
             label: 'Docs',
           },
+          {to: '/news', label: 'News', position: 'left'},
           {to: '/blog', label: 'Blog', position: 'left'},
           {
             href: 'https://github.com/shivansh-bind',

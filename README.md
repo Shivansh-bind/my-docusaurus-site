@@ -50,10 +50,10 @@ This library is built for students as a complete semester reference system:
   ![Owner](https://img.shields.io/badge/ROLE-OWNER-blue?style=for-the-badge)
 
 ### ✨ Contributors
-- **Dhananjay Assaulter**  
+- **Dhananjay**  
   ![Contributor](https://img.shields.io/badge/ROLE-CONTRIBUTOR-brightgreen?style=for-the-badge)
 
-- **Rahul Sutteri**  
+- **Rahul**  
   ![Contributor](https://img.shields.io/badge/ROLE-CONTRIBUTOR-brightgreen?style=for-the-badge)
 
 > We credit all improvements: content, structure, design, fixes, and documentation.

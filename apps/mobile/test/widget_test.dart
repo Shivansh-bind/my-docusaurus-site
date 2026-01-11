@@ -6,13 +6,14 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:referencelibrary/app/app.dart';
 
 void main() {
   testWidgets('App builds without error', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const ReferenceLibraryApp());
+    await tester.pumpWidget(const ProviderScope(child: ReferenceLibraryApp()));
 
     // Verify that the app builds
     expect(find.byType(ReferenceLibraryApp), findsOneWidget);

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -53,19 +52,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         },
       ),
       GoRoute(
-        path: '/read',
+        path: '/reader',
         name: 'reader',
         builder: (context, state) {
-          final url = state.uri.queryParameters['url'];
-          final title = state.uri.queryParameters['title'];
-
-          if (url == null || url.isEmpty) {
-            return const Scaffold(
-              body: Center(child: Text('Missing url')),
-            );
-          }
-
-          return ReaderScreen(url: url, title: title ?? 'Reader');
+          return const ReaderScreen();
         },
       ),
     ],

@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 
 import '../../domain/index_models.dart';
 import '../library_providers.dart';
+import 'package:referencelibrary/core/constants/app_constants.dart';
+import 'package:referencelibrary/core/utils/url_utils.dart';
 
 class ItemsScreen extends ConsumerWidget {
   const ItemsScreen({
@@ -60,6 +62,12 @@ class _ItemTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // build final absolute URL for the item using UrlUtils.normalizeUrl
+    final fixedUrl = UrlUtils.normalizeUrl(
+      item.url,
+      siteOrigin: AppConstants.siteOrigin,
+    );
+
     return ListTile(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       tileColor: Theme.of(context).colorScheme.surfaceContainerHighest,
@@ -67,7 +75,8 @@ class _ItemTile extends StatelessWidget {
       subtitle: Text(item.type),
       trailing: const Icon(Icons.open_in_new),
       onTap: () => context.go(
-        '/read?url=${Uri.encodeComponent(item.url)}&title=${Uri.encodeComponent(item.title)}',
+        '/reader',
+        extra: {'url': fixedUrl, 'title': item.title},
       ),
     );
   }

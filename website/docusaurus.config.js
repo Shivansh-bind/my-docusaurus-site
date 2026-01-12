@@ -4,7 +4,7 @@
 // There are various equivalent ways to declare your Docusaurus config.
 // See: https://docusaurus.io/docs/api/docusaurus-config
 
-import {themes as prismThemes} from 'prism-react-renderer';
+import { themes as prismThemes } from 'prism-react-renderer';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
@@ -31,7 +31,8 @@ const config = {
   projectName: 'my-docusaurus-site', // Usually your repo name.
 
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+
+  // onBrokenMarkdownLinks is deprecated, moved to markdown.hooks below
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
@@ -53,9 +54,12 @@ const config = {
     }
   },
   themes: ['@docusaurus/theme-mermaid'],
-markdown: {
-  mermaid: true,
-},
+  markdown: {
+    mermaid: true,
+    hooks: {
+      onBrokenMarkdownLinks: 'warn',
+    },
+  },
 
   plugins: [
     [
@@ -66,6 +70,8 @@ markdown: {
         routeBasePath: 'news',
         blogSidebarTitle: 'News',
         blogSidebarCount: 5,
+        onInlineAuthors: 'ignore',
+        onUntruncatedBlogPosts: 'ignore',
       },
     ],
   ],
@@ -125,8 +131,8 @@ markdown: {
             position: 'left',
             label: 'Docs',
           },
-          {to: '/news', label: 'News', position: 'left'},
-          {to: '/blog', label: 'Blog', position: 'left'},
+          { to: '/news', label: 'News', position: 'left' },
+          { to: '/blog', label: 'Blog', position: 'left' },
           {
             href: 'https://github.com/shivansh-bind',
             label: 'GitHub',

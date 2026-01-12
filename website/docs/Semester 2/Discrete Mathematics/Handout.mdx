@@ -1,29 +1,71 @@
 ---
-title: Handout
+title: Discrete Mathematics – Course Handout (MJBC122)
+description: Discrete Mathematics course handout for BCA Semester 2 – ICFAI University Jaipur
+sidebar_position: 1
 ---
-Here is the comprehensive Markdown (MDX) formatted course handout for Discrete Mathematics, structured for clarity with visual elements like badges, tables, and Mermaid diagrams.
-📘 Discrete Mathematics (MJBC122)
-BCA General - Semester 2 | The ICFAI University, Jaipur
-> Course Scope: This course discusses fundamental concepts and tools in discrete mathematics with an emphasis on their applications to computer science.
-> 
-👨‍🏫 Instructor Information
+
+:::info Quick Navigation
+- [📘 Course Overview](#-course-overview)
+- [👨‍🏫 Instructor Information](#-instructor-information)
+- [🎯 Objectives & Outcomes](#-objectives--outcomes)
+- [🧭 Visual Roadmap](#-visual-roadmap)
+- [📅 Lecture-wise Plan](#-lecture-wise-plan)
+- [📈 Evaluation Scheme](#-evaluation-scheme)
+- [📚 Learning Resources](#-learning-resources)
+- [🔗 CO-PO Mapping](#-co-po-mapping)
+- [🗓️ Weekly Study Schedule](#️-weekly-study-schedule)
+- [⚠️ Policies](#️-important-policies)
+:::
+
+---
+
+## 📘 Course Overview
+
+### **Discrete Mathematics (MJBC122)**
+**Program:** BCA General – Semester 2  
+**University:** The ICFAI University, Jaipur  
+
+:::note Course Scope
+This course introduces the key structures and reasoning tools of discrete mathematics with emphasis on computer science applications including **logic**, **sets**, **counting**, **relations**, **functions**, **graphs**, **trees**, **Boolean algebra**, and **introductory group theory**.
+:::
+
+---
+
+## 👨‍🏫 Instructor Information
+
 | Role | Name | Room No. | Email |
-|---|---|---|---|
-| Instructor in Charge | Dr. VK Vyas | 008 | vkvyas@iujaipur.edu.in |
-| Instructor | Ms. Payal Singhal | - | psinghal@iujaipur.edu.in |
-> Consultation Hours: To be announced in class. Students may contact the instructor in their chamber without prior appointment during these hours.
-> 
-🎯 Course Objectives & Outcomes
-Objectives
- * Introduce concepts of mathematical logic, sets, basic counting principles, relations, and functions.
- * Provide a basic idea of group theory and a detailed study of graph theory.
-Course Outcomes (COs)
+|---|---|---:|---|
+| Instructor In-Charge | Dr. VK Vyas | 008 | vkvyas@iujaipur.edu.in |
+| Instructor | Ms. Payal Singhal | – | psinghal@iujaipur.edu.in |
+
+:::tip Consultation Hours
+To be announced in class. Students may meet the faculty during consultation hours without prior appointment.
+:::
+
+---
+
+## 🎯 Objectives & Outcomes
+
+### 🎯 Course Objectives
+- Introduce concepts of **mathematical logic**, **sets**, **counting principles**, **relations**, and **functions**
+- Build understanding of **Boolean algebra**, **graph theory**, and **trees**
+- Provide basics of **group theory** for discrete modelling
+
+### ✅ Course Outcomes (COs)
 After completing this course, students will be able to:
- * CO 1: Understand different types of sets, their properties, and operations.
- * CO 2: Know the concept of basic counting principles, mathematical logics, and their properties.
- * CO 3: Understand basic concepts of group theory and perform a detailed study of trees, Boolean algebra, and graph theory.
-📊 Visual Syllabus Flow
-The following diagram illustrates the progression of topics through the semester:
+
+- **CO1:** Understand sets, their properties, operations, and applications  
+- **CO2:** Apply counting principles & logic for problem solving and proofs  
+- **CO3:** Use graphs, trees, Boolean algebra & group theory in discrete modelling  
+
+---
+
+## 🧭 Visual Roadmap
+
+:::info Visual Syllabus Flow
+This roadmap shows the order of topics across the semester.
+:::
+
 ```mermaid
 graph TD
     A[Start: MJBC122] --> B(Set Theory & Induction)
@@ -34,28 +76,43 @@ graph TD
     F --> G(Graph Theory & Trees)
     G --> H(Group Theory)
     H --> I[End: Comprehensive Exam]
-    
+
     style A fill:#f9f,stroke:#333,stroke-width:2px
     style I fill:#f9f,stroke:#333,stroke-width:2px
     style D fill:#ff9,stroke:#333,stroke-width:2px
 ```
 
-📅 Lecture-wise Plan
-| Lectures | Learning Objectives | Topics Covered | Textbook Ref | CO |
-|---|---|---|---|---|
-| 1-5 | Basics of Set Theory | Introduction to sets, Universal/Empty sets, Subsets, Venn diagrams, Set operations, Algebra of sets, Finite/Infinite sets | T1: 1.1-1.8 | CO1 |
-| 6-10 | Mathematical Induction | Inclusion–Exclusion principle, Mathematical Induction principle | T1: 1.9 - 1.11 | CO1 |
-| 11-14 | Functions & Relations | Cartesian Product, Introduction to relations/functions, Composition and types of relations | T1: 2.1 - 2.9 | CO1 |
-| 15-17 | Counting Principles | Basic counting principle, Factorial, Binomial/multinomial coefficients, Permutation, Combination | T1: 6.1 - 6.5 | CO2 |
-| 18-20 | Advanced Counting | Pigeonhole principle, ordered and unordered partitions | T1: 6.6 - 6.8 | CO2 |
-| 21-25 | Logic Operations | Proposition and truth tables, Algebra of proposition, Conditional/Bi-conditional statements, Negation, Logic connectives, Compound statements, Duality | T1: 4.3 - 4.12 | CO2 |
-| 26-28 | Boolean Algebra | Definition and properties, Duality and basic theorem, Boolean sub-algebra, Boolean algebra as lattices | T1: 15.1 - 15.5 | CO3 |
-| 29-32 | Elementary Graphs | Introduction to Graph Theory, terminologies, incidence and degree, null graph, subgraphs, Euler's graphs, Dijkstra’s Algorithm | T2: C1, C2 | CO3 |
-| 33-35 | Paths & Circuits | Connected/disconnected graphs, shortest paths, Eulerian paths/circuits, Hamiltonian graphs, union, join, product, and composition of graphs | T2: C3 | CO3 |
-| 36-40 | Trees | Rooted trees, binary trees, properties of trees, spanning Tree, minimal spanning trees with algorithms | T2: C4 | CO3 |
-| 41-42 | Group Theory | Introduction, operations, semi-group, group, subgroup | T1: 12.1-12.5 | CO3 |
-📈 Evaluation Scheme
-The course evaluation is split into continuous assessment and a final exam.
+---
+
+## 📅 Lecture-wise Plan
+
+| Lectures | Unit / Theme          | Topics Covered                                                              | Textbook Ref. | CO  |
+| -------: | --------------------- | --------------------------------------------------------------------------- | ------------- | --- |
+|      1–5 | Set Theory Basics     | Sets, types of sets, subsets, Venn diagram, set operations, algebra of sets | T1: 1.1–1.8   | CO1 |
+|     6–10 | Induction             | Inclusion–Exclusion principle, mathematical induction                       | T1: 1.9–1.11  | CO1 |
+|    11–14 | Functions & Relations | Cartesian product, relations, functions, composition, types                 | T1: 2.1–2.9   | CO1 |
+|    15–17 | Counting Principles   | Counting, factorial, permutation, combination, binomial coefficients        | T1: 6.1–6.5   | CO2 |
+|    18–20 | Advanced Counting     | Pigeonhole, partitions                                                      | T1: 6.6–6.8   | CO2 |
+|    21–25 | Logic                 | Propositions, truth tables, connectives, duality                            | T1: 4.3–4.12  | CO2 |
+|    26–28 | Boolean Algebra       | Properties, theorem, lattices                                               | T1: 15.1–15.5 | CO3 |
+|    29–32 | Graph Basics          | Terminologies, degree, Euler graphs, Dijkstra algorithm                     | T2: C1–C2     | CO3 |
+|    33–35 | Paths & Circuits      | Connected/disconnected, Euler/Hamilton, graph operations                    | T2: C3        | CO3 |
+|    36–40 | Trees                 | Rooted/binary trees, spanning trees, MST algorithms                         | T2: C4        | CO3 |
+|    41–42 | Group Theory          | Semi-group, group, subgroup, operations                                     | T1: 12.1–12.5 | CO3 |
+
+:::tip Teacher Strategy Tip
+✅ After every unit, do **10–15 practice questions**.
+✅ For graphs/trees, always solve with **diagrams**.
+:::
+
+---
+
+## 📈 Evaluation Scheme
+
+:::info Assessment Model
+Continuous assessment + final comprehensive exam.
+:::
+
 ```mermaid
 pie title Grade Weightage Distribution
     "Comprehensive Exam" : 50
@@ -65,28 +122,79 @@ pie title Grade Weightage Distribution
     "Quiz/Assignment" : 10
 ```
 
-| Component | Duration | Weightage | Course Coverage | Remarks |
-|---|---|---|---|---|
-| Test-I/Quiz | 50 mins | 10% | Lec 1-10 | Closed Book |
-| Mid Sem Exam | 1 hour | 20% | Lec 1-20 | Closed Book |
-| Test-II/Quiz | 50 mins | 10% | Lec 21-32 | Closed Book |
-| Quiz/Assignment | 50 mins | 10% | ... | Closed Book |
-| Comprehensive Exam | 3 hours | 50% | Entire Syllabus | Closed Book |
-📚 Learning Resources
-Textbooks (T)
- * T1: Discrete Mathematics, Seymour Lipschutz and Marc Lars Lipson, The McGraw-Hill Education, Third Edition, 2010.
- * T2: Introduction to Graph Theory, Robin J. Wilson, Prentice-Hall India, Fifth Edition, 2010.
-Reference Books (R)
- * R1: Discrete Mathematical Structures, Bernard Kolman, Robert C. Busby and Sharon Cutler Ross, PHI Learning, Sixth Edition, 2013.
-🔗 CO-PO Mapping
-Correlation Strength: 3 = Strong, 2 = Medium, 1 = Low
+| Component          | Duration | Weightage | Coverage        | Mode        |
+| ------------------ | -------- | --------: | --------------- | ----------- |
+| Test-I / Quiz      | 50 min   |       10% | Lec 1–10        | Closed Book |
+| Mid-Sem Exam       | 1 hour   |       20% | Lec 1–20        | Closed Book |
+| Test-II / Quiz     | 50 min   |       10% | Lec 21–32       | Closed Book |
+| Quiz / Assignment  | 50 min   |       10% | As announced    | Closed Book |
+| Comprehensive Exam | 3 hours  |       50% | Entire syllabus | Closed Book |
+
+---
+
+## 📚 Learning Resources
+
+### Textbooks (T)
+
+* **T1:** Discrete Mathematics – Seymour Lipschutz & Marc Lars Lipson, McGraw-Hill, 3rd Ed (2010)
+* **T2:** Introduction to Graph Theory – Robin J. Wilson, Prentice-Hall India, 5th Ed (2010)
+
+### Reference Books (R)
+
+* **R1:** Discrete Mathematical Structures – Bernard Kolman et al., PHI Learning, 6th Ed (2013)
+
+---
+
+## 🔗 CO-PO Mapping
+
+**Legend:** 3 = Strong, 2 = Medium, 1 = Low, – = NA
+
 | COs | PO1 | PO2 | PO3 | PO4 | PO5 | PO6 | PO7 | PO8 | PO9 | PO10 |
-|---|---|---|---|---|---|---|---|---|---|---|
-| CO1 | 3 | 3 | 3 | - | - | - | 1 | 3 | 3 | 3 |
-| CO2 | 3 | 3 | 3 | - | - | - | 1 | 3 | 3 | 3 |
-| CO3 | 3 | 3 | 3 | - | - | - | 1 | 3 | 3 | 3 |
-|  |  |  |  |  |  |  |  |  |  |  |
-⚠️ Important Policies
- * Attendance: A minimum of 75% attendance is compulsory. Failing this, a student will not be allowed to appear in the respective examination.
- * Make-up Policy: Make-up tests will be administered only under genuine circumstances. Prior and proper intimation to the concerned instructor is a must.
-Would you like me to generate a study schedule based on the Lecture-wise plan?
+| --- | --: | --: | --: | --: | --: | --: | --: | --: | --: | ---: |
+| CO1 |   3 |   3 |   3 |   – |   – |   – |   1 |   3 |   3 |    3 |
+| CO2 |   3 |   3 |   3 |   – |   – |   – |   1 |   3 |   3 |    3 |
+| CO3 |   3 |   3 |   3 |   – |   – |   – |   1 |   3 |   3 |    3 |
+
+---
+
+## 🗓️ Weekly Study Schedule
+
+:::tip How to follow this schedule
+
+* **Daily:** 45–60 mins study + 15 mins revision
+* **Weekly:** 1 mini test (10 questions)
+* **Before exams:** 2 full-length papers
+  :::
+
+| Week | Target Unit             | Must-Do Topics                           | Practice Goal     |
+| ---: | ----------------------- | ---------------------------------------- | ----------------- |
+|    1 | Sets                    | Types of sets, operations, Venn diagrams | 20 MCQs           |
+|    2 | Sets + Induction        | Algebra of sets + Induction basics       | 15 numericals     |
+|    3 | Induction               | Induction + Inclusion–Exclusion          | 25 mixed          |
+|    4 | Functions & Relations   | Relations types, function types          | 25 mixed          |
+|    5 | Counting                | Permutations, combinations               | 30 numericals     |
+|    6 | Advanced Counting       | Pigeonhole + partitions                  | 20 mixed          |
+|    7 | Logic                   | Truth tables, connectives                | 25 mixed          |
+|    8 | Boolean Algebra         | Properties, theorem, lattices            | 20 mixed          |
+|    9 | Graph Basics            | Degree, Euler, Dijkstra                  | 20 graph problems |
+|   10 | Paths & Circuits        | Euler/Hamilton + graph operations        | 25 graph problems |
+|   11 | Trees                   | BST, spanning tree, MST algorithms       | 25 tree problems  |
+|   12 | Group Theory + Revision | Group/subgroup + full revision           | 1 mock test       |
+
+:::warning Pro Tip (Exam Marks Booster)
+Graphs, trees, counting & Boolean algebra usually carry **high-weight questions**.
+Don’t skip diagrams — they directly increase marks.
+:::
+
+---
+
+## ⚠️ Important Policies
+
+* **Attendance:** Minimum **75% attendance** required
+* **Make-up Policy:** Only in genuine cases with prior intimation & approval
+
+---
+
+:::note End of Handout
+This handout is meant to help students plan study, revision and exam practice effectively.
+:::

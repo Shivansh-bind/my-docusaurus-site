@@ -67,19 +67,51 @@ This roadmap shows the order of topics across the semester.
 :::
 
 ```mermaid
-graph TD
-    A[Start: MJBC122] --> B(Set Theory & Induction)
-    B --> C(Functions & Relations)
-    C --> D{Mid Semester}
-    D --> E(Counting Principles & Logic)
-    E --> F(Boolean Algebra)
-    F --> G(Graph Theory & Trees)
-    G --> H(Group Theory)
-    H --> I[End: Comprehensive Exam]
+%%{init: {
+  "theme": "base",
+  "themeVariables": {
+    "background": "transparent",
 
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style I fill:#f9f,stroke:#333,stroke-width:2px
-    style D fill:#ff9,stroke:#333,stroke-width:2px
+    "primaryColor": "#1f2937",
+    "primaryTextColor": "#ffffff",
+    "primaryBorderColor": "#60a5fa",
+
+    "secondaryColor": "#111827",
+    "secondaryTextColor": "#ffffff",
+    "secondaryBorderColor": "#a78bfa",
+
+    "tertiaryColor": "#fbbf24",
+    "tertiaryTextColor": "#111827",
+
+    "lineColor": "#e5e7eb",
+    "textColor": "#ffffff",
+    "fontFamily": "Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial"
+  },
+  "flowchart": {
+    "curve": "linear",
+    "nodeSpacing": 40,
+    "rankSpacing": 55
+  }
+}}%%
+
+flowchart TD
+    A["Start: MJBC122"] --> B["Set Theory & Induction"]
+    B --> C["Functions & Relations"]
+    C --> D{"Mid Semester"}
+    D --> E["Counting Principles & Logic"]
+    E --> F["Boolean Algebra"]
+    F --> G["Graph Theory & Trees"]
+    G --> H["Group Theory"]
+    H --> I["End: Comprehensive Exam"]
+
+    %% Node styling
+    style A fill:#ec4899,stroke:#ffffff,stroke-width:2px,color:#111827
+    style I fill:#22c55e,stroke:#ffffff,stroke-width:2px,color:#111827
+    style D fill:#fde047,stroke:#ffffff,stroke-width:2px,color:#111827
+
+    %% Optional: Make all rectangles look consistent
+    classDef box fill:#111827,stroke:#60a5fa,stroke-width:2px,color:#ffffff,rx:10,ry:10
+    class B,C,E,F,G,H box
 ```
 
 ---

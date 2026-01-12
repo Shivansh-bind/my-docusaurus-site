@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -123,6 +121,8 @@ class _ReaderScreenState extends State<ReaderScreen> {
         if (didPop) return;
 
         final canGoBack = await _controller.canGoBack();
+        if (!context.mounted) return;
+
         if (canGoBack) {
           await _controller.goBack();
           return;

@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:webview_flutter_android/webview_flutter_android.dart';
 
 import '../../../core/storage/pack_storage_manager.dart';
 
@@ -43,36 +46,44 @@ class _ReaderScreenState extends State<ReaderScreen> {
   void _initController() {
     _controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..setBackgroundColor(Colors.white)
-      ..setNavigationDelegate(
-        NavigationDelegate(
-          onProgress: (p) => setState(() => _progress = p),
-          onPageStarted: (url) {
-            setState(() {
-              _isLoading = true;
-              _hasError = false;
-              _progress = 0;
-            });
-            _currentUri = Uri.tryParse(url);
-          },
-          onPageFinished: (url) {
-            setState(() {
-              _isLoading = false;
-              _hasError = false;
-              _progress = 100;
-            });
-            _currentUri = Uri.tryParse(url);
-          },
-          onWebResourceError: (err) {
-            setState(() {
-              _isLoading = false;
-              _hasError = true;
-              _errorMessage = err.description;
-            });
-          },
-          onNavigationRequest: _handleNavigationRequest,
-        ),
-      );
+      ..setBackgroundColor(Colors.white);
+
+    // Enable file access on Android
+    if (_controller.platform is AndroidWebViewController) {
+      final androidController =
+          _controller.platform as AndroidWebViewController;
+      androidController.setMediaPlaybackRequiresUserGesture(false);
+    }
+
+    _controller.setNavigationDelegate(
+      NavigationDelegate(
+        onProgress: (p) => setState(() => _progress = p),
+        onPageStarted: (url) {
+          setState(() {
+            _isLoading = true;
+            _hasError = false;
+            _progress = 0;
+          });
+          _currentUri = Uri.tryParse(url);
+        },
+        onPageFinished: (url) {
+          setState(() {
+            _isLoading = false;
+            _hasError = false;
+            _progress = 100;
+          });
+          _currentUri = Uri.tryParse(url);
+        },
+        onWebResourceError: (err) {
+          setState(() {
+            _isLoading = false;
+            _hasError = true;
+            _errorMessage = err.description;
+          });
+        },
+        onNavigationRequest: _handleNavigationRequest,
+      ),
+    );
   }
 
   /// Handle navigation requests from the WebView
@@ -128,7 +139,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
     return NavigationDecision.navigate;
   }
 
-  /// Load a document by its docId
+  /// Load a document by its docId (reads HTML and uses loadHtmlString)
   Future<void> _loadDoc(String docId) async {
     setState(() {
       _isLoading = true;
@@ -137,10 +148,23 @@ class _ReaderScreenState extends State<ReaderScreen> {
     });
 
     try {
-      final docUri = await _packStorage.getDocUri(docId);
-      if (docUri != null) {
-        _currentUri = docUri;
-        await _controller.loadRequest(docUri);
+      final htmlPath = await _packStorage.getDocHtmlPath(docId);
+      if (htmlPath != null) {
+        final file = File(htmlPath);
+        if (await file.exists()) {
+          final htmlContent = await file.readAsString();
+          _currentUri = Uri.file(htmlPath);
+
+          // Use loadHtmlString with baseUrl for proper asset resolution
+          final baseUrl = Uri.file('${File(htmlPath).parent.path}/').toString();
+          await _controller.loadHtmlString(htmlContent, baseUrl: baseUrl);
+        } else {
+          setState(() {
+            _hasError = true;
+            _errorMessage = 'File not found: $htmlPath';
+            _isLoading = false;
+          });
+        }
       } else {
         setState(() {
           _hasError = true;

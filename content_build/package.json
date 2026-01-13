@@ -1,0 +1,19 @@
+{
+    "name": "content-build",
+    "version": "1.0.0",
+    "description": "Content build scripts for ReferenceLibrary offline pack generation",
+    "main": "build_pack.js",
+    "scripts": {
+        "build": "node build_pack.js",
+        "build:skip-docusaurus": "node build_pack.js --skip-build",
+        "export": "node export_docs.js",
+        "manifest": "node generate_manifest.js"
+    },
+    "dependencies": {
+        "archiver": "^7.0.1",
+        "jsdom": "^25.0.1"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    }
+}

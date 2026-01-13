@@ -1,0 +1,370 @@
+---
+
+# ReferenceLibrary v2 — Step-by-Step Build Plan (GitHub Releases Packs)
+
+## Phase 0 — Final Decisions (Confirm)
+
+### ✅ We will use:
+
+* **GitHub Releases** for distributing study asset packs (ZIP)
+* **Manifest-driven navigation** (`index.json`)
+* **HTML export** for mobile rendering (WebView)
+* **docId-based routing** inside the app
+* Optional: **Supabase auth + progress sync** later
+
+---
+
+# Phase 1 — Repo Structure (Foundation)
+
+### 1.1 Add folders to repo
+
+Create these folders:
+
+```
+/content/                   # app-ready exported content will go here (build output)
+/content_build/             # scripts and configs to export content
+/apps/mobile/               # flutter app
+/website/                   # docusaurus site
+```
+
+---
+
+# Phase 2 — docId Standardization (Most Important)
+
+## 2.1 Create doc registry file
+
+Create:
+
+✅ `content_build/doc_registry.json`
+
+This is the authoritative list of docs for both:
+
+* manifest generation
+* export naming
+* stable IDs forever
+
+Example:
+
+```json
+{
+  "s1_cprog_index": {
+    "title": "C Programming",
+    "semester": 1,
+    "subject": "C Programming",
+    "type": "index",
+    "order": 0,
+    "source": "website/docs/Semester 1/C-Programming/index.mdx"
+  },
+  "s1_cprog_handout": {
+    "title": "📘 Handout",
+    "semester": 1,
+    "subject": "C Programming",
+    "type": "handout",
+    "order": 1,
+    "source": "website/docs/Semester 1/C-Programming/Handout/index.mdx"
+  }
+}
+```
+
+### Rules
+
+* docId never changes
+* source can move, docId doesn’t
+
+---
+
+# Phase 3 — Export Pipeline (MDX → HTML)
+
+## 3.1 Add build script
+
+Create:
+
+✅ `content_build/export_docs.js`
+
+Job:
+
+* read doc_registry.json
+* take each MDX source
+* convert to HTML
+* rewrite internal links
+* output to `/content/docs/<docId>.html`
+
+### Output format
+
+```
+content/
+  index.json
+  docs/
+    s1_cprog_handout.html
+    s2_dm_handout.html
+  assets/
+    css/
+    js/
+    img/
+```
+
+---
+
+## 3.2 MDX → HTML approach (recommended)
+
+Use **Docusaurus build output** itself to avoid custom MDX parsing.
+
+### Best method:
+
+* Build Docusaurus once
+* Extract the rendered HTML per doc route
+* Save it as `<docId>.html`
+* Copy required static assets
+
+This keeps perfect styling and supports interactive web components later.
+
+---
+
+## 3.3 Link rewriting rule (critical fix)
+
+Inside exported HTML, rewrite:
+
+* any link to `/docs/...` OR relative links
+  into:
+* `app://doc/<docId>`
+
+### Example
+
+`<a href="/docs/Semester%201/C-Programming/Handout/">Handout</a>`
+
+becomes:
+`<a href="app://doc/s1_cprog_handout">Handout</a>`
+
+How do we know docId?
+
+* build a lookup from Docusaurus `docs-*.json` output (you already accessed this earlier)
+* map route → docId
+
+---
+
+# Phase 4 — Manifest Generation (`index.json`)
+
+## 4.1 Build `index.json` generator
+
+Create:
+
+✅ `content_build/generate_manifest.js`
+
+It will output:
+
+✅ `content/index.json`
+
+Must include:
+
+* packVersion
+* generatedAt
+* docs lookup
+* tree nav structure
+
+Example:
+
+```json
+{
+  "packVersion": "2026.01.13",
+  "generatedAt": "2026-01-13T10:00:00Z",
+  "docs": {
+    "s1_cprog_handout": {
+      "title": "📘 Handout",
+      "html": "docs/s1_cprog_handout.html",
+      "semester": 1,
+      "subject": "C Programming",
+      "type": "handout",
+      "order": 1
+    }
+  },
+  "tree": [
+    {
+      "id": "semester_1",
+      "title": "Semester 1",
+      "items": [
+        {
+          "id": "s1_cprog",
+          "title": "C Programming",
+          "items": [
+            { "docId": "s1_cprog_index" },
+            { "docId": "s1_cprog_handout" }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+This manifest = your **app navigation engine**.
+
+---
+
+# Phase 5 — Pack ZIP creation
+
+## 5.1 Create pack builder
+
+Create:
+
+✅ `content_build/build_pack.js`
+
+Steps:
+
+1. run docusaurus build
+2. export docs to HTML into `content/docs`
+3. generate `content/index.json`
+4. copy required assets → `content/assets`
+5. zip the `content/` folder into:
+
+✅ `release_pack_<packVersion>.zip`
+
+---
+
+# Phase 6 — Upload to GitHub Releases (Automation)
+
+## 6.1 Create GitHub Action workflow
+
+Create:
+
+✅ `.github/workflows/release_pack.yml`
+
+Workflow triggers:
+
+* manual (`workflow_dispatch`)
+* or tag `pack-v*`
+
+Steps:
+
+1. checkout
+2. install node
+3. run `npm ci`
+4. run export scripts
+5. zip pack
+6. create release
+7. upload zip + manifest
+
+Release assets:
+
+* `release_pack_2026.01.13.zip`
+* `index.json` (optional separate)
+
+This makes updates easy forever.
+
+---
+
+# Phase 7 — Flutter App (New architecture)
+
+## 7.1 App flow
+
+### First launch:
+
+* check local `index.json`
+* if missing: show “Get Study Assets”
+* download latest pack from GitHub release
+* extract
+* load manifest
+* show tree
+
+### Always:
+
+* reader loads local HTML
+* all interactions stay inside app
+* external links open browser
+
+---
+
+## 7.2 App storage layout
+
+Inside device storage:
+
+```
+/appData/referenceLibrary/
+  packs/
+    current/
+      index.json
+      docs/*.html
+      assets/*
+  db/
+    progress.sqlite
+```
+
+---
+
+## 7.3 Pack download manager
+
+Feature: **Download + Extract + Replace**
+
+* download ZIP to temp
+* extract into packs/new
+* validate manifest exists
+* swap packs/current → packs/old
+* packs/new → packs/current
+* keep db untouched
+
+---
+
+## 7.4 Reader logic (clean)
+
+Reader receives:
+
+* `docId`
+* uses manifest to load `file://.../<html path>`
+* WebView intercepts:
+
+  * `app://doc/<docId>` → navigate inside app
+  * `https://external.com` → open browser
+
+This fully fixes Semester 1 / Semester 2 differences permanently.
+
+---
+
+# Phase 8 — Adding new docs/categories later (super easy)
+
+## When you add a new doc:
+
+1. create MDX file
+2. add entry in `doc_registry.json`
+3. set tree placement in manifest config
+4. run workflow → new release
+
+Students:
+
+* open app
+* sees update available
+* downloads new pack
+* instantly gets new category/doc
+
+No pipeline break.
+
+---
+
+# Verification Checklist (must-do)
+
+## Mobile automated
+
+Inside `apps/mobile`:
+
+```bash
+dart format .
+flutter analyze
+flutter test -r compact
+```
+
+## Manual
+
+* Install app fresh
+* Get Study Assets → download pack
+* open Semester 1 doc → click internal link → stays in app ✅
+* airplane mode → open docs instantly ✅
+
+---
+
+# Deliverables (What we will end up with)
+
+✅ GitHub Releases pack system
+✅ Manifest-driven offline doc library
+✅ Reader that loads local HTML
+✅ Stable docId navigation
+✅ Infinite future UI redesign possible without breaking logic
+
+---

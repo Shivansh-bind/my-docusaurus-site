@@ -1,0 +1,469 @@
+---
+
+## Project: ReferenceLibrary v2 — GitHub Releases Offline Pack System
+
+### Objective
+
+Replace the fragile “fetch docs from live Docusaurus website URLs” approach with a **manifest-driven offline content pack system** delivered via **GitHub Releases ZIP packs**.
+
+This MUST fix:
+
+* Semester 1 docs opening externally / page not found
+* Relative links breaking depending on folder structure
+* Slug encoding issues (spaces, dash types, etc.)
+* WebView navigation inconsistencies
+
+---
+
+# 0) Hard Requirements (Do Not Deviate)
+
+### ✅ Content distribution architecture
+
+* Study content is distributed as a ZIP pack via GitHub Releases.
+* The pack contains:
+
+  * `index.json` (manifest)
+  * `docs/*.html` (rendered pages)
+  * `assets/*` (css/js/images required by HTML)
+* Mobile app downloads + caches the pack and renders HTML locally (offline-first).
+
+### ✅ Stable IDs
+
+* Every document MUST have a stable `docId`.
+* `docId` must never include spaces or special characters.
+* `docId` must never change even if source path changes.
+
+### ✅ Navigation inside app
+
+* Internal doc links MUST resolve to `docId`, not to routes like `/docs/...`.
+* HTML pages must rewrite internal links to: `app://doc/<docId>`
+* WebView intercepts `app://` scheme and routes inside Flutter.
+
+### ✅ External links
+
+* External hosts open in browser via `url_launcher`.
+
+---
+
+# 1) Repository Structure to Implement
+
+Create / ensure these folders exist:
+
+```
+content_build/
+  doc_registry.json
+  export_docs.js
+  generate_manifest.js
+  build_pack.js
+
+content/                     (build output)
+  index.json
+  docs/
+  assets/
+
+apps/mobile/                 (flutter app)
+
+.github/workflows/
+  release_pack.yml
+```
+
+No other structure is necessary.
+
+---
+
+# 2) Data Source Rules
+
+### Inputs:
+
+1. **Docusaurus docs source**
+
+* `website/docs/**`
+* Most pages are `*.mdx`
+
+2. **Docusaurus build artifacts**
+
+* After build, Docusaurus emits:
+
+  * `.docusaurus/docusaurus-plugin-content-docs/default/…/docs-*.json`
+  * This contains doc IDs + routes/paths
+
+### Outputs:
+
+* A finalized pack:
+
+  * `release_pack_<packVersion>.zip`
+  * Contains `/content` folder layout
+
+---
+
+# 3) doc_registry.json Specification (Authoritative)
+
+Create:
+
+✅ `content_build/doc_registry.json`
+
+Purpose:
+
+* single source of truth for doc identity (`docId`)
+* maps `docId` → source file location (MDX path)
+* defines metadata needed for navigation ordering
+
+Format:
+
+```json
+{
+  "s1_cprog_index": {
+    "title": "C Programming",
+    "semester": 1,
+    "subject": "C Programming",
+    "type": "index",
+    "order": 0,
+    "source": "website/docs/Semester 1/C-Programming/index.mdx"
+  },
+  "s1_cprog_handout": {
+    "title": "📘 Handout",
+    "semester": 1,
+    "subject": "C Programming",
+    "type": "handout",
+    "order": 1,
+    "source": "website/docs/Semester 1/C-Programming/Handout/index.mdx"
+  }
+}
+```
+
+### Rules:
+
+* `source` file MUST exist
+* if a doc is renamed/moved, only `source` changes, docId stays
+
+---
+
+# 4) Export Strategy: How to Generate HTML Safely
+
+### Preferred approach (must implement this approach):
+
+Use Docusaurus build output so we don’t implement custom MDX rendering.
+
+✅ Workflow:
+
+1. run `npm install` in `website` (if needed)
+2. run `npm run build`
+3. extract rendered HTML per doc route
+4. rewrite internal links
+5. save as `content/docs/<docId>.html`
+6. copy Docusaurus built static assets required for those pages into `content/assets/*`
+
+---
+
+# 5) Required Build Scripts (Node)
+
+## 5.1 export_docs.js
+
+File: `content_build/export_docs.js`
+
+### Responsibilities:
+
+* Ensure Docusaurus build exists (or fail with clear error).
+* Read Docusaurus docs json:
+
+  * locate `.docusaurus/docusaurus-plugin-content-docs/default/**/docs-*.json`
+  * parse it to find route metadata.
+* Build lookup map:
+
+  * `routePath -> docId`
+  * and reverse `docId -> routePath`
+
+### HTML extraction
+
+There are two acceptable methods:
+
+#### Method A (preferred if simple)
+
+Find built HTML file in `website/build/docs/**` corresponding to `routePath`.
+Read file content.
+
+#### Method B (fallback)
+
+Use Docusaurus JSON + server rendering isn’t available offline, so fallback is:
+
+* run Docusaurus build and treat `/build` as source of HTML assets
+* locate HTML pages by file path mapping.
+
+### Output:
+
+* For each entry in `doc_registry.json`:
+
+  * Determine its `routePath`
+  * Extract HTML
+  * Rewrite links
+  * Write `content/docs/<docId>.html`
+
+### Link rewriting rules (mandatory)
+
+Within HTML:
+
+* Convert internal hrefs that target docs to app scheme:
+
+  * `href="/docs/..."`
+  * `href="/docs/.../"`
+  * `href="./something"`
+  * `href="../something"`
+* to:
+
+  * `href="app://doc/<docId>"`
+
+You must use the doc lookup map derived from Docusaurus metadata to resolve these.
+
+If a link points to docs but the target is not in registry:
+
+* leave as normal https link to site OR route to fallback.
+  (Preferred: fallback to site url)
+
+---
+
+## 5.2 generate_manifest.js
+
+File: `content_build/generate_manifest.js`
+
+### Responsibilities:
+
+Read `doc_registry.json` and generate `content/index.json`.
+
+Manifest format MUST be:
+
+```json
+{
+  "packVersion": "2026.01.13",
+  "generatedAt": "ISO_TIMESTAMP",
+  "docs": {
+    "s1_cprog_handout": {
+      "title": "📘 Handout",
+      "semester": 1,
+      "subject": "C Programming",
+      "type": "handout",
+      "order": 1,
+      "html": "docs/s1_cprog_handout.html"
+    }
+  },
+  "tree": [
+    {
+      "id": "semester_1",
+      "title": "Semester 1",
+      "items": [
+        {
+          "id": "subject_s1_cprog",
+          "title": "C Programming",
+          "items": [
+            { "docId": "s1_cprog_index" },
+            { "docId": "s1_cprog_handout" }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+Tree generation rules:
+
+* group by semester ascending
+* inside semester group by `subject`
+* inside subject order by `order`
+
+IDs for tree nodes:
+
+* `semester_1`, `semester_2`
+* `subject_s1_<slug>`
+
+---
+
+## 5.3 build_pack.js
+
+File: `content_build/build_pack.js`
+
+### Responsibilities:
+
+* Run Docusaurus build:
+
+  * `cd website && npm ci && npm run build`
+* Run export_docs.js
+* Run generate_manifest.js
+* Copy required assets:
+
+  * Docusaurus static css/js/fonts needed for doc rendering
+* Validate output:
+
+  * `content/index.json` exists
+  * every `docs.*.html` referenced exists
+* Zip the `content/` folder into:
+
+  * `release_pack_<packVersion>.zip`
+
+---
+
+# 6) GitHub Actions Release Pipeline
+
+File: `.github/workflows/release_pack.yml`
+
+### Trigger:
+
+* Manual trigger (`workflow_dispatch`)
+* Tag trigger: `pack-v*`
+
+### Steps:
+
+1. Checkout
+2. Setup Node
+3. Run build_pack.js
+4. Create GitHub release
+5. Upload ZIP asset
+
+Release asset naming:
+
+* `release_pack_<packVersion>.zip`
+
+Additionally upload:
+
+* `index.json` optionally
+
+---
+
+# 7) Flutter App: Offline Pack Consumer
+
+## 7.1 App folder structure expected
+
+Inside app sandbox, store:
+
+```
+ReferenceLibrary/
+  packs/
+    current/
+      index.json
+      docs/
+      assets/
+```
+
+Use:
+
+* `path_provider` to locate safe directory
+* `archive` package to extract ZIP
+
+---
+
+## 7.2 Pack Download Flow
+
+### First launch:
+
+1. If no `packs/current/index.json`
+2. Show “Get Study Assets”
+3. Download latest pack ZIP from GitHub Releases
+4. Extract to `packs/new`
+5. Validate `packs/new/index.json`
+6. Rename:
+
+   * `current -> old`
+   * `new -> current`
+
+### Subsequent launches:
+
+* Load `index.json`
+* render navigation tree
+* allow “Check Update”
+
+---
+
+## 7.3 Manifest parsing
+
+Implement a `ContentManifest` model:
+
+* packVersion
+* docs map
+* tree structure
+
+Cache manifest in memory after load.
+
+---
+
+# 8) Flutter WebView Reader: Required Behavior
+
+### Reader accepts:
+
+* `docId`
+* `title`
+
+### Reader loads:
+
+* local HTML file path:
+
+  * `file://.../packs/current/docs/<docId>.html`
+
+### WebView navigation policy:
+
+Intercept requests:
+
+1. If URL starts with `app://doc/`
+
+   * parse docId
+   * navigate to reader again with docId
+   * prevent WebView navigation
+
+2. Else if host is empty (file scheme)
+
+   * allow navigation
+
+3. Else if external host
+
+   * open in browser (`url_launcher`)
+   * prevent WebView navigation
+
+---
+
+# 9) Mandatory Testing Procedure
+
+After changes:
+In `apps/mobile` run:
+
+```sh
+dart format .
+flutter analyze
+flutter test -r compact
+```
+
+Also manual test on emulator:
+
+* fresh install
+* download assets
+* open semester 1 doc
+* click internal links -> MUST stay inside app
+* airplane mode -> docs still open instantly
+
+---
+
+# 10) Deliverables Required From Opus 4.5
+
+Opus must output:
+
+1. all created/modified files (full content)
+2. commands to run
+3. what to verify manually
+4. any assumptions made
+
+---
+
+# 11) Important Notes / Pitfalls to Avoid
+
+### Do NOT:
+
+* rely on Docusaurus URLs in app
+* use query encoding tricks
+* attempt to make WebView resolve relative links against https origin
+* store html in assets bundle only (updates must come from GitHub pack)
+* rebuild app to add new docs (updates should only be pack updates)
+
+### MUST:
+
+* rewrite internal links to app scheme
+* use docId routing always
+* validate manifest before switching packs
+
+---

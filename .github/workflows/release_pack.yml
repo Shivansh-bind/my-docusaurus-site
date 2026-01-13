@@ -1,0 +1,89 @@
+name: Build and Release Content Pack
+
+on:
+  workflow_dispatch:
+    inputs:
+      version_suffix:
+        description: 'Optional version suffix (e.g., "-beta")'
+        required: false
+        default: ''
+  push:
+    tags:
+      - 'pack-v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: |
+            website/package-lock.json
+            content_build/package-lock.json
+      
+      - name: Install website dependencies
+        run: npm install
+        working-directory: website
+      
+      - name: Install content_build dependencies
+        run: npm install
+        working-directory: content_build
+      
+      - name: Build Docusaurus site
+        run: npm run build
+        working-directory: website
+      
+      - name: Export docs and generate pack
+        run: node build_pack.js --skip-build
+        working-directory: content_build
+      
+      - name: Get pack version
+        id: pack_version
+        run: |
+          VERSION=$(jq -r '.packVersion' content/index.json)${{ github.event.inputs.version_suffix }}
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Pack version: $VERSION"
+      
+      - name: Upload pack artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-pack-${{ steps.pack_version.outputs.version }}
+          path: |
+            release_pack_*.zip
+            content/index.json
+      
+      - name: Create GitHub Release
+        if: startsWith(github.ref, 'refs/tags/pack-v') || github.event_name == 'workflow_dispatch'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: pack-v${{ steps.pack_version.outputs.version }}
+          name: Content Pack v${{ steps.pack_version.outputs.version }}
+          body: |
+            ## Content Pack Release
+            
+            **Version:** ${{ steps.pack_version.outputs.version }}
+            **Generated:** ${{ github.run_id }}
+            
+            ### Downloads
+            - `release_pack_${{ steps.pack_version.outputs.version }}.zip` - Full content pack for mobile app
+            - `index.json` - Manifest file (for version checking)
+            
+            ### Installation
+            Download the ZIP file and extract to your app's pack directory, or use the in-app "Check for Updates" feature.
+          files: |
+            release_pack_*.zip
+            content/index.json
+          draft: false
+          prerelease: ${{ contains(github.event.inputs.version_suffix, 'beta') || contains(github.event.inputs.version_suffix, 'alpha') }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

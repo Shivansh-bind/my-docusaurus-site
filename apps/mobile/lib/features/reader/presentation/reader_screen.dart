@@ -2,8 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:referencelibrary/core/constants/app_constants.dart';
 
+import '../../../core/storage/pack_storage_manager.dart';
+
+/// Screen that displays document content using a WebView.
+///
+/// Supports two modes:
+/// 1. Local pack mode (preferred): Loads HTML from local packs/current/docs/
+/// 2. URL mode (fallback): Loads from a provided URL
+///
+/// Navigation handling:
+/// - `app://doc/<docId>` links navigate within the app
+/// - `file://` links are allowed (local assets)
+/// - External links open in browser via url_launcher
 class ReaderScreen extends StatefulWidget {
   const ReaderScreen({super.key});
 
@@ -13,21 +24,26 @@ class ReaderScreen extends StatefulWidget {
 
 class _ReaderScreenState extends State<ReaderScreen> {
   late final WebViewController _controller;
+  final PackStorageManager _packStorage = PackStorageManager();
 
   bool _isLoading = true;
   int _progress = 0;
   bool _hasError = false;
   String? _errorMessage;
 
-  Uri? _currentUri; // current loaded page
+  String? _currentDocId;
+  Uri? _currentUri;
 
   @override
   void initState() {
     super.initState();
+    _initController();
+  }
 
+  void _initController() {
     _controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..setBackgroundColor(Colors.transparent)
+      ..setBackgroundColor(Colors.white)
       ..setNavigationDelegate(
         NavigationDelegate(
           onProgress: (p) => setState(() => _progress = p),
@@ -54,51 +70,111 @@ class _ReaderScreenState extends State<ReaderScreen> {
               _errorMessage = err.description;
             });
           },
-          onNavigationRequest: (req) async {
-            final resolved = _resolveUrl(req.url);
-
-            // if external host => open browser, block webview nav
-            final siteHost = Uri.parse(AppConstants.siteOrigin).host;
-            if (resolved.host.isNotEmpty && resolved.host != siteHost) {
-              await launchUrl(resolved, mode: LaunchMode.externalApplication);
-              return NavigationDecision.prevent;
-            }
-
-            // Detection: if we modified the URL (e.g. fixed %2520) OR it was relative
-            // then we MUST force-load the clean absolute URL.
-            if (resolved.toString() != req.url) {
-              _controller.loadRequest(resolved);
-              return NavigationDecision.prevent;
-            }
-
-            return NavigationDecision.navigate;
-          },
+          onNavigationRequest: _handleNavigationRequest,
         ),
       );
   }
 
-  Uri _resolveUrl(String raw) {
-    // Robustness: fix accidental double-encoding from source
-    if (raw.contains('%2520')) {
-      raw = raw.replaceAll('%2520', '%20');
+  /// Handle navigation requests from the WebView
+  Future<NavigationDecision> _handleNavigationRequest(
+    NavigationRequest request,
+  ) async {
+    final uri = Uri.tryParse(request.url);
+    if (uri == null) {
+      return NavigationDecision.navigate;
     }
 
-    final uri = Uri.parse(raw);
+    // Fix #5: Handle app://doc/<docId> AND app://doc?id=<docId> links
+    if (uri.scheme == 'app' && uri.host == 'doc') {
+      String? docId;
 
-    // Already absolute
-    if (uri.hasScheme) return uri;
+      // Try path format: app://doc/<docId>
+      if (uri.pathSegments.isNotEmpty) {
+        docId = uri.pathSegments[0];
+      }
 
-    final base = _currentUri ?? Uri.parse(AppConstants.siteOrigin);
+      // Try query format: app://doc?id=<docId>
+      if ((docId == null || docId.isEmpty) &&
+          uri.queryParameters.containsKey('id')) {
+        docId = uri.queryParameters['id'];
+      }
 
-    // root-relative
-    if (raw.startsWith('/')) {
-      return Uri.parse(
-        AppConstants.siteOrigin,
-      ).replace(path: raw, query: uri.query, fragment: uri.fragment);
+      if (docId != null && docId.isNotEmpty) {
+        // Navigate to the new doc within the app
+        await _loadDoc(docId);
+        return NavigationDecision.prevent;
+      }
     }
 
-    // relative to current page
-    return base.resolveUri(uri);
+    // Handle file:// links (local assets) - allow
+    if (uri.scheme == 'file') {
+      return NavigationDecision.navigate;
+    }
+
+    // Handle http/https links
+    if (uri.scheme == 'http' || uri.scheme == 'https') {
+      // Open in external browser
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+      return NavigationDecision.prevent;
+    }
+
+    // Handle mailto:, tel:, etc.
+    if (uri.scheme == 'mailto' || uri.scheme == 'tel') {
+      await launchUrl(uri);
+      return NavigationDecision.prevent;
+    }
+
+    // Allow other navigation
+    return NavigationDecision.navigate;
+  }
+
+  /// Load a document by its docId
+  Future<void> _loadDoc(String docId) async {
+    setState(() {
+      _isLoading = true;
+      _hasError = false;
+      _currentDocId = docId;
+    });
+
+    try {
+      final docUri = await _packStorage.getDocUri(docId);
+      if (docUri != null) {
+        _currentUri = docUri;
+        await _controller.loadRequest(docUri);
+      } else {
+        setState(() {
+          _hasError = true;
+          _errorMessage = 'Document not found: $docId';
+          _isLoading = false;
+        });
+      }
+    } catch (e) {
+      setState(() {
+        _hasError = true;
+        _errorMessage = 'Failed to load document: $e';
+        _isLoading = false;
+      });
+    }
+  }
+
+  /// Load a document by URL (legacy/fallback mode)
+  Future<void> _loadUrl(String url) async {
+    setState(() {
+      _isLoading = true;
+      _hasError = false;
+    });
+
+    try {
+      final uri = Uri.parse(url);
+      _currentUri = uri;
+      await _controller.loadRequest(uri);
+    } catch (e) {
+      setState(() {
+        _hasError = true;
+        _errorMessage = 'Failed to load URL: $e';
+        _isLoading = false;
+      });
+    }
   }
 
   @override
@@ -106,13 +182,24 @@ class _ReaderScreenState extends State<ReaderScreen> {
     final extra = GoRouterState.of(context).extra;
 
     final data = (extra is Map) ? extra : <String, dynamic>{};
-    final initialUrl = (data['url'] ?? AppConstants.siteOrigin).toString();
-    final title = (data['title'] ?? 'Reader').toString();
+    final docId = data['docId']?.toString();
+    final url = data['url']?.toString();
+    final title = data['title']?.toString() ?? 'Reader';
 
-    // load only once
-    if (_currentUri == null) {
-      _currentUri = Uri.tryParse(initialUrl);
-      _controller.loadRequest(_currentUri!);
+    // Load content on first build
+    if (_currentUri == null && !_hasError) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (docId != null && docId.isNotEmpty) {
+          _loadDoc(docId);
+        } else if (url != null && url.isNotEmpty) {
+          _loadUrl(url);
+        } else {
+          setState(() {
+            _hasError = true;
+            _errorMessage = 'No document or URL provided';
+          });
+        }
+      });
     }
 
     return PopScope(
@@ -142,27 +229,71 @@ class _ReaderScreenState extends State<ReaderScreen> {
             IconButton(
               icon: const Icon(Icons.refresh),
               onPressed: () => _controller.reload(),
+              tooltip: 'Reload',
             ),
-            IconButton(
-              icon: const Icon(Icons.open_in_browser),
-              onPressed: () async {
-                final u = _currentUri ?? Uri.parse(initialUrl);
-                await launchUrl(u, mode: LaunchMode.externalApplication);
-              },
-            ),
+            if (_currentUri != null &&
+                (_currentUri!.scheme == 'http' ||
+                    _currentUri!.scheme == 'https'))
+              IconButton(
+                icon: const Icon(Icons.open_in_browser),
+                onPressed: () async {
+                  if (_currentUri != null) {
+                    await launchUrl(
+                      _currentUri!,
+                      mode: LaunchMode.externalApplication,
+                    );
+                  }
+                },
+                tooltip: 'Open in browser',
+              ),
           ],
         ),
         body: Stack(
           children: [
-            WebViewWidget(controller: _controller),
-            if (_isLoading) LinearProgressIndicator(value: _progress / 100),
+            if (!_hasError) WebViewWidget(controller: _controller),
+            if (_isLoading)
+              Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                child: LinearProgressIndicator(value: _progress / 100),
+              ),
             if (_hasError)
               Center(
                 child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Text(
-                    'Error: ${_errorMessage ?? 'Unknown'}',
-                    textAlign: TextAlign.center,
+                  padding: const EdgeInsets.all(24),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(
+                        Icons.error_outline,
+                        size: 64,
+                        color: Colors.red,
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        'Error Loading Document',
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        _errorMessage ?? 'Unknown error',
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                      const SizedBox(height: 24),
+                      ElevatedButton.icon(
+                        onPressed: () {
+                          if (_currentDocId != null) {
+                            _loadDoc(_currentDocId!);
+                          } else if (_currentUri != null) {
+                            _controller.reload();
+                          }
+                        },
+                        icon: const Icon(Icons.refresh),
+                        label: const Text('Retry'),
+                      ),
+                    ],
                   ),
                 ),
               ),

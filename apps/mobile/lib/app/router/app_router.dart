@@ -1,62 +1,48 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../features/library/presentation/screens/items_screen.dart';
-import '../../features/library/presentation/screens/sections_screen.dart';
-import '../../features/library/presentation/screens/semesters_screen.dart';
-import '../../features/library/presentation/screens/subjects_screen.dart';
+import '../../features/pack/pack_gate_screen.dart';
+import '../../features/library/presentation/screens/library_screen.dart';
 import '../../features/reader/presentation/reader_screen.dart';
+import '../../features/settings/settings_screen.dart';
 
+/// App router provider with offline pack MVP routes.
+///
+/// Routes:
+/// - `/` - PackGateScreen (first launch, pack check)
+/// - `/library` - LibraryScreen (manifest-driven navigation)
+/// - `/reader` - ReaderScreen (local HTML viewer)
+/// - `/settings` - SettingsScreen (update/delete pack)
 final appRouterProvider = Provider<GoRouter>((ref) {
   return GoRouter(
     initialLocation: '/',
     routes: [
+      // First screen: check if pack exists
       GoRoute(
         path: '/',
-        name: 'semesters',
-        builder: (context, state) => const SemestersScreen(),
+        name: 'gate',
+        builder: (context, state) => const PackGateScreen(),
       ),
+
+      // Library: manifest-driven navigation tree
       GoRoute(
-        path: '/semester/:semesterName',
-        name: 'subjects',
-        builder: (context, state) {
-          final semesterName = state.pathParameters['semesterName']!;
-          return SubjectsScreen(semesterName: semesterName);
-        },
+        path: '/library',
+        name: 'library',
+        builder: (context, state) => const LibraryScreen(),
       ),
-      GoRoute(
-        path: '/semester/:semesterName/subject/:subjectName',
-        name: 'sections',
-        builder: (context, state) {
-          final semesterName = state.pathParameters['semesterName']!;
-          final subjectName = state.pathParameters['subjectName']!;
-          return SectionsScreen(
-            semesterName: semesterName,
-            subjectName: subjectName,
-          );
-        },
-      ),
-      GoRoute(
-        path:
-            '/semester/:semesterName/subject/:subjectName/section/:sectionName',
-        name: 'items',
-        builder: (context, state) {
-          final semesterName = state.pathParameters['semesterName']!;
-          final subjectName = state.pathParameters['subjectName']!;
-          final sectionName = state.pathParameters['sectionName']!;
-          return ItemsScreen(
-            semesterName: semesterName,
-            subjectName: subjectName,
-            sectionName: sectionName,
-          );
-        },
-      ),
+
+      // Reader: local HTML viewer
       GoRoute(
         path: '/reader',
         name: 'reader',
-        builder: (context, state) {
-          return const ReaderScreen();
-        },
+        builder: (context, state) => const ReaderScreen(),
+      ),
+
+      // Settings: pack management
+      GoRoute(
+        path: '/settings',
+        name: 'settings',
+        builder: (context, state) => const SettingsScreen(),
       ),
     ],
   );

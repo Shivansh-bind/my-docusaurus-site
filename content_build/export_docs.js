@@ -1,11 +1,8 @@
 /**
  * export_docs.js
  * 
- * Exports HTML from Docusaurus build output and rewrites internal links
- * to use app://doc/<docId> scheme for offline mobile app consumption.
- * 
- * This version walks the build directory to find HTML files and matches
- * them back to the registry based on path similarity.
+ * Exports HTML from Docusaurus build output and creates self-contained HTML files
+ * for offline mobile app consumption. Extracts article content and adds inline styles.
  * 
  * Usage: node export_docs.js
  */
@@ -22,6 +19,72 @@ const DOCS_BUILD_DIR = path.join(BUILD_DIR, 'docs');
 const CONTENT_DIR = path.join(REPO_ROOT, 'content');
 const CONTENT_DOCS_DIR = path.join(CONTENT_DIR, 'docs');
 const REGISTRY_PATH = path.join(__dirname, 'doc_registry.json');
+
+/**
+ * Inline CSS styles for offline reading
+ */
+const INLINE_STYLES = `
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { 
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6; 
+    color: #1a1a1a; 
+    background: #fff;
+    padding: 16px;
+    max-width: 100%;
+    font-size: 16px;
+}
+h1 { font-size: 1.8em; margin: 0.5em 0; color: #1a1a1a; }
+h2 { font-size: 1.5em; margin: 1em 0 0.5em; color: #2a2a2a; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+h3 { font-size: 1.25em; margin: 1em 0 0.5em; color: #3a3a3a; }
+h4, h5, h6 { font-size: 1.1em; margin: 1em 0 0.5em; }
+p { margin: 0.8em 0; }
+a { color: #0066cc; text-decoration: none; }
+a:hover { text-decoration: underline; }
+ul, ol { margin: 0.8em 0; padding-left: 1.5em; }
+li { margin: 0.3em 0; }
+code { 
+    background: #f4f4f4; 
+    padding: 2px 6px; 
+    border-radius: 4px; 
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.9em;
+}
+pre { 
+    background: #282c34; 
+    color: #abb2bf; 
+    padding: 16px; 
+    border-radius: 8px; 
+    overflow-x: auto; 
+    margin: 1em 0;
+}
+pre code { background: none; padding: 0; color: inherit; }
+blockquote { 
+    border-left: 4px solid #0066cc; 
+    margin: 1em 0; 
+    padding: 0.5em 1em; 
+    background: #f8f9fa;
+}
+table { 
+    border-collapse: collapse; 
+    width: 100%; 
+    margin: 1em 0;
+    overflow-x: auto;
+    display: block;
+}
+th, td { 
+    border: 1px solid #ddd; 
+    padding: 8px 12px; 
+    text-align: left; 
+}
+th { background: #f4f4f4; font-weight: 600; }
+tr:nth-child(even) { background: #fafafa; }
+img { max-width: 100%; height: auto; border-radius: 8px; margin: 1em 0; }
+hr { border: none; border-top: 1px solid #eee; margin: 2em 0; }
+.hash-link { display: none; }
+</style>
+`;
 
 /**
  * Load the doc registry
@@ -53,7 +116,6 @@ function findAllHtmlFiles(dir, basePath = dir) {
             results.push({
                 absolutePath: fullPath,
                 relativePath,
-                // Slug derived from path (e.g., "Semester 1/C-Programming/Notes/unit1/index.html" -> "Semester-1/C-Programming/Notes/unit1")
                 slug: path.dirname(relativePath).replace(/\\/g, '/')
             });
         }
@@ -63,71 +125,104 @@ function findAllHtmlFiles(dir, basePath = dir) {
 }
 
 /**
- * Build mappings between registry entries and HTML files
+ * Extract article content from Docusaurus HTML and create clean HTML
  */
-function buildHtmlMapping(registry, htmlFiles) {
-    const mapping = {};
-    const unmatched = [];
+function extractAndCleanHtml(html, routeToDocId) {
+    const dom = new JSDOM(html);
+    const doc = dom.window.document;
     
-    for (const [docId, meta] of Object.entries(registry)) {
-        // Extract key parts from source path
-        const sourcePath = meta.source
-            .replace(/^website[\\/]docs[\\/]/, '')
-            .replace(/\.mdx$/, '');
-        
-        // Try to find a matching HTML file
-        let matched = null;
-        
-        // Strategy 1: Direct path match (for index.mdx files)
-        if (sourcePath.endsWith('/index') || sourcePath.endsWith('\\index')) {
-            const dirPath = path.dirname(sourcePath).replace(/\\/g, '/');
-            matched = htmlFiles.find(h => h.slug === dirPath || h.slug.toLowerCase() === dirPath.toLowerCase());
-        }
-        
-        // Strategy 2: Look for folder with similar name
-        if (!matched) {
-            const filename = path.basename(sourcePath);
-            const dirname = path.dirname(sourcePath).replace(/\\/g, '/');
-            
-            // Look for HTML in a folder named similar to the file
-            const candidates = htmlFiles.filter(h => {
-                const hDir = path.dirname(h.slug).replace(/\\/g, '/');
-                return hDir.toLowerCase() === dirname.toLowerCase() ||
-                       h.slug.toLowerCase().startsWith(dirname.toLowerCase());
-            });
-            
-            for (const candidate of candidates) {
-                const candidateFolder = path.basename(candidate.slug).toLowerCase();
-                // Match if the folder name contains part of the filename
-                if (candidateFolder.includes(filename.toLowerCase().replace(/[^a-z0-9]/g, '').substring(0, 5))) {
-                    matched = candidate;
-                    break;
-                }
-            }
-        }
-        
-        // Strategy 3: Fuzzy match on subject and semester
-        if (!matched && meta.semester && meta.subject) {
-            const subjectSlug = meta.subject.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-            const candidates = htmlFiles.filter(h => 
-                h.slug.toLowerCase().includes(subjectSlug.substring(0, 5)) &&
-                h.slug.includes(`Semester ${meta.semester}`)
-            );
-            
-            // If only one candidate in same subject, use it
-            if (candidates.length === 1) {
-                matched = candidates[0];
-            }
-        }
-        
-        if (matched) {
-            mapping[docId] = matched.absolutePath;
-        } else {
-            unmatched.push({ docId, source: meta.source });
+    // Try to find the main article content
+    let article = doc.querySelector('article');
+    if (!article) {
+        // Fallback: try to find main content area
+        article = doc.querySelector('.theme-doc-markdown') || 
+                  doc.querySelector('.markdown') ||
+                  doc.querySelector('main');
+    }
+    
+    if (!article) {
+        // Last resort: use body but strip nav/footer
+        article = doc.body;
+        // Remove unwanted elements
+        article.querySelectorAll('nav, footer, .navbar, .sidebar, .pagination-nav, .tocCollapsible, .tableOfContents').forEach(el => el.remove());
+    }
+    
+    // Get title
+    let title = 'Document';
+    const h1 = article.querySelector('h1');
+    if (h1) {
+        title = h1.textContent.trim();
+    } else {
+        const titleEl = doc.querySelector('title');
+        if (titleEl) {
+            title = titleEl.textContent.split('|')[0].trim();
         }
     }
     
-    return { mapping, unmatched };
+    // Rewrite links
+    const anchors = article.querySelectorAll('a[href]');
+    for (const anchor of anchors) {
+        let href = anchor.getAttribute('href');
+        if (!href) continue;
+        
+        // Skip external links, anchors, mailto, tel
+        if (href.startsWith('http://') || href.startsWith('https://') ||
+            href.startsWith('#') || href.startsWith('mailto:') || 
+            href.startsWith('tel:')) {
+            continue;
+        }
+        
+        // Try to match to a docId
+        let targetPath = href.replace(/\/$/, '');
+        
+        // Look up docId
+        const docId = routeToDocId.get(targetPath) || 
+                      routeToDocId.get(targetPath.toLowerCase()) ||
+                      routeToDocId.get(decodeURIComponent(targetPath));
+        
+        if (docId) {
+            const fragment = href.includes('#') ? href.substring(href.indexOf('#')) : '';
+            anchor.setAttribute('href', `app://doc/${docId}${fragment}`);
+        }
+    }
+    
+    // Remove images with absolute paths (they won't work offline)
+    article.querySelectorAll('img[src^="/"]').forEach(img => {
+        // Keep the alt text as a placeholder
+        const alt = img.getAttribute('alt') || 'Image';
+        const placeholder = doc.createElement('span');
+        placeholder.textContent = `[${alt}]`;
+        placeholder.style.cssText = 'display: block; padding: 20px; background: #f0f0f0; text-align: center; color: #666; border-radius: 8px; margin: 1em 0;';
+        img.replaceWith(placeholder);
+    });
+    
+    // Remove script tags
+    article.querySelectorAll('script').forEach(el => el.remove());
+    
+    // Remove data-* attributes and complex class names for cleaner HTML
+    article.querySelectorAll('*').forEach(el => {
+        // Keep element but remove complex classes
+        const className = el.getAttribute('class');
+        if (className && className.includes('_')) {
+            el.removeAttribute('class');
+        }
+    });
+    
+    // Build clean HTML document
+    const cleanHtml = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${title}</title>
+${INLINE_STYLES}
+</head>
+<body>
+${article.innerHTML}
+</body>
+</html>`;
+    
+    return cleanHtml;
 }
 
 /**
@@ -151,47 +246,7 @@ function buildRouteLookup(registry) {
 }
 
 /**
- * Rewrite internal links in HTML
- */
-function rewriteLinks(html, routeToDocId) {
-    const dom = new JSDOM(html);
-    const doc = dom.window.document;
-    
-    const anchors = doc.querySelectorAll('a[href]');
-    for (const anchor of anchors) {
-        let href = anchor.getAttribute('href');
-        if (!href) continue;
-        
-        // Skip external links, anchors, mailto, tel
-        if (href.startsWith('http://') || href.startsWith('https://') ||
-            href.startsWith('#') || href.startsWith('mailto:') || 
-            href.startsWith('tel:')) {
-            continue;
-        }
-        
-        // Try to match to a docId
-        let targetPath = href;
-        if (href.startsWith('/docs/')) {
-            targetPath = href.replace(/\/$/, ''); // Remove trailing slash
-        }
-        
-        // Look up docId
-        const docId = routeToDocId.get(targetPath) || 
-                      routeToDocId.get(targetPath.toLowerCase()) ||
-                      routeToDocId.get(decodeURIComponent(targetPath));
-        
-        if (docId) {
-            const fragment = href.includes('#') ? href.substring(href.indexOf('#')) : '';
-            anchor.setAttribute('href', `app://doc/${docId}${fragment}`);
-        }
-    }
-    
-    return dom.serialize();
-}
-
-/**
- * Main export function - alternative approach
- * Instead of matching source to build, just export all HTML from build
+ * Main export function
  */
 async function exportDocs() {
     console.log('🚀 Starting docs export...');
@@ -216,7 +271,7 @@ async function exportDocs() {
         fs.mkdirSync(CONTENT_DOCS_DIR, { recursive: true });
     }
     
-    // Export all HTML files with a generated docId based on path
+    // Export all HTML files
     let successCount = 0;
     let failCount = 0;
     const exported = {};
@@ -231,18 +286,15 @@ async function exportDocs() {
                 .replace(/^_|_$/g, '')
                 .toLowerCase();
             
-            // Skip if empty
-            if (!docId) {
-                docId = 'root';
-            }
+            if (!docId) docId = 'root';
             
             // Read and process HTML
-            let html = fs.readFileSync(htmlFile.absolutePath, 'utf-8');
-            html = rewriteLinks(html, routeToDocId);
+            const rawHtml = fs.readFileSync(htmlFile.absolutePath, 'utf-8');
+            const cleanHtml = extractAndCleanHtml(rawHtml, routeToDocId);
             
             // Write output
             const outputPath = path.join(CONTENT_DOCS_DIR, `${docId}.html`);
-            fs.writeFileSync(outputPath, html, 'utf-8');
+            fs.writeFileSync(outputPath, cleanHtml, 'utf-8');
             
             exported[docId] = {
                 source: htmlFile.relativePath,
@@ -257,7 +309,7 @@ async function exportDocs() {
         }
     }
     
-    // Update registry to match exported docs
+    // Update registry
     const updatedRegistry = {};
     for (const [docId, info] of Object.entries(exported)) {
         updatedRegistry[docId] = {
@@ -270,7 +322,6 @@ async function exportDocs() {
         };
     }
     
-    // Write updated registry
     fs.writeFileSync(REGISTRY_PATH, JSON.stringify(updatedRegistry, null, 4), 'utf-8');
     console.log(`✏️  Updated registry with ${Object.keys(updatedRegistry).length} entries`);
     

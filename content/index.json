@@ -1,0 +1,1503 @@
+{
+  "packVersion": "2026.01.13",
+  "generatedAt": "2026-01-13T17:47:53.411Z",
+  "docs": {
+    "intro": {
+      "title": "Intro",
+      "semester": 0,
+      "subject": "General",
+      "type": "content",
+      "order": 0,
+      "html": "docs/intro.html"
+    },
+    "semester_1_c_programming_handout": {
+      "title": "Semester 1 C Programming Handout",
+      "semester": 1,
+      "subject": "1 C Programming",
+      "type": "handout",
+      "order": 0,
+      "html": "docs/semester_1_c_programming_handout.html"
+    },
+    "semester_1_c_programming": {
+      "title": "Semester 1 C Programming",
+      "semester": 1,
+      "subject": "1 C",
+      "type": "content",
+      "order": 0,
+      "html": "docs/semester_1_c_programming.html"
+    },
+    "semester_1_c_programming_notes": {
+      "title": "Semester 1 C Programming Notes",
+      "semester": 1,
+      "subject": "1 C Programming",
+      "type": "notes",
+      "order": 0,
+      "html": "docs/semester_1_c_programming_notes.html"
+    },
+    "semester_1_c_programming_notes_program_reference": {
+      "title": "Semester 1 C Programming Notes Program Reference",
+      "semester": 1,
+      "subject": "1 C Programming Notes Program",
+      "type": "notes",
+      "order": 0,
+      "html": "docs/semester_1_c_programming_notes_program_reference.html"
+    },
+    "semester_1_c_programming_notes_unit1": {
+      "title": "Semester 1 C Programming Notes Unit1",
+      "semester": 1,
+      "subject": "1 C Programming Notes",
+      "type": "notes",
+      "order": 0,
+      "html": "docs/semester_1_c_programming_notes_unit1.html"
+    },
+    "semester_1_c_programming_notes_unit2_data_types": {
+      "title": "Semester 1 C Programming Notes Unit2 Data Types",
+      "semester": 1,
+      "subject": "1 C Programming Notes Unit2 Data",
+      "type": "notes",
+      "order": 0,
+      "html": "docs/semester_1_c_programming_notes_unit2_data_types.html"
+    },
+    "semester_1_c_programming_notes_unit3_decision_making": {
+      "title": "Semester 1 C Programming Notes Unit3 Decision Making",
+      "semester": 1,
+      "subject": "1 C Programming Notes Unit3 Decision",
+      "type": "notes",
+      "order": 0,
+      "html": "docs/semester_1_c_programming_notes_unit3_decision_making.html"
+    },
+    "semester_1_c_programming_notes_unit4_loops": {
+      "title": "Semester 1 C Programming Notes Unit4 Loops",
+      "semester": 1,
+      "subject": "1 C Programming Notes Unit4",
+      "type": "notes",
+      "order": 0,
+      "html": "docs/semester_1_c_programming_notes_unit4_loops.html"
+    },
+    "semester_1_c_programming_notes_unit5_arrays": {
+      "title": "Semester 1 C Programming Notes Unit5 Arrays",
+      "semester": 1,
+      "subject": "1 C Programming Notes Unit5",
+      "type": "notes",
+      "order": 0,
+      "html": "docs/semester_1_c_programming_notes_unit5_arrays.html"
+    },
+    "semester_1_c_programming_pyq": {
+      "title": "Semester 1 C Programming Pyq",
+      "semester": 1,
+      "subject": "1 C Programming",
+      "type": "pyq",
+      "order": 0,
+      "html": "docs/semester_1_c_programming_pyq.html"
+    },
+    "semester_1_cfoa_handout": {
+      "title": "Semester 1 Cfoa Handout",
+      "semester": 1,
+      "subject": "1 Cfoa",
+      "type": "handout",
+      "order": 0,
+      "html": "docs/semester_1_cfoa_handout.html"
+    },
+    "semester_1_cfoa": {
+      "title": "Semester 1 Cfoa",
+      "semester": 1,
+      "subject": "1",
+      "type": "content",
+      "order": 0,
+      "html": "docs/semester_1_cfoa.html"
+    },
+    "semester_1_cfoa_notes": {
+      "title": "Semester 1 Cfoa Notes",
+      "semester": 1,
+      "subject": "1 Cfoa",
+      "type": "notes",
+      "order": 0,
+      "html": "docs/semester_1_cfoa_notes.html"
+    },
+    "semester_1_cfoa_notes_intro": {
+      "title": "Semester 1 Cfoa Notes Intro",
+      "semester": 1,
+      "subject": "1 Cfoa Notes",
+      "type": "notes",
+      "order": 0,
+      "html": "docs/semester_1_cfoa_notes_intro.html"
+    },
+    "semester_1_cfoa_pyq": {
+      "title": "Semester 1 Cfoa Pyq",
+      "semester": 1,
+      "subject": "1 Cfoa",
+      "type": "pyq",
+      "order": 0,
+      "html": "docs/semester_1_cfoa_pyq.html"
+    },
+    "semester_1_digital_logic_design_handout": {
+      "title": "Semester 1 Digital Logic Design Handout",
+      "semester": 1,
+      "subject": "1 Digital Logic Design",
+      "type": "handout",
+      "order": 0,
+      "html": "docs/semester_1_digital_logic_design_handout.html"
+    },
+    "semester_1_digital_logic_design": {
+      "title": "Semester 1 Digital Logic Design",
+      "semester": 1,
+      "subject": "1 Digital Logic",
+      "type": "content",
+      "order": 0,
+      "html": "docs/semester_1_digital_logic_design.html"
+    },
+    "semester_1_digital_logic_design_notes": {
+      "title": "Semester 1 Digital Logic Design Notes",
+      "semester": 1,
+      "subject": "1 Digital Logic Design",
+      "type": "notes",
+      "order": 0,
+      "html": "docs/semester_1_digital_logic_design_notes.html"
+    },
+    "semester_1_digital_logic_design_notes_intro": {
+      "title": "Semester 1 Digital Logic Design Notes Intro",
+      "semester": 1,
+      "subject": "1 Digital Logic Design Notes",
+      "type": "notes",
+      "order": 0,
+      "html": "docs/semester_1_digital_logic_design_notes_intro.html"
+    },
+    "semester_1_digital_logic_design_pyq": {
+      "title": "Semester 1 Digital Logic Design Pyq",
+      "semester": 1,
+      "subject": "1 Digital Logic Design",
+      "type": "pyq",
+      "order": 0,
+      "html": "docs/semester_1_digital_logic_design_pyq.html"
+    },
+    "semester_1_english_communication_skills_handout": {
+      "title": "Semester 1 English Communication Skills Handout",
+      "semester": 1,
+      "subject": "1 English Communication Skills",
+      "type": "handout",
+      "order": 0,
+      "html": "docs/semester_1_english_communication_skills_handout.html"
+    },
+    "semester_1_english_communication_skills": {
+      "title": "Semester 1 English Communication Skills",
+      "semester": 1,
+      "subject": "1 English Communication",
+      "type": "content",
+      "order": 0,
+      "html": "docs/semester_1_english_communication_skills.html"
+    },
+    "semester_1_english_communication_skills_notes": {
+      "title": "Semester 1 English Communication Skills Notes",
+      "semester": 1,
+      "subject": "1 English Communication Skills",
+      "type": "notes",
+      "order": 0,
+      "html": "docs/semester_1_english_communication_skills_notes.html"
+    },
+    "semester_1_english_communication_skills_pyq": {
+      "title": "Semester 1 English Communication Skills Pyq",
+      "semester": 1,
+      "subject": "1 English Communication Skills",
+      "type": "pyq",
+      "order": 0,
+      "html": "docs/semester_1_english_communication_skills_pyq.html"
+    },
+    "semester_1_environmental_science_handout": {
+      "title": "Semester 1 Environmental Science Handout",
+      "semester": 1,
+      "subject": "1 Environmental Science",
+      "type": "handout",
+      "order": 0,
+      "html": "docs/semester_1_environmental_science_handout.html"
+    },
+    "semester_1_environmental_science": {
+      "title": "Semester 1 Environmental Science",
+      "semester": 1,
+      "subject": "1 Environmental",
+      "type": "content",
+      "order": 0,
+      "html": "docs/semester_1_environmental_science.html"
+    },
+    "semester_1_environmental_science_notes_env_science_guide": {
+      "title": "Semester 1 Environmental Science Notes Env Science Guide",
+      "semester": 1,
+      "subject": "1 Environmental Science Notes Env Science",
+      "type": "notes",
+      "order": 0,
+      "html": "docs/semester_1_environmental_science_notes_env_science_guide.html"
+    },
+    "semester_1_environmental_science_notes": {
+      "title": "Semester 1 Environmental Science Notes",
+      "semester": 1,
+      "subject": "1 Environmental Science",
+      "type": "notes",
+      "order": 0,
+      "html": "docs/semester_1_environmental_science_notes.html"
+    },
+    "semester_1_environmental_science_notes_intro": {
+      "title": "Semester 1 Environmental Science Notes Intro",
+      "semester": 1,
+      "subject": "1 Environmental Science Notes",
+      "type": "notes",
+      "order": 0,
+      "html": "docs/semester_1_environmental_science_notes_intro.html"
+    },
+    "semester_1_environmental_science_notes_unit_1": {
+      "title": "Semester 1 Environmental Science Notes Unit 1",
+      "semester": 1,
+      "subject": "1 Environmental Science Notes Unit",
+      "type": "notes",
+      "order": 0,
+      "html": "docs/semester_1_environmental_science_notes_unit_1.html"
+    },
+    "semester_1_environmental_science_pyq": {
+      "title": "Semester 1 Environmental Science Pyq",
+      "semester": 1,
+      "subject": "1 Environmental Science",
+      "type": "pyq",
+      "order": 0,
+      "html": "docs/semester_1_environmental_science_pyq.html"
+    },
+    "semester_1_fmca_handout": {
+      "title": "Semester 1 Fmca Handout",
+      "semester": 1,
+      "subject": "1 Fmca",
+      "type": "handout",
+      "order": 0,
+      "html": "docs/semester_1_fmca_handout.html"
+    },
+    "semester_1_fmca": {
+      "title": "Semester 1 Fmca",
+      "semester": 1,
+      "subject": "1",
+      "type": "content",
+      "order": 0,
+      "html": "docs/semester_1_fmca.html"
+    },
+    "semester_1_fmca_notes": {
+      "title": "Semester 1 Fmca Notes",
+      "semester": 1,
+      "subject": "1 Fmca",
+      "type": "notes",
+      "order": 0,
+      "html": "docs/semester_1_fmca_notes.html"
+    },
+    "semester_1_fmca_notes_intro": {
+      "title": "Semester 1 Fmca Notes Intro",
+      "semester": 1,
+      "subject": "1 Fmca Notes",
+      "type": "notes",
+      "order": 0,
+      "html": "docs/semester_1_fmca_notes_intro.html"
+    },
+    "semester_1_fmca_pyq": {
+      "title": "Semester 1 Fmca Pyq",
+      "semester": 1,
+      "subject": "1 Fmca",
+      "type": "pyq",
+      "order": 0,
+      "html": "docs/semester_1_fmca_pyq.html"
+    },
+    "semester_1": {
+      "title": "Semester 1",
+      "semester": 1,
+      "subject": "",
+      "type": "content",
+      "order": 0,
+      "html": "docs/semester_1.html"
+    },
+    "semester_1_psychology_handout": {
+      "title": "Semester 1 Psychology Handout",
+      "semester": 1,
+      "subject": "1 Psychology",
+      "type": "handout",
+      "order": 0,
+      "html": "docs/semester_1_psychology_handout.html"
+    },
+    "semester_1_psychology": {
+      "title": "Semester 1 Psychology",
+      "semester": 1,
+      "subject": "1",
+      "type": "content",
+      "order": 0,
+      "html": "docs/semester_1_psychology.html"
+    },
+    "semester_1_psychology_notes": {
+      "title": "Semester 1 Psychology Notes",
+      "semester": 1,
+      "subject": "1 Psychology",
+      "type": "notes",
+      "order": 0,
+      "html": "docs/semester_1_psychology_notes.html"
+    },
+    "semester_1_psychology_notes_intro": {
+      "title": "Semester 1 Psychology Notes Intro",
+      "semester": 1,
+      "subject": "1 Psychology Notes",
+      "type": "notes",
+      "order": 0,
+      "html": "docs/semester_1_psychology_notes_intro.html"
+    },
+    "semester_1_psychology_notes_methods_of_psychology": {
+      "title": "Semester 1 Psychology Notes Methods Of Psychology",
+      "semester": 1,
+      "subject": "1 Psychology Notes Methods Of",
+      "type": "notes",
+      "order": 0,
+      "html": "docs/semester_1_psychology_notes_methods_of_psychology.html"
+    },
+    "semester_1_psychology_notes_scope_of_psychology": {
+      "title": "Semester 1 Psychology Notes Scope Of Psychology",
+      "semester": 1,
+      "subject": "1 Psychology Notes Scope Of",
+      "type": "notes",
+      "order": 0,
+      "html": "docs/semester_1_psychology_notes_scope_of_psychology.html"
+    },
+    "semester_1_psychology_pyq": {
+      "title": "Semester 1 Psychology Pyq",
+      "semester": 1,
+      "subject": "1 Psychology",
+      "type": "pyq",
+      "order": 0,
+      "html": "docs/semester_1_psychology_pyq.html"
+    },
+    "semester_1_shared_resources_handout": {
+      "title": "Semester 1 Shared Resources Handout",
+      "semester": 1,
+      "subject": "1 Shared Resources",
+      "type": "handout",
+      "order": 0,
+      "html": "docs/semester_1_shared_resources_handout.html"
+    },
+    "semester_1_shared_resources": {
+      "title": "Semester 1 Shared Resources",
+      "semester": 1,
+      "subject": "1 Shared",
+      "type": "content",
+      "order": 0,
+      "html": "docs/semester_1_shared_resources.html"
+    },
+    "semester_1_shared_resources_notes": {
+      "title": "Semester 1 Shared Resources Notes",
+      "semester": 1,
+      "subject": "1 Shared Resources",
+      "type": "notes",
+      "order": 0,
+      "html": "docs/semester_1_shared_resources_notes.html"
+    },
+    "semester_1_shared_resources_notes_intro": {
+      "title": "Semester 1 Shared Resources Notes Intro",
+      "semester": 1,
+      "subject": "1 Shared Resources Notes",
+      "type": "notes",
+      "order": 0,
+      "html": "docs/semester_1_shared_resources_notes_intro.html"
+    },
+    "semester_1_shared_resources_pyq": {
+      "title": "Semester 1 Shared Resources Pyq",
+      "semester": 1,
+      "subject": "1 Shared Resources",
+      "type": "pyq",
+      "order": 0,
+      "html": "docs/semester_1_shared_resources_pyq.html"
+    },
+    "semester_1_understanding_india_handout": {
+      "title": "Semester 1 Understanding India Handout",
+      "semester": 1,
+      "subject": "1 Understanding India",
+      "type": "handout",
+      "order": 0,
+      "html": "docs/semester_1_understanding_india_handout.html"
+    },
+    "semester_1_understanding_india": {
+      "title": "Semester 1 Understanding India",
+      "semester": 1,
+      "subject": "1 Understanding",
+      "type": "content",
+      "order": 0,
+      "html": "docs/semester_1_understanding_india.html"
+    },
+    "semester_1_understanding_india_notes": {
+      "title": "Semester 1 Understanding India Notes",
+      "semester": 1,
+      "subject": "1 Understanding India",
+      "type": "notes",
+      "order": 0,
+      "html": "docs/semester_1_understanding_india_notes.html"
+    },
+    "semester_1_understanding_india_notes_intro": {
+      "title": "Semester 1 Understanding India Notes Intro",
+      "semester": 1,
+      "subject": "1 Understanding India Notes",
+      "type": "notes",
+      "order": 0,
+      "html": "docs/semester_1_understanding_india_notes_intro.html"
+    },
+    "semester_1_understanding_india_pyq": {
+      "title": "Semester 1 Understanding India Pyq",
+      "semester": 1,
+      "subject": "1 Understanding India",
+      "type": "pyq",
+      "order": 0,
+      "html": "docs/semester_1_understanding_india_pyq.html"
+    },
+    "semester_2_computer_programming_ii_assignments": {
+      "title": "Semester 2 Computer Programming Ii Assignments",
+      "semester": 2,
+      "subject": "2 Computer Programming Ii",
+      "type": "content",
+      "order": 0,
+      "html": "docs/semester_2_computer_programming_ii_assignments.html"
+    },
+    "semester_2_computer_programming_ii_handout": {
+      "title": "Semester 2 Computer Programming Ii Handout",
+      "semester": 2,
+      "subject": "2 Computer Programming Ii",
+      "type": "handout",
+      "order": 0,
+      "html": "docs/semester_2_computer_programming_ii_handout.html"
+    },
+    "semester_2_computer_programming_ii": {
+      "title": "Semester 2 Computer Programming Ii",
+      "semester": 2,
+      "subject": "2 Computer Programming",
+      "type": "content",
+      "order": 0,
+      "html": "docs/semester_2_computer_programming_ii.html"
+    },
+    "semester_2_computer_programming_ii_miscactivities": {
+      "title": "Semester 2 Computer Programming Ii Miscactivities",
+      "semester": 2,
+      "subject": "2 Computer Programming Ii",
+      "type": "content",
+      "order": 0,
+      "html": "docs/semester_2_computer_programming_ii_miscactivities.html"
+    },
+    "semester_2_computer_programming_ii_notes": {
+      "title": "Semester 2 Computer Programming Ii Notes",
+      "semester": 2,
+      "subject": "2 Computer Programming Ii",
+      "type": "notes",
+      "order": 0,
+      "html": "docs/semester_2_computer_programming_ii_notes.html"
+    },
+    "semester_2_discrete_mathematics_assignments": {
+      "title": "Semester 2 Discrete Mathematics Assignments",
+      "semester": 2,
+      "subject": "2 Discrete Mathematics",
+      "type": "content",
+      "order": 0,
+      "html": "docs/semester_2_discrete_mathematics_assignments.html"
+    },
+    "semester_2_discrete_mathematics_handout": {
+      "title": "Semester 2 Discrete Mathematics Handout",
+      "semester": 2,
+      "subject": "2 Discrete Mathematics",
+      "type": "handout",
+      "order": 0,
+      "html": "docs/semester_2_discrete_mathematics_handout.html"
+    },
+    "semester_2_discrete_mathematics": {
+      "title": "Semester 2 Discrete Mathematics",
+      "semester": 2,
+      "subject": "2 Discrete",
+      "type": "content",
+      "order": 0,
+      "html": "docs/semester_2_discrete_mathematics.html"
+    },
+    "semester_2_discrete_mathematics_miscactivities": {
+      "title": "Semester 2 Discrete Mathematics Miscactivities",
+      "semester": 2,
+      "subject": "2 Discrete Mathematics",
+      "type": "content",
+      "order": 0,
+      "html": "docs/semester_2_discrete_mathematics_miscactivities.html"
+    },
+    "semester_2_discrete_mathematics_notes": {
+      "title": "Semester 2 Discrete Mathematics Notes",
+      "semester": 2,
+      "subject": "2 Discrete Mathematics",
+      "type": "notes",
+      "order": 0,
+      "html": "docs/semester_2_discrete_mathematics_notes.html"
+    },
+    "semester_2_extras": {
+      "title": "Semester 2 Extras",
+      "semester": 2,
+      "subject": "2",
+      "type": "content",
+      "order": 0,
+      "html": "docs/semester_2_extras.html"
+    },
+    "semester_2_functional_english_assignments": {
+      "title": "Semester 2 Functional English Assignments",
+      "semester": 2,
+      "subject": "2 Functional English",
+      "type": "content",
+      "order": 0,
+      "html": "docs/semester_2_functional_english_assignments.html"
+    },
+    "semester_2_functional_english_handout": {
+      "title": "Semester 2 Functional English Handout",
+      "semester": 2,
+      "subject": "2 Functional English",
+      "type": "handout",
+      "order": 0,
+      "html": "docs/semester_2_functional_english_handout.html"
+    },
+    "semester_2_functional_english": {
+      "title": "Semester 2 Functional English",
+      "semester": 2,
+      "subject": "2 Functional",
+      "type": "content",
+      "order": 0,
+      "html": "docs/semester_2_functional_english.html"
+    },
+    "semester_2_functional_english_miscactivities": {
+      "title": "Semester 2 Functional English Miscactivities",
+      "semester": 2,
+      "subject": "2 Functional English",
+      "type": "content",
+      "order": 0,
+      "html": "docs/semester_2_functional_english_miscactivities.html"
+    },
+    "semester_2_functional_english_notes": {
+      "title": "Semester 2 Functional English Notes",
+      "semester": 2,
+      "subject": "2 Functional English",
+      "type": "notes",
+      "order": 0,
+      "html": "docs/semester_2_functional_english_notes.html"
+    },
+    "semester_2_linux_shell_programming_assignments": {
+      "title": "Semester 2 Linux Shell Programming Assignments",
+      "semester": 2,
+      "subject": "2 Linux Shell Programming",
+      "type": "content",
+      "order": 0,
+      "html": "docs/semester_2_linux_shell_programming_assignments.html"
+    },
+    "semester_2_linux_shell_programming_handout": {
+      "title": "Semester 2 Linux Shell Programming Handout",
+      "semester": 2,
+      "subject": "2 Linux Shell Programming",
+      "type": "handout",
+      "order": 0,
+      "html": "docs/semester_2_linux_shell_programming_handout.html"
+    },
+    "semester_2_linux_shell_programming": {
+      "title": "Semester 2 Linux Shell Programming",
+      "semester": 2,
+      "subject": "2 Linux Shell",
+      "type": "content",
+      "order": 0,
+      "html": "docs/semester_2_linux_shell_programming.html"
+    },
+    "semester_2_linux_shell_programming_miscactivities": {
+      "title": "Semester 2 Linux Shell Programming Miscactivities",
+      "semester": 2,
+      "subject": "2 Linux Shell Programming",
+      "type": "content",
+      "order": 0,
+      "html": "docs/semester_2_linux_shell_programming_miscactivities.html"
+    },
+    "semester_2_linux_shell_programming_notes": {
+      "title": "Semester 2 Linux Shell Programming Notes",
+      "semester": 2,
+      "subject": "2 Linux Shell Programming",
+      "type": "notes",
+      "order": 0,
+      "html": "docs/semester_2_linux_shell_programming_notes.html"
+    },
+    "semester_2_multimedia_system_assignments": {
+      "title": "Semester 2 Multimedia System Assignments",
+      "semester": 2,
+      "subject": "2 Multimedia System",
+      "type": "content",
+      "order": 0,
+      "html": "docs/semester_2_multimedia_system_assignments.html"
+    },
+    "semester_2_multimedia_system_handout": {
+      "title": "Semester 2 Multimedia System Handout",
+      "semester": 2,
+      "subject": "2 Multimedia System",
+      "type": "handout",
+      "order": 0,
+      "html": "docs/semester_2_multimedia_system_handout.html"
+    },
+    "semester_2_multimedia_system": {
+      "title": "Semester 2 Multimedia System",
+      "semester": 2,
+      "subject": "2 Multimedia",
+      "type": "content",
+      "order": 0,
+      "html": "docs/semester_2_multimedia_system.html"
+    },
+    "semester_2_multimedia_system_miscactivities": {
+      "title": "Semester 2 Multimedia System Miscactivities",
+      "semester": 2,
+      "subject": "2 Multimedia System",
+      "type": "content",
+      "order": 0,
+      "html": "docs/semester_2_multimedia_system_miscactivities.html"
+    },
+    "semester_2_multimedia_system_notes": {
+      "title": "Semester 2 Multimedia System Notes",
+      "semester": 2,
+      "subject": "2 Multimedia System",
+      "type": "notes",
+      "order": 0,
+      "html": "docs/semester_2_multimedia_system_notes.html"
+    },
+    "semester_2_statistics_assignments": {
+      "title": "Semester 2 Statistics Assignments",
+      "semester": 2,
+      "subject": "2 Statistics",
+      "type": "content",
+      "order": 0,
+      "html": "docs/semester_2_statistics_assignments.html"
+    },
+    "semester_2_statistics_handout": {
+      "title": "Semester 2 Statistics Handout",
+      "semester": 2,
+      "subject": "2 Statistics",
+      "type": "handout",
+      "order": 0,
+      "html": "docs/semester_2_statistics_handout.html"
+    },
+    "semester_2_statistics": {
+      "title": "Semester 2 Statistics",
+      "semester": 2,
+      "subject": "2",
+      "type": "content",
+      "order": 0,
+      "html": "docs/semester_2_statistics.html"
+    },
+    "semester_2_statistics_miscactivities": {
+      "title": "Semester 2 Statistics Miscactivities",
+      "semester": 2,
+      "subject": "2 Statistics",
+      "type": "content",
+      "order": 0,
+      "html": "docs/semester_2_statistics_miscactivities.html"
+    },
+    "semester_2_statistics_notes": {
+      "title": "Semester 2 Statistics Notes",
+      "semester": 2,
+      "subject": "2 Statistics",
+      "type": "notes",
+      "order": 0,
+      "html": "docs/semester_2_statistics_notes.html"
+    },
+    "semester_2_technical_report_writing_assignments": {
+      "title": "Semester 2 Technical Report Writing Assignments",
+      "semester": 2,
+      "subject": "2 Technical Report Writing",
+      "type": "content",
+      "order": 0,
+      "html": "docs/semester_2_technical_report_writing_assignments.html"
+    },
+    "semester_2_technical_report_writing_handout": {
+      "title": "Semester 2 Technical Report Writing Handout",
+      "semester": 2,
+      "subject": "2 Technical Report Writing",
+      "type": "handout",
+      "order": 0,
+      "html": "docs/semester_2_technical_report_writing_handout.html"
+    },
+    "semester_2_technical_report_writing": {
+      "title": "Semester 2 Technical Report Writing",
+      "semester": 2,
+      "subject": "2 Technical Report",
+      "type": "content",
+      "order": 0,
+      "html": "docs/semester_2_technical_report_writing.html"
+    },
+    "semester_2_technical_report_writing_miscactivities": {
+      "title": "Semester 2 Technical Report Writing Miscactivities",
+      "semester": 2,
+      "subject": "2 Technical Report Writing",
+      "type": "content",
+      "order": 0,
+      "html": "docs/semester_2_technical_report_writing_miscactivities.html"
+    },
+    "semester_2_technical_report_writing_notes": {
+      "title": "Semester 2 Technical Report Writing Notes",
+      "semester": 2,
+      "subject": "2 Technical Report Writing",
+      "type": "notes",
+      "order": 0,
+      "html": "docs/semester_2_technical_report_writing_notes.html"
+    }
+  },
+  "tree": [
+    {
+      "id": "intro",
+      "title": "Introduction",
+      "items": [
+        {
+          "id": "subject_s0_general",
+          "title": "General",
+          "items": [
+            {
+              "docId": "intro",
+              "title": "Intro",
+              "type": "content"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "semester_1",
+      "title": "Semester 1",
+      "items": [
+        {
+          "id": "subject_s1_",
+          "title": "",
+          "items": [
+            {
+              "docId": "semester_1",
+              "title": "Semester 1",
+              "type": "content"
+            }
+          ]
+        },
+        {
+          "id": "subject_s1_1",
+          "title": "1",
+          "items": [
+            {
+              "docId": "semester_1_cfoa",
+              "title": "Semester 1 Cfoa",
+              "type": "content"
+            },
+            {
+              "docId": "semester_1_fmca",
+              "title": "Semester 1 Fmca",
+              "type": "content"
+            },
+            {
+              "docId": "semester_1_psychology",
+              "title": "Semester 1 Psychology",
+              "type": "content"
+            }
+          ]
+        },
+        {
+          "id": "subject_s1_1_c",
+          "title": "1 C",
+          "items": [
+            {
+              "docId": "semester_1_c_programming",
+              "title": "Semester 1 C Programming",
+              "type": "content"
+            }
+          ]
+        },
+        {
+          "id": "subject_s1_1_c_programming",
+          "title": "1 C Programming",
+          "items": [
+            {
+              "docId": "semester_1_c_programming_handout",
+              "title": "Semester 1 C Programming Handout",
+              "type": "handout"
+            },
+            {
+              "docId": "semester_1_c_programming_notes",
+              "title": "Semester 1 C Programming Notes",
+              "type": "notes"
+            },
+            {
+              "docId": "semester_1_c_programming_pyq",
+              "title": "Semester 1 C Programming Pyq",
+              "type": "pyq"
+            }
+          ]
+        },
+        {
+          "id": "subject_s1_1_c_programming_notes",
+          "title": "1 C Programming Notes",
+          "items": [
+            {
+              "docId": "semester_1_c_programming_notes_unit1",
+              "title": "Semester 1 C Programming Notes Unit1",
+              "type": "notes"
+            }
+          ]
+        },
+        {
+          "id": "subject_s1_1_c_programming_notes_program",
+          "title": "1 C Programming Notes Program",
+          "items": [
+            {
+              "docId": "semester_1_c_programming_notes_program_reference",
+              "title": "Semester 1 C Programming Notes Program Reference",
+              "type": "notes"
+            }
+          ]
+        },
+        {
+          "id": "subject_s1_1_c_programming_notes_unit2_data",
+          "title": "1 C Programming Notes Unit2 Data",
+          "items": [
+            {
+              "docId": "semester_1_c_programming_notes_unit2_data_types",
+              "title": "Semester 1 C Programming Notes Unit2 Data Types",
+              "type": "notes"
+            }
+          ]
+        },
+        {
+          "id": "subject_s1_1_c_programming_notes_unit3_decision",
+          "title": "1 C Programming Notes Unit3 Decision",
+          "items": [
+            {
+              "docId": "semester_1_c_programming_notes_unit3_decision_making",
+              "title": "Semester 1 C Programming Notes Unit3 Decision Making",
+              "type": "notes"
+            }
+          ]
+        },
+        {
+          "id": "subject_s1_1_c_programming_notes_unit4",
+          "title": "1 C Programming Notes Unit4",
+          "items": [
+            {
+              "docId": "semester_1_c_programming_notes_unit4_loops",
+              "title": "Semester 1 C Programming Notes Unit4 Loops",
+              "type": "notes"
+            }
+          ]
+        },
+        {
+          "id": "subject_s1_1_c_programming_notes_unit5",
+          "title": "1 C Programming Notes Unit5",
+          "items": [
+            {
+              "docId": "semester_1_c_programming_notes_unit5_arrays",
+              "title": "Semester 1 C Programming Notes Unit5 Arrays",
+              "type": "notes"
+            }
+          ]
+        },
+        {
+          "id": "subject_s1_1_cfoa",
+          "title": "1 Cfoa",
+          "items": [
+            {
+              "docId": "semester_1_cfoa_handout",
+              "title": "Semester 1 Cfoa Handout",
+              "type": "handout"
+            },
+            {
+              "docId": "semester_1_cfoa_notes",
+              "title": "Semester 1 Cfoa Notes",
+              "type": "notes"
+            },
+            {
+              "docId": "semester_1_cfoa_pyq",
+              "title": "Semester 1 Cfoa Pyq",
+              "type": "pyq"
+            }
+          ]
+        },
+        {
+          "id": "subject_s1_1_cfoa_notes",
+          "title": "1 Cfoa Notes",
+          "items": [
+            {
+              "docId": "semester_1_cfoa_notes_intro",
+              "title": "Semester 1 Cfoa Notes Intro",
+              "type": "notes"
+            }
+          ]
+        },
+        {
+          "id": "subject_s1_1_digital_logic",
+          "title": "1 Digital Logic",
+          "items": [
+            {
+              "docId": "semester_1_digital_logic_design",
+              "title": "Semester 1 Digital Logic Design",
+              "type": "content"
+            }
+          ]
+        },
+        {
+          "id": "subject_s1_1_digital_logic_design",
+          "title": "1 Digital Logic Design",
+          "items": [
+            {
+              "docId": "semester_1_digital_logic_design_handout",
+              "title": "Semester 1 Digital Logic Design Handout",
+              "type": "handout"
+            },
+            {
+              "docId": "semester_1_digital_logic_design_notes",
+              "title": "Semester 1 Digital Logic Design Notes",
+              "type": "notes"
+            },
+            {
+              "docId": "semester_1_digital_logic_design_pyq",
+              "title": "Semester 1 Digital Logic Design Pyq",
+              "type": "pyq"
+            }
+          ]
+        },
+        {
+          "id": "subject_s1_1_digital_logic_design_notes",
+          "title": "1 Digital Logic Design Notes",
+          "items": [
+            {
+              "docId": "semester_1_digital_logic_design_notes_intro",
+              "title": "Semester 1 Digital Logic Design Notes Intro",
+              "type": "notes"
+            }
+          ]
+        },
+        {
+          "id": "subject_s1_1_english_communication",
+          "title": "1 English Communication",
+          "items": [
+            {
+              "docId": "semester_1_english_communication_skills",
+              "title": "Semester 1 English Communication Skills",
+              "type": "content"
+            }
+          ]
+        },
+        {
+          "id": "subject_s1_1_english_communication_skills",
+          "title": "1 English Communication Skills",
+          "items": [
+            {
+              "docId": "semester_1_english_communication_skills_handout",
+              "title": "Semester 1 English Communication Skills Handout",
+              "type": "handout"
+            },
+            {
+              "docId": "semester_1_english_communication_skills_notes",
+              "title": "Semester 1 English Communication Skills Notes",
+              "type": "notes"
+            },
+            {
+              "docId": "semester_1_english_communication_skills_pyq",
+              "title": "Semester 1 English Communication Skills Pyq",
+              "type": "pyq"
+            }
+          ]
+        },
+        {
+          "id": "subject_s1_1_environmental",
+          "title": "1 Environmental",
+          "items": [
+            {
+              "docId": "semester_1_environmental_science",
+              "title": "Semester 1 Environmental Science",
+              "type": "content"
+            }
+          ]
+        },
+        {
+          "id": "subject_s1_1_environmental_science",
+          "title": "1 Environmental Science",
+          "items": [
+            {
+              "docId": "semester_1_environmental_science_handout",
+              "title": "Semester 1 Environmental Science Handout",
+              "type": "handout"
+            },
+            {
+              "docId": "semester_1_environmental_science_notes",
+              "title": "Semester 1 Environmental Science Notes",
+              "type": "notes"
+            },
+            {
+              "docId": "semester_1_environmental_science_pyq",
+              "title": "Semester 1 Environmental Science Pyq",
+              "type": "pyq"
+            }
+          ]
+        },
+        {
+          "id": "subject_s1_1_environmental_science_notes",
+          "title": "1 Environmental Science Notes",
+          "items": [
+            {
+              "docId": "semester_1_environmental_science_notes_intro",
+              "title": "Semester 1 Environmental Science Notes Intro",
+              "type": "notes"
+            }
+          ]
+        },
+        {
+          "id": "subject_s1_1_environmental_science_notes_env_science",
+          "title": "1 Environmental Science Notes Env Science",
+          "items": [
+            {
+              "docId": "semester_1_environmental_science_notes_env_science_guide",
+              "title": "Semester 1 Environmental Science Notes Env Science Guide",
+              "type": "notes"
+            }
+          ]
+        },
+        {
+          "id": "subject_s1_1_environmental_science_notes_unit",
+          "title": "1 Environmental Science Notes Unit",
+          "items": [
+            {
+              "docId": "semester_1_environmental_science_notes_unit_1",
+              "title": "Semester 1 Environmental Science Notes Unit 1",
+              "type": "notes"
+            }
+          ]
+        },
+        {
+          "id": "subject_s1_1_fmca",
+          "title": "1 Fmca",
+          "items": [
+            {
+              "docId": "semester_1_fmca_handout",
+              "title": "Semester 1 Fmca Handout",
+              "type": "handout"
+            },
+            {
+              "docId": "semester_1_fmca_notes",
+              "title": "Semester 1 Fmca Notes",
+              "type": "notes"
+            },
+            {
+              "docId": "semester_1_fmca_pyq",
+              "title": "Semester 1 Fmca Pyq",
+              "type": "pyq"
+            }
+          ]
+        },
+        {
+          "id": "subject_s1_1_fmca_notes",
+          "title": "1 Fmca Notes",
+          "items": [
+            {
+              "docId": "semester_1_fmca_notes_intro",
+              "title": "Semester 1 Fmca Notes Intro",
+              "type": "notes"
+            }
+          ]
+        },
+        {
+          "id": "subject_s1_1_psychology",
+          "title": "1 Psychology",
+          "items": [
+            {
+              "docId": "semester_1_psychology_handout",
+              "title": "Semester 1 Psychology Handout",
+              "type": "handout"
+            },
+            {
+              "docId": "semester_1_psychology_notes",
+              "title": "Semester 1 Psychology Notes",
+              "type": "notes"
+            },
+            {
+              "docId": "semester_1_psychology_pyq",
+              "title": "Semester 1 Psychology Pyq",
+              "type": "pyq"
+            }
+          ]
+        },
+        {
+          "id": "subject_s1_1_psychology_notes",
+          "title": "1 Psychology Notes",
+          "items": [
+            {
+              "docId": "semester_1_psychology_notes_intro",
+              "title": "Semester 1 Psychology Notes Intro",
+              "type": "notes"
+            }
+          ]
+        },
+        {
+          "id": "subject_s1_1_psychology_notes_methods_of",
+          "title": "1 Psychology Notes Methods Of",
+          "items": [
+            {
+              "docId": "semester_1_psychology_notes_methods_of_psychology",
+              "title": "Semester 1 Psychology Notes Methods Of Psychology",
+              "type": "notes"
+            }
+          ]
+        },
+        {
+          "id": "subject_s1_1_psychology_notes_scope_of",
+          "title": "1 Psychology Notes Scope Of",
+          "items": [
+            {
+              "docId": "semester_1_psychology_notes_scope_of_psychology",
+              "title": "Semester 1 Psychology Notes Scope Of Psychology",
+              "type": "notes"
+            }
+          ]
+        },
+        {
+          "id": "subject_s1_1_shared",
+          "title": "1 Shared",
+          "items": [
+            {
+              "docId": "semester_1_shared_resources",
+              "title": "Semester 1 Shared Resources",
+              "type": "content"
+            }
+          ]
+        },
+        {
+          "id": "subject_s1_1_shared_resources",
+          "title": "1 Shared Resources",
+          "items": [
+            {
+              "docId": "semester_1_shared_resources_handout",
+              "title": "Semester 1 Shared Resources Handout",
+              "type": "handout"
+            },
+            {
+              "docId": "semester_1_shared_resources_notes",
+              "title": "Semester 1 Shared Resources Notes",
+              "type": "notes"
+            },
+            {
+              "docId": "semester_1_shared_resources_pyq",
+              "title": "Semester 1 Shared Resources Pyq",
+              "type": "pyq"
+            }
+          ]
+        },
+        {
+          "id": "subject_s1_1_shared_resources_notes",
+          "title": "1 Shared Resources Notes",
+          "items": [
+            {
+              "docId": "semester_1_shared_resources_notes_intro",
+              "title": "Semester 1 Shared Resources Notes Intro",
+              "type": "notes"
+            }
+          ]
+        },
+        {
+          "id": "subject_s1_1_understanding",
+          "title": "1 Understanding",
+          "items": [
+            {
+              "docId": "semester_1_understanding_india",
+              "title": "Semester 1 Understanding India",
+              "type": "content"
+            }
+          ]
+        },
+        {
+          "id": "subject_s1_1_understanding_india",
+          "title": "1 Understanding India",
+          "items": [
+            {
+              "docId": "semester_1_understanding_india_handout",
+              "title": "Semester 1 Understanding India Handout",
+              "type": "handout"
+            },
+            {
+              "docId": "semester_1_understanding_india_notes",
+              "title": "Semester 1 Understanding India Notes",
+              "type": "notes"
+            },
+            {
+              "docId": "semester_1_understanding_india_pyq",
+              "title": "Semester 1 Understanding India Pyq",
+              "type": "pyq"
+            }
+          ]
+        },
+        {
+          "id": "subject_s1_1_understanding_india_notes",
+          "title": "1 Understanding India Notes",
+          "items": [
+            {
+              "docId": "semester_1_understanding_india_notes_intro",
+              "title": "Semester 1 Understanding India Notes Intro",
+              "type": "notes"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "semester_2",
+      "title": "Semester 2",
+      "items": [
+        {
+          "id": "subject_s2_2",
+          "title": "2",
+          "items": [
+            {
+              "docId": "semester_2_extras",
+              "title": "Semester 2 Extras",
+              "type": "content"
+            },
+            {
+              "docId": "semester_2_statistics",
+              "title": "Semester 2 Statistics",
+              "type": "content"
+            }
+          ]
+        },
+        {
+          "id": "subject_s2_2_computer_programming",
+          "title": "2 Computer Programming",
+          "items": [
+            {
+              "docId": "semester_2_computer_programming_ii",
+              "title": "Semester 2 Computer Programming Ii",
+              "type": "content"
+            }
+          ]
+        },
+        {
+          "id": "subject_s2_2_computer_programming_ii",
+          "title": "2 Computer Programming Ii",
+          "items": [
+            {
+              "docId": "semester_2_computer_programming_ii_assignments",
+              "title": "Semester 2 Computer Programming Ii Assignments",
+              "type": "content"
+            },
+            {
+              "docId": "semester_2_computer_programming_ii_handout",
+              "title": "Semester 2 Computer Programming Ii Handout",
+              "type": "handout"
+            },
+            {
+              "docId": "semester_2_computer_programming_ii_miscactivities",
+              "title": "Semester 2 Computer Programming Ii Miscactivities",
+              "type": "content"
+            },
+            {
+              "docId": "semester_2_computer_programming_ii_notes",
+              "title": "Semester 2 Computer Programming Ii Notes",
+              "type": "notes"
+            }
+          ]
+        },
+        {
+          "id": "subject_s2_2_discrete",
+          "title": "2 Discrete",
+          "items": [
+            {
+              "docId": "semester_2_discrete_mathematics",
+              "title": "Semester 2 Discrete Mathematics",
+              "type": "content"
+            }
+          ]
+        },
+        {
+          "id": "subject_s2_2_discrete_mathematics",
+          "title": "2 Discrete Mathematics",
+          "items": [
+            {
+              "docId": "semester_2_discrete_mathematics_assignments",
+              "title": "Semester 2 Discrete Mathematics Assignments",
+              "type": "content"
+            },
+            {
+              "docId": "semester_2_discrete_mathematics_handout",
+              "title": "Semester 2 Discrete Mathematics Handout",
+              "type": "handout"
+            },
+            {
+              "docId": "semester_2_discrete_mathematics_miscactivities",
+              "title": "Semester 2 Discrete Mathematics Miscactivities",
+              "type": "content"
+            },
+            {
+              "docId": "semester_2_discrete_mathematics_notes",
+              "title": "Semester 2 Discrete Mathematics Notes",
+              "type": "notes"
+            }
+          ]
+        },
+        {
+          "id": "subject_s2_2_functional",
+          "title": "2 Functional",
+          "items": [
+            {
+              "docId": "semester_2_functional_english",
+              "title": "Semester 2 Functional English",
+              "type": "content"
+            }
+          ]
+        },
+        {
+          "id": "subject_s2_2_functional_english",
+          "title": "2 Functional English",
+          "items": [
+            {
+              "docId": "semester_2_functional_english_assignments",
+              "title": "Semester 2 Functional English Assignments",
+              "type": "content"
+            },
+            {
+              "docId": "semester_2_functional_english_handout",
+              "title": "Semester 2 Functional English Handout",
+              "type": "handout"
+            },
+            {
+              "docId": "semester_2_functional_english_miscactivities",
+              "title": "Semester 2 Functional English Miscactivities",
+              "type": "content"
+            },
+            {
+              "docId": "semester_2_functional_english_notes",
+              "title": "Semester 2 Functional English Notes",
+              "type": "notes"
+            }
+          ]
+        },
+        {
+          "id": "subject_s2_2_linux_shell",
+          "title": "2 Linux Shell",
+          "items": [
+            {
+              "docId": "semester_2_linux_shell_programming",
+              "title": "Semester 2 Linux Shell Programming",
+              "type": "content"
+            }
+          ]
+        },
+        {
+          "id": "subject_s2_2_linux_shell_programming",
+          "title": "2 Linux Shell Programming",
+          "items": [
+            {
+              "docId": "semester_2_linux_shell_programming_assignments",
+              "title": "Semester 2 Linux Shell Programming Assignments",
+              "type": "content"
+            },
+            {
+              "docId": "semester_2_linux_shell_programming_handout",
+              "title": "Semester 2 Linux Shell Programming Handout",
+              "type": "handout"
+            },
+            {
+              "docId": "semester_2_linux_shell_programming_miscactivities",
+              "title": "Semester 2 Linux Shell Programming Miscactivities",
+              "type": "content"
+            },
+            {
+              "docId": "semester_2_linux_shell_programming_notes",
+              "title": "Semester 2 Linux Shell Programming Notes",
+              "type": "notes"
+            }
+          ]
+        },
+        {
+          "id": "subject_s2_2_multimedia",
+          "title": "2 Multimedia",
+          "items": [
+            {
+              "docId": "semester_2_multimedia_system",
+              "title": "Semester 2 Multimedia System",
+              "type": "content"
+            }
+          ]
+        },
+        {
+          "id": "subject_s2_2_multimedia_system",
+          "title": "2 Multimedia System",
+          "items": [
+            {
+              "docId": "semester_2_multimedia_system_assignments",
+              "title": "Semester 2 Multimedia System Assignments",
+              "type": "content"
+            },
+            {
+              "docId": "semester_2_multimedia_system_handout",
+              "title": "Semester 2 Multimedia System Handout",
+              "type": "handout"
+            },
+            {
+              "docId": "semester_2_multimedia_system_miscactivities",
+              "title": "Semester 2 Multimedia System Miscactivities",
+              "type": "content"
+            },
+            {
+              "docId": "semester_2_multimedia_system_notes",
+              "title": "Semester 2 Multimedia System Notes",
+              "type": "notes"
+            }
+          ]
+        },
+        {
+          "id": "subject_s2_2_statistics",
+          "title": "2 Statistics",
+          "items": [
+            {
+              "docId": "semester_2_statistics_assignments",
+              "title": "Semester 2 Statistics Assignments",
+              "type": "content"
+            },
+            {
+              "docId": "semester_2_statistics_handout",
+              "title": "Semester 2 Statistics Handout",
+              "type": "handout"
+            },
+            {
+              "docId": "semester_2_statistics_miscactivities",
+              "title": "Semester 2 Statistics Miscactivities",
+              "type": "content"
+            },
+            {
+              "docId": "semester_2_statistics_notes",
+              "title": "Semester 2 Statistics Notes",
+              "type": "notes"
+            }
+          ]
+        },
+        {
+          "id": "subject_s2_2_technical_report",
+          "title": "2 Technical Report",
+          "items": [
+            {
+              "docId": "semester_2_technical_report_writing",
+              "title": "Semester 2 Technical Report Writing",
+              "type": "content"
+            }
+          ]
+        },
+        {
+          "id": "subject_s2_2_technical_report_writing",
+          "title": "2 Technical Report Writing",
+          "items": [
+            {
+              "docId": "semester_2_technical_report_writing_assignments",
+              "title": "Semester 2 Technical Report Writing Assignments",
+              "type": "content"
+            },
+            {
+              "docId": "semester_2_technical_report_writing_handout",
+              "title": "Semester 2 Technical Report Writing Handout",
+              "type": "handout"
+            },
+            {
+              "docId": "semester_2_technical_report_writing_miscactivities",
+              "title": "Semester 2 Technical Report Writing Miscactivities",
+              "type": "content"
+            },
+            {
+              "docId": "semester_2_technical_report_writing_notes",
+              "title": "Semester 2 Technical Report Writing Notes",
+              "type": "notes"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

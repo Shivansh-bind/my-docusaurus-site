@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkmy_docusaurus_site=self.webpackChunkmy_docusaurus_site||[]).push([[7472],{5513(s){s.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"\ud83d\udc4b Hi, I\'m Shiwansh Bind","permalink":"/blog/intro","unlisted":false,"date":"2025-09-14T12:58:13.000Z"}]}')}}]);

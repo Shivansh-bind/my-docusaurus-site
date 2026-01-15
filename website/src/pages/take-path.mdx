@@ -1,0 +1,626 @@
+---
+title: "IT Career Paths – Beginner Friendly Roadmaps"
+description: "No confusion. No overwhelm. Just clear steps to your IT career."
+---
+
+import { useState } from 'react'
+
+export const CareerPathsApp = () => {
+  const [selectedPath, setSelectedPath] = useState(null)
+  const [selectedSubPath, setSelectedSubPath] = useState(null)
+  const [expandedLevels, setExpandedLevels] = useState(new Set([0]))
+  const [checkedItems, setCheckedItems] = useState({})
+
+  const roadmaps = {
+    redteam: {
+      name: "Red Team (Ethical Hacking)",
+      levels: [
+        {
+          title: "LEVEL 0 – ABSOLUTE BASICS (START HERE!)",
+          subtitle: "This is compulsory for everyone. No skipping!",
+          topics: [
+            "What is a computer? (CPU, RAM, Storage)",
+            "How does the internet work?",
+            "Basic networking (IP address, DNS, HTTP)",
+            "Introduction to Linux (Ubuntu basics)",
+            "Basic security concepts (passwords, encryption basics)",
+            "Understanding the hacker mindset (legally!)"
+          ],
+          resources: [
+            {
+              title: "Networking Basics for Beginners",
+              link: "NetworkChuck on YouTube",
+              description: "Fun, easy networking lessons",
+              difficulty: "easy"
+            },
+            {
+              title: "Linux for Beginners",
+              link: "freeCodeCamp Linux Course",
+              description: "Complete Linux basics in one video",
+              difficulty: "easy"
+            },
+            {
+              title: "How Computers Work",
+              link: "Crash Course Computer Science",
+              description: "Animated, simple explanations",
+              difficulty: "easy"
+            }
+          ]
+        },
+        {
+          title: "LEVEL 1 – BEGINNER",
+          subtitle: "Build your foundation",
+          topics: [
+            "Understanding different types of cyber attacks",
+            "Basic Python for hacking (scripting basics)",
+            "How websites work (HTML, HTTP, cookies)",
+            "Using Kali Linux (hacker's operating system)",
+            "Basic penetration testing concepts",
+            "Understanding vulnerabilities (XSS, SQL injection basics)"
+          ],
+          resources: [
+            {
+              title: "Python for Beginners",
+              link: "Programming with Mosh - Python Tutorial",
+              description: "Python basics in 1 hour",
+              difficulty: "easy"
+            },
+            {
+              title: "Ethical Hacking Full Course",
+              link: "freeCodeCamp Ethical Hacking",
+              description: "15-hour complete beginner course",
+              difficulty: "medium"
+            },
+            {
+              title: "TryHackMe - Pre Security Path",
+              link: "tryhackme.com",
+              description: "Guided, hands-on practice (FREE)",
+              difficulty: "easy"
+            }
+          ]
+        },
+        {
+          title: "LEVEL 2 – INTERMEDIATE",
+          subtitle: "Real-world skills",
+          topics: [
+            "Web application penetration testing",
+            "Network scanning and exploitation",
+            "Using Burp Suite and Metasploit",
+            "Understanding OWASP Top 10",
+            "Writing basic exploit scripts",
+            "Building your own lab environment"
+          ],
+          resources: [
+            {
+              title: "TryHackMe - Complete Beginner Path",
+              link: "tryhackme.com",
+              description: "Structured learning with labs",
+              difficulty: "medium"
+            },
+            {
+              title: "HackTheBox Academy",
+              link: "hackthebox.com",
+              description: "Free modules for beginners",
+              difficulty: "medium"
+            },
+            {
+              title: "OWASP Web Security",
+              link: "YouTube - OWASP Top 10",
+              description: "Understanding common vulnerabilities",
+              difficulty: "medium"
+            }
+          ]
+        },
+        {
+          title: "LEVEL 3 – JOB PREPARATION",
+          subtitle: "Get industry-ready",
+          topics: [
+            "Advanced exploitation techniques",
+            "Writing professional penetration test reports",
+            "Understanding compliance (ISO 27001, GDPR basics)",
+            "Bug bounty hunting basics",
+            "Certifications: CEH or eJPT (beginner-friendly)",
+            "Building a portfolio (write-ups, CTF solutions)"
+          ],
+          resources: [
+            {
+              title: "Bug Bounty Hunting",
+              link: "Nahamsec YouTube Channel",
+              description: "Real bug bounty tutorials",
+              difficulty: "medium"
+            },
+            {
+              title: "Report Writing Guide",
+              link: "TCM Security Report Writing",
+              description: "How to write professional reports",
+              difficulty: "medium"
+            },
+            {
+              title: "Portfolio Building",
+              link: "Medium - Cyber Security Write-ups",
+              description: "See examples from others",
+              difficulty: "easy"
+            }
+          ]
+        }
+      ],
+      practice: [
+        "TryHackMe (tryhackme.com) - Start with FREE rooms",
+        "HackTheBox Academy - Free beginner modules",
+        "OverTheWire - Wargames for beginners",
+        "PentesterLab - Web hacking practice (some free)",
+        "VulnHub - Download vulnerable VMs to practice"
+      ],
+      careers: {
+        roles: ["Junior Penetration Tester", "Security Analyst (Red Team)", "Bug Bounty Hunter", "Security Consultant"],
+        skills: ["Penetration testing", "Vulnerability assessment", "Report writing", "Tools: Burp Suite, Nmap, Metasploit"],
+        fresher: "Focus on: Getting CEH or eJPT certification, building a GitHub with CTF write-ups, practicing on TryHackMe/HackTheBox",
+        salary: "₹3-5 LPA (fresher), ₹7-12 LPA (2-3 years experience)"
+      }
+    },
+    soc: {
+      name: "SOC Analyst (Security Operations Center)",
+      levels: [
+        {
+          title: "LEVEL 0 – ABSOLUTE BASICS",
+          subtitle: "Start from zero",
+          topics: [
+            "Computer and network basics",
+            "What is a SOC? (Security Operations Center)",
+            "Understanding security alerts",
+            "Basic Windows and Linux",
+            "How companies protect their systems",
+            "Common cyber attacks"
+          ],
+          resources: [
+            {
+              title: "What is a SOC?",
+              link: "YouTube - SOC Analyst Explained",
+              description: "Simple SOC introduction",
+              difficulty: "easy"
+            },
+            {
+              title: "Networking for Beginners",
+              link: "NetworkChuck",
+              description: "Network fundamentals",
+              difficulty: "easy"
+            }
+          ]
+        },
+        {
+          title: "LEVEL 1 – BEGINNER",
+          subtitle: "SOC foundations",
+          topics: [
+            "Reading and analyzing security logs",
+            "Understanding alerts and false positives",
+            "Basic SIEM (Security Information and Event Management)",
+            "Ticket management and documentation",
+            "Basic malware analysis",
+            "Communication skills for SOC"
+          ],
+          resources: [
+            {
+              title: "SOC Analyst Training",
+              link: "TryHackMe - SOC Level 1",
+              description: "Complete SOC training path",
+              difficulty: "easy"
+            },
+            {
+              title: "Log Analysis Basics",
+              link: "YouTube - Security Log Analysis",
+              description: "How to read logs",
+              difficulty: "easy"
+            }
+          ]
+        },
+        {
+          title: "LEVEL 2 – INTERMEDIATE",
+          subtitle: "Real SOC skills",
+          topics: [
+            "Advanced SIEM operations (Splunk, QRadar)",
+            "Threat detection and hunting",
+            "Incident escalation procedures",
+            "Understanding attack patterns",
+            "Network traffic analysis",
+            "Creating investigation reports"
+          ],
+          resources: [
+            {
+              title: "Splunk for SOC Analysts",
+              link: "Splunk Training",
+              description: "Free Splunk courses",
+              difficulty: "medium"
+            },
+            {
+              title: "LetsDefend",
+              link: "letsdefend.io",
+              description: "SOC simulation platform",
+              difficulty: "medium"
+            }
+          ]
+        },
+        {
+          title: "LEVEL 3 – JOB PREPARATION",
+          subtitle: "Career-ready",
+          topics: [
+            "Advanced threat intelligence",
+            "Automation with Python/PowerShell",
+            "Security frameworks (MITRE ATT&CK)",
+            "Certification: Security+ or CySA+",
+            "Building SOC playbooks",
+            "Mock SOC scenarios"
+          ],
+          resources: [
+            {
+              title: "MITRE ATT&CK Framework",
+              link: "attack.mitre.org",
+              description: "Understanding attack tactics",
+              difficulty: "medium"
+            },
+            {
+              title: "SOC Interview Prep",
+              link: "YouTube - SOC Analyst Interview Questions",
+              description: "Common interview questions",
+              difficulty: "easy"
+            }
+          ]
+        }
+      ],
+      practice: [
+        "LetsDefend.io - Real SOC simulations (FREE tier available)",
+        "TryHackMe - SOC Level 1 Path",
+        "Blue Team Labs Online - Investigation challenges",
+        "CyberDefenders - SOC analyst challenges",
+        "Build a home SIEM lab with Splunk Free"
+      ],
+      careers: {
+        roles: ["SOC Analyst (L1/L2)", "Security Monitoring Analyst", "Threat Detection Analyst"],
+        skills: ["SIEM tools (Splunk, QRadar)", "Log analysis", "Incident triage", "Report writing", "Basic scripting"],
+        fresher: "Focus on: Security+ certification, LetsDefend practice, building a GitHub with investigation write-ups, learning Splunk",
+        salary: "₹3-6 LPA (L1), ₹6-10 LPA (L2), ₹10-18 LPA (L3)"
+      }
+    }
+  }
+
+  const careerPaths = [
+    { id: 'cyber', emoji: '🔐', title: 'Cyber Security', desc: 'Protect systems from hackers and cyber threats', badge: true },
+    { id: 'software', emoji: '💻', title: 'Software Development', desc: 'Build software, applications, and systems', badge: true },
+    { id: 'web', emoji: '🌐', title: 'Web Development', desc: 'Create websites and web applications', badge: true },
+    { id: 'data', emoji: '📊', title: 'Data Science & AI', desc: 'Analyze data and build intelligent systems', badge: true },
+    { id: 'cloud', emoji: '☁️', title: 'Cloud & DevOps', desc: 'Manage cloud infrastructure and automation', badge: false },
+    { id: 'network', emoji: '🌐', title: 'Networking', desc: 'Design and manage computer networks', badge: true },
+    { id: 'mobile', emoji: '📱', title: 'Mobile App Development', desc: 'Build Android and iOS applications', badge: true }
+  ]
+
+  const cyberSubPaths = [
+    { id: 'redteam', emoji: '🎯', title: 'Red Team (Ethical Hacking)', desc: "Learn how hackers think – legally. You'll test systems by trying to break into them.", tags: [{ text: 'Beginner Friendly: Yes', type: 'green' }, { text: 'Coding: Medium', type: 'yellow' }] },
+    { id: 'blueteam', emoji: '🛡️', title: 'Blue Team (Defense)', desc: 'Protect systems from attacks. Monitor, detect, and respond to threats.', tags: [{ text: 'Beginner Friendly: Yes', type: 'green' }, { text: 'Coding: Low', type: 'yellow' }] },
+    { id: 'soc', emoji: '👁️', title: 'SOC Analyst', desc: 'Monitor security alerts 24/7. First line of defense against cyber attacks.', tags: [{ text: 'Beginner Friendly: Yes', type: 'green' }, { text: 'Coding: Low', type: 'green' }] },
+    { id: 'cloud-sec', emoji: '☁️', title: 'Cloud Security', desc: 'Secure AWS, Azure, and cloud systems. High demand field.', tags: [{ text: 'Beginner Friendly: Moderate', type: 'yellow' }, { text: 'Coding: Medium', type: 'yellow' }] },
+    { id: 'appsec', emoji: '🐛', title: 'Application Security', desc: 'Find and fix security bugs in apps and websites.', tags: [{ text: 'Beginner Friendly: Yes', type: 'green' }, { text: 'Coding: Medium', type: 'yellow' }] },
+    { id: 'grc', emoji: '📋', title: 'GRC (Governance, Risk, Compliance)', desc: 'Security policies and compliance. No hardcore hacking required.', tags: [{ text: 'Beginner Friendly: Yes', type: 'green' }, { text: 'Coding: Very Low', type: 'green' }] }
+  ]
+
+  const toggleLevel = (idx) => {
+    setExpandedLevels(prev => {
+      const newSet = new Set(prev)
+      if (newSet.has(idx)) {
+        newSet.delete(idx)
+      } else {
+        newSet.add(idx)
+      }
+      return newSet
+    })
+  }
+
+  const toggleCheck = (levelIdx, topicIdx) => {
+    const key = `${levelIdx}-${topicIdx}`
+    setCheckedItems(prev => ({
+      ...prev,
+      [key]: !prev[key]
+    }))
+  }
+
+  const getProgress = (levelIdx, topicsCount) => {
+    let checked = 0
+    for (let i = 0; i < topicsCount; i++) {
+      if (checkedItems[`${levelIdx}-${i}`]) checked++
+    }
+    return (checked / topicsCount) * 100
+  }
+
+  const currentRoadmap = roadmaps[selectedSubPath]
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        {!selectedPath && (
+          <>
+            <div className="bg-gradient-to-br from-purple-600 to-purple-900 text-white rounded-2xl p-12 mb-10 text-center">
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">IT Career Paths – Beginner Friendly Roadmaps</h1>
+              <p className="text-2xl italic font-light mb-4">"You don't need to know everything. Just start at the right place."</p>
+              <p className="text-lg opacity-95">No confusion. No overwhelm. Just clear steps to your IT career.</p>
+            </div>
+
+            <div className="bg-white rounded-2xl p-10 mb-10 shadow-md">
+              <h2 className="text-3xl font-bold text-purple-600 mb-6">Welcome! This Page is For You If...</h2>
+              <ul className="space-y-3">
+                {[
+                  "You're a college student (BCA, CS, IT) wondering what to learn beyond your syllabus",
+                  "You're an absolute beginner with zero technical knowledge",
+                  "You're self-learning without a mentor and feel lost",
+                  "You keep hearing tech terms but don't know where to start"
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start">
+                    <span className="text-purple-600 font-bold mr-3">✓</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-6 font-semibold text-purple-600">This page answers one simple question: "What should I learn, in what order, and from where?"</p>
+            </div>
+
+            <h2 className="text-3xl font-bold text-purple-600 mb-6">Choose Your Career Path</h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+              {careerPaths.map(path => (
+                <div
+                  key={path.id}
+                  onClick={() => {
+                    if (path.id === 'cyber') {
+                      setSelectedPath(path.id)
+                    } else {
+                      alert('This career path is coming soon! For now, explore Cyber Security to see the complete roadmap structure.')
+                    }
+                  }}
+                  className="bg-white rounded-2xl p-8 cursor-pointer transition-all hover:-translate-y-2 hover:shadow-xl border-3 border-transparent hover:border-purple-600"
+                >
+                  <h3 className="text-2xl font-bold text-purple-600 mb-3">{path.emoji} {path.title}</h3>
+                  <p className="text-gray-600 mb-4">{path.desc}</p>
+                  {path.badge && <span className="inline-block px-4 py-1 bg-green-400 text-white rounded-full text-sm font-semibold">Good for Beginners</span>}
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+
+        {selectedPath === 'cyber' && !selectedSubPath && (
+          <div className="animate-fadeIn">
+            <button
+              onClick={() => setSelectedPath(null)}
+              className="bg-purple-600 text-white px-8 py-3 rounded-lg mb-8 hover:bg-purple-700 transition"
+            >
+              ← Back to Career Paths
+            </button>
+
+            <div className="bg-purple-50 rounded-2xl p-8 mb-8 border-l-4 border-purple-600">
+              <h2 className="text-3xl font-bold text-purple-600 mb-4">What is Cyber Security?</h2>
+              <p className="mb-4"><strong>In simple words:</strong> Cyber Security is about protecting computers, networks, and data from bad people who try to steal or damage them.</p>
+              <p className="mb-4"><strong>Why does it matter?</strong> Every company, hospital, bank, and government uses computers. They all need people to protect their systems.</p>
+              <p><strong>Who should choose this?</strong> If you're curious about how hackers work, love solving puzzles, or want to be a digital protector, this is for you. You don't need to be a coding expert!</p>
+            </div>
+
+            <h2 className="text-3xl font-bold text-purple-600 mb-6">Choose Your Cyber Security Path</h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {cyberSubPaths.map(path => (
+                <div
+                  key={path.id}
+                  onClick={() => setSelectedSubPath(path.id)}
+                  className="bg-white rounded-xl p-6 cursor-pointer transition-all hover:-translate-y-1 hover:shadow-lg border-2 border-gray-200 hover:border-purple-600"
+                >
+                  <h4 className="text-xl font-bold text-purple-600 mb-3">{path.emoji} {path.title}</h4>
+                  <p className="text-gray-600 mb-4">{path.desc}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {path.tags.map((tag, i) => (
+                      <span key={i} className={`px-3 py-1 rounded-full text-xs ${tag.type === 'green' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}`}>
+                        {tag.text}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="bg-gradient-to-br from-pink-500 to-purple-600 text-white rounded-2xl p-10 mt-10">
+              <h2 className="text-3xl font-bold mb-6">📚 Special Guide: If You Are a BCA / CS Student</h2>
+              <p className="mb-6">Here's how to balance college and skill-building:</p>
+              <div className="grid md:grid-cols-3 gap-6">
+                {[
+                  { title: 'Year 1 (Sem 1-2)', items: ['Focus on college basics (C, Java, networking)', 'Start Level 0 of your chosen path', 'Build 1-2 simple projects'] },
+                  { title: 'Year 2 (Sem 3-4)', items: ['Complete Level 1 roadmap', 'Work on semester projects using new skills', 'Join tech communities'] },
+                  { title: 'Year 3 (Sem 5-6)', items: ['Complete Level 2 roadmap', 'Build portfolio projects', 'Start applying for internships', 'Consider relevant certifications'] }
+                ].map((year, i) => (
+                  <div key={i} className="bg-white/10 rounded-xl p-6 backdrop-blur">
+                    <h4 className="font-bold mb-3">{year.title}</h4>
+                    <ul className="space-y-2">
+                      {year.items.map((item, j) => (
+                        <li key={j} className="text-sm">{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+              <p className="mt-6 font-semibold">Remember: Your college degree gives you the foundation. These roadmaps give you job-ready skills. Do both!</p>
+            </div>
+          </div>
+        )}
+
+        {currentRoadmap && (
+          <div className="animate-fadeIn">
+            <button
+              onClick={() => {
+                setSelectedSubPath(null)
+                setExpandedLevels(new Set([0]))
+                setCheckedItems({})
+              }}
+              className="bg-purple-600 text-white px-8 py-3 rounded-lg mb-8 hover:bg-purple-700 transition"
+            >
+              ← Back to Cyber Security Paths
+            </button>
+
+            <h2 className="text-4xl font-bold text-purple-600 mb-4">🎯 Your Learning Roadmap: {currentRoadmap.name}</h2>
+            <p className="text-lg text-gray-600 mb-8">Follow these levels in order. Don't skip Level 0 – it's the foundation everything else builds on!</p>
+
+            <div className="space-y-6">
+              {currentRoadmap.levels.map((level, idx) => {
+                const isExpanded = expandedLevels.has(idx)
+                const progress = getProgress(idx, level.topics.length)
+                
+                return (
+                  <div key={idx} className="bg-white rounded-xl overflow-hidden border-2 border-gray-200">
+                    <div
+                      onClick={() => toggleLevel(idx)}
+                      className={`${idx === 0 ? 'bg-gradient-to-r from-orange-500 to-orange-600' : 'bg-gradient-to-r from-purple-600 to-purple-900'} text-white p-6 cursor-pointer flex justify-between items-center`}
+                    >
+                      <div>
+                        <h3 className="text-2xl font-bold">{level.title}</h3>
+                        <p className="opacity-90 mt-1">{level.subtitle}</p>
+                      </div>
+                      <span className={`text-3xl transition-transform ${isExpanded ? 'rotate-180' : ''}`}>▼</span>
+                    </div>
+
+                    {isExpanded && (
+                      <div className="p-8">
+                        <div className="h-2 bg-gray-200 rounded-full mb-6 overflow-hidden">
+                          <div className="h-full bg-gradient-to-r from-purple-600 to-purple-900 transition-all duration-500" style={{ width: `${progress}%` }} />
+                        </div>
+
+                        <h4 className="text-xl font-bold text-purple-600 mb-4">What You'll Learn:</h4>
+                        <ul className="space-y-3 mb-8">
+                          {level.topics.map((topic, tIdx) => (
+                            <li
+                              key={tIdx}
+                              onClick={() => toggleCheck(idx, tIdx)}
+                              className={`p-4 bg-gray-50 rounded-lg border-l-4 border-purple-600 cursor-pointer hover:bg-gray-100 transition ${checkedItems[`${idx}-${tIdx}`] ? 'opacity-50 line-through' : ''}`}
+                            >
+                              {topic}
+                            </li>
+                          ))}
+                        </ul>
+
+                        <h4 className="text-xl font-bold text-purple-600 mb-4">📚 Learning Resources:</h4>
+                        <div className="space-y-4">
+                          {level.resources.map((resource, rIdx) => (
+                            <div key={rIdx} className="bg-gray-50 p-6 rounded-lg border-l-4 border-purple-600">
+                              <h4 className="text-lg font-bold text-purple-600 mb-2">
+                                {resource.title}
+                                <span className={`ml-3 px-3 py-1 rounded-xl text-xs text-white ${resource.difficulty === 'easy' ? 'bg-green-400' : resource.difficulty === 'medium' ? 'bg-yellow-400' : 'bg-red-400'}`}>
+                                  {resource.difficulty.toUpperCase()}
+                                </span>
+                              </h4>
+                              <p className="text-gray-600 mb-2">{resource.description}</p>
+                              <p className="text-sm"><strong>Where to find:</strong> {resource.link}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )
+              })}
+            </div>
+
+            <div className="bg-purple-50 rounded-2xl p-8 mt-8 border-l-4 border-purple-600">
+              <h3 className="text-2xl font-bold text-purple-600 mb-6">🎮 Practice Platforms</h3>
+              <p className="mb-4">Start practicing after completing Level 1. These platforms help you apply what you learned:</p>
+              <ul className="space-y-3">
+                {currentRoadmap.practice.map((platform, i) => (
+                  <li key={i} className="p-4 bg-white rounded-lg">{platform}</li>
+                ))}
+              </ul>
+              <p className="mt-6 font-semibold text-purple-600">💡 Tip: Don't just watch tutorials. Practice makes perfect!</p>
+            </div>
+
+            <div className="bg-gradient-to-br from-purple-600 to-purple-900 text-white rounded-2xl p-8 mt-8">
+              <h3 className="text-2xl font-bold mb-6">💼 Career Information</h3>
+              <div className="grid md:grid-cols-2 gap-6 mb-6">
+                <div>
+                  <h4 className="font-bold mb-3">Entry-Level Roles:</h4>
+                  <ul className="space-y-2">
+                    {currentRoadmap.careers.roles.map((role, i) => (
+                      <li key={i}>• {role}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-bold mb-3">Key Skills Needed:</h4>
+                  <ul className="space-y-2">
+                    {currentRoadmap.careers.skills.map((skill, i) => (
+                      <li key={i}>• {skill}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              <div className="bg-white/10 rounded-xl p-6 backdrop-blur mb-4">
+                <h4 className="font-bold mb-3">🎯 What to Focus on as a Fresher:</h4>
+                <p>{currentRoadmap.careers.fresher}</p>
+              </div>
+              <div className="bg-white/10 rounded-xl p-6 backdrop-blur">
+                <p><strong>Expected Salary (India):</strong> {currentRoadmap.careers.salary}</p>
+                <p className="text-sm opacity-90 mt-2">Note: Salary varies by location, company, and skills</p>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+# IT Career Paths – Beginner Friendly Roadmaps
+
+<CareerPathsApp />
+
+## How to Use This Guide
+
+This interactive roadmap helps you navigate your IT career journey. Simply:
+
+1. **Choose a career path** that interests you
+2. **Select a specialization** within that path
+3. **Follow the levels** from 0 to 3 in order
+4. **Check off topics** as you learn them
+5. **Use the resources** provided for each level
+
+Remember: Everyone starts at Level 0. There's no shame in being a beginner – we all were once!
+
+---
+
+## Why These Roadmaps Work
+
+Unlike random tutorials on YouTube or generic advice, these roadmaps:
+
+- **Start from absolute zero** – no prerequisites needed
+- **Follow a logical order** – each level builds on the previous
+- **Include only free/cheap resources** – no expensive courses required
+- **Focus on job-ready skills** – what companies actually want
+- **Provide practice platforms** – because learning by doing works best
+
+---
+
+## Important Notes
+
+### For College Students
+
+Your college curriculum gives you theoretical knowledge. These roadmaps give you practical skills. You need both to succeed in the IT industry.
+
+### For Self-Learners
+
+Don't try to learn everything at once. Pick one path, follow it consistently, and complete at least Level 1 before exploring other areas.
+
+### For Career Switchers
+
+IT welcomes people from all backgrounds. The key is showing you can do the work – build projects, earn certifications, and demonstrate your skills.
+
+---
+
+## Community & Support
+
+Join online communities on:
+- Reddit (r/cybersecurity, r/learnprogramming)
+- Discord servers for specific technologies
+- LinkedIn groups in your area of interest
+
+Remember: The IT community is generally helpful. Don't hesitate to ask questions!
+
+---
+
+*Last Updated: January 2026*

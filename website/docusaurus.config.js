@@ -133,6 +133,8 @@ const config = {
           },
           { to: '/news', label: 'News', position: 'left' },
           { to: '/blog', label: 'Blog', position: 'left' },
+          { to: '/take-path', label: 'Career Paths', position: 'left' },
+
           {
             href: 'https://github.com/shivansh-bind',
             label: 'GitHub',

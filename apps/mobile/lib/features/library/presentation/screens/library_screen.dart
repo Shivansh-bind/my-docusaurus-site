@@ -88,8 +88,8 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
     final file = File(filePath);
 
     if (file.existsSync()) {
-      final uri = Uri.file(filePath);
-      _webController!.loadRequest(uri);
+      // Use loadFile instead of loadRequest for local file access on Android
+      _webController!.loadFile(filePath);
     } else {
       // Fallback: show error
       debugPrint('File not found: $filePath');

@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkmy_docusaurus_site=self.webpackChunkmy_docusaurus_site||[]).push([[2635],{2763(e){e.exports=JSON.parse('{"title":"News","items":[{"title":"Changelog & Features","permalink":"/news/2026/01/10/changelog-features","unlisted":false,"date":"2026-01-10T00:00:00.000Z"}]}')}}]);

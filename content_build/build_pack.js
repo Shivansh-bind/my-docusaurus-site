@@ -153,10 +153,7 @@ function validateOutput(manifest) {
         }
     }
 
-    // Check assets directory exists
-    if (!fs.existsSync(CONTENT_ASSETS_DIR)) {
-        errors.push('Assets directory not found');
-    }
+    // Note: Assets are bundled with the app, not the content pack
 
     if (errors.length > 0) {
         console.log('❌ Validation failed:');
@@ -236,10 +233,7 @@ async function buildPack(options = {}) {
         console.log('\n🏠 Generating hub pages...');
         const hubResult = generateHubs();
 
-        // Step 6: Copy assets
-        copyAssets();
-
-        // Step 6: Validate
+        // Step 6: Validate (assets bundled with app, not pack)
         const isValid = validateOutput(manifest);
         if (!isValid) {
             throw new Error('Validation failed');

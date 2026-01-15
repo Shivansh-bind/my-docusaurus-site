@@ -120,26 +120,29 @@ class ContentManifest {
 class DocEntry {
   DocEntry({
     required this.title,
-    required this.type,
+    required this.category,
     required this.html,
     this.semester = 0,
     this.subject,
     this.order = 0,
     this.unit,
+    this.isHub = false,
   });
 
   final String title;
-  final String type; // 'index', 'unit', 'doc', 'handout', 'notes', 'pyq'
+  final String
+      category; // 'unit', 'handout', 'notes', 'notesIndex', 'assignments', etc.
   final String html; // relative path: "docs/<docId>.html"
   final int semester;
   final String? subject;
   final int order;
-  final UnitInfo? unit; // For unit docs
+  final int? unit; // Unit number for unit docs
+  final bool isHub; // Whether this is a hub/index page
 
   factory DocEntry.fromJson(Map<String, dynamic> json) {
     return DocEntry(
       title: (json['title'] ?? '').toString(),
-      type: (json['type'] ?? 'doc').toString(),
+      category: (json['category'] ?? json['type'] ?? 'content').toString(),
       html: (json['html'] ?? '').toString(),
       semester: (json['semester'] ?? 0) is int
           ? json['semester'] as int
@@ -148,20 +151,20 @@ class DocEntry {
       order: (json['order'] ?? 0) is int
           ? json['order'] as int
           : int.tryParse((json['order'] ?? '0').toString()) ?? 0,
-      unit: json['unit'] != null
-          ? UnitInfo.fromJson(json['unit'] as Map<String, dynamic>)
-          : null,
+      unit: json['unit'] is int ? json['unit'] as int : null,
+      isHub: json['isHub'] == true,
     );
   }
 
   Map<String, dynamic> toJson() => {
         'title': title,
-        'type': type,
+        'category': category,
         'html': html,
         'semester': semester,
         if (subject != null) 'subject': subject,
         'order': order,
-        if (unit != null) 'unit': unit!.toJson(),
+        if (unit != null) 'unit': unit,
+        if (isHub) 'isHub': isHub,
       };
 }
 
@@ -293,24 +296,32 @@ class Backlink {
 // Legacy models (kept for backward compatibility)
 // ============================================================================
 
-/// Legacy tree node (use SidebarNode for new code)
+/// Navigation tree node with hubDocId support (Automation Level 2)
 class TreeNode {
   TreeNode({
     required this.id,
     required this.title,
     this.docId,
+    this.hubDocId,
     this.type,
     this.items = const [],
   });
 
   final String id;
   final String title;
-  final String? docId;
-  final String? type;
+  final String? docId; // Only for leaf nodes
+  final String? hubDocId; // For parent nodes - opens this doc on tap
+  final String? type; // 'semester', 'subject', 'folder', 'leaf'
   final List<TreeNode> items;
 
-  bool get isLeaf => docId != null;
-  bool get isBranch => items.isNotEmpty;
+  /// Whether this is a leaf node (has docId, opens doc directly)
+  bool get isLeaf => docId != null && items.isEmpty;
+
+  /// Whether this is a parent node (has children or hubDocId)
+  bool get isParent => items.isNotEmpty || hubDocId != null;
+
+  /// Get the docId to open (hubDocId for parents, docId for leaves)
+  String? get openDocId => docId ?? hubDocId;
 
   factory TreeNode.fromJson(Map<String, dynamic> json) {
     final itemsJson = json['items'] as List<dynamic>? ?? [];
@@ -318,6 +329,7 @@ class TreeNode {
       id: (json['id'] ?? json['docId'] ?? '').toString(),
       title: (json['title'] ?? '').toString(),
       docId: json['docId']?.toString(),
+      hubDocId: json['hubDocId']?.toString(),
       type: json['type']?.toString(),
       items: itemsJson
           .map((e) => TreeNode.fromJson(e as Map<String, dynamic>))
@@ -328,6 +340,7 @@ class TreeNode {
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{'id': id, 'title': title};
     if (docId != null) map['docId'] = docId;
+    if (hubDocId != null) map['hubDocId'] = hubDocId;
     if (type != null) map['type'] = type;
     if (items.isNotEmpty) {
       map['items'] = items.map((e) => e.toJson()).toList();

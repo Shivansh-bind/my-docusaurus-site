@@ -99,12 +99,101 @@ class LibraryScreen extends ConsumerWidget {
   }
 
   Widget _buildNavigation(BuildContext context, ContentManifest manifest) {
-    // Use sidebarTree if available (v2.1), otherwise fall back to legacy tree
-    if (manifest.hasNewFormat && manifest.sidebarTree.isNotEmpty) {
+    // Automation Level 2: Use tree with hubDocId support
+    if (manifest.tree.isNotEmpty) {
+      return _buildTree(context, manifest.tree, manifest);
+    } else if (manifest.sidebarTree.isNotEmpty) {
+      // Fallback to sidebarTree if no tree
       return _buildSidebarTree(context, manifest.sidebarTree, manifest);
     } else {
-      // Fallback for old manifest format
-      return _buildLegacyTree(context, manifest.tree, manifest);
+      // Last resort: build from docs map
+      return _buildFromDocs(context, manifest);
+    }
+  }
+
+  /// Build navigation from tree with hubDocId support
+  Widget _buildTree(
+    BuildContext context,
+    List<TreeNode> nodes,
+    ContentManifest manifest,
+  ) {
+    return ListView.builder(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      itemCount: nodes.length,
+      itemBuilder: (context, index) {
+        return _buildTreeNode(context, nodes[index], manifest, 0);
+      },
+    );
+  }
+
+  Widget _buildTreeNode(
+    BuildContext context,
+    TreeNode node,
+    ContentManifest manifest,
+    int depth,
+  ) {
+    final hasChildren = node.items.isNotEmpty;
+    final hasHubDocId = node.hubDocId != null;
+    final hasDocId = node.docId != null;
+    IconData icon = _getNodeIcon(node.title);
+
+    // Parent node with hubDocId: tap opens hub, can also expand children
+    if (hasChildren && hasHubDocId) {
+      return ExpansionTile(
+        leading: GestureDetector(
+          onTap: () => _openDoc(context, node.hubDocId!),
+          child: Icon(icon, color: Theme.of(context).colorScheme.primary),
+        ),
+        title: GestureDetector(
+          onTap: () => _openDoc(context, node.hubDocId!),
+          child: Text(
+            node.title,
+            style: TextStyle(
+              fontWeight: depth == 0 ? FontWeight.bold : FontWeight.w500,
+            ),
+          ),
+        ),
+        trailing: const Icon(Icons.expand_more),
+        initiallyExpanded:
+            false, // Don't expand by default, user should tap to open hub
+        children: node.items
+            .map((child) => _buildTreeNode(context, child, manifest, depth + 1))
+            .toList(),
+      );
+    }
+    // Parent node without hubDocId: just expand
+    else if (hasChildren) {
+      return ExpansionTile(
+        leading: Icon(icon, color: Theme.of(context).colorScheme.primary),
+        title: Text(
+          node.title,
+          style: TextStyle(
+            fontWeight: depth == 0 ? FontWeight.bold : FontWeight.w500,
+          ),
+        ),
+        initiallyExpanded: depth == 0,
+        children: node.items
+            .map((child) => _buildTreeNode(context, child, manifest, depth + 1))
+            .toList(),
+      );
+    }
+    // Leaf node with docId
+    else if (hasDocId) {
+      return ListTile(
+        leading: Icon(icon, size: 20),
+        title: Text(node.title),
+        contentPadding: EdgeInsets.only(left: 16.0 + (depth * 16.0), right: 16),
+        trailing: const Icon(Icons.chevron_right, size: 20),
+        onTap: () => _openDoc(context, node.docId!),
+      );
+    }
+    // Fallback: just display
+    else {
+      return ListTile(
+        leading: Icon(icon),
+        title: Text(node.title),
+        contentPadding: EdgeInsets.only(left: 16.0 + (depth * 16.0), right: 16),
+      );
     }
   }
 
@@ -162,7 +251,7 @@ class LibraryScreen extends ConsumerWidget {
         leading: Icon(icon, size: 20),
         title: Text(node.title),
         subtitle: doc != null
-            ? Text(doc.type, style: const TextStyle(fontSize: 12))
+            ? Text(doc.category, style: const TextStyle(fontSize: 12))
             : null,
         contentPadding: EdgeInsets.only(left: 16.0 + (depth * 16.0), right: 16),
         onTap: () => _openDoc(context, node.docId!),
@@ -177,68 +266,7 @@ class LibraryScreen extends ConsumerWidget {
     }
   }
 
-  /// Build navigation from legacy tree (backward compatibility)
-  Widget _buildLegacyTree(
-    BuildContext context,
-    List<TreeNode> nodes,
-    ContentManifest manifest,
-  ) {
-    if (nodes.isEmpty) {
-      // Build from docs map if no tree
-      return _buildFromDocs(context, manifest);
-    }
-
-    return ListView.builder(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      itemCount: nodes.length,
-      itemBuilder: (context, index) {
-        return _buildLegacyNode(context, nodes[index], manifest, 0);
-      },
-    );
-  }
-
-  Widget _buildLegacyNode(
-    BuildContext context,
-    TreeNode node,
-    ContentManifest manifest,
-    int depth,
-  ) {
-    final hasChildren = node.items.isNotEmpty;
-    final hasDocId = node.docId != null;
-    IconData icon = _getNodeIcon(node.title);
-
-    if (hasChildren) {
-      return ExpansionTile(
-        leading: Icon(icon, color: Theme.of(context).colorScheme.primary),
-        title: Text(
-          node.title,
-          style: TextStyle(
-            fontWeight: depth == 0 ? FontWeight.bold : FontWeight.w500,
-          ),
-        ),
-        initiallyExpanded: depth == 0,
-        children: node.items
-            .map((child) =>
-                _buildLegacyNode(context, child, manifest, depth + 1))
-            .toList(),
-      );
-    } else if (hasDocId) {
-      return ListTile(
-        leading: Icon(icon, size: 20),
-        title: Text(node.title),
-        contentPadding: EdgeInsets.only(left: 16.0 + (depth * 16.0), right: 16),
-        onTap: () => _openDoc(context, node.docId!),
-      );
-    } else {
-      return ListTile(
-        leading: Icon(icon),
-        title: Text(node.title),
-        contentPadding: EdgeInsets.only(left: 16.0 + (depth * 16.0), right: 16),
-      );
-    }
-  }
-
-  /// Fallback: Build from docs map (for old manifests without tree)
+  /// Fallback: Build from docs map
   Widget _buildFromDocs(BuildContext context, ContentManifest manifest) {
     final docs = manifest.docs.entries.toList()
       ..sort((a, b) => a.key.compareTo(b.key));

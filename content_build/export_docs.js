@@ -520,15 +520,18 @@ async function exportDocs() {
         }
     }
     
-    // Update registry
+    // Update registry with enhanced categorization
     const updatedRegistry = {};
     for (const [docId, info] of Object.entries(exported)) {
+        const meta = extractDocMeta(docId, info.source);
         updatedRegistry[docId] = {
-            title: docId.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
-            semester: docId.includes('semester_1') ? 1 : docId.includes('semester_2') ? 2 : 0,
-            subject: extractSubject(docId),
-            type: extractType(docId),
-            order: 0,
+            title: meta.title,
+            semester: meta.semester,
+            subject: meta.subject,
+            category: meta.category,
+            unit: meta.unit,
+            isHub: meta.isHub,
+            order: meta.order,
             source: info.source
         };
     }
@@ -543,20 +546,130 @@ async function exportDocs() {
     return { successCount, failCount, errors: [] };
 }
 
-function extractSubject(docId) {
+/**
+ * Extract enhanced metadata from docId and source path
+ */
+function extractDocMeta(docId, source) {
+    const lowerDocId = docId.toLowerCase();
+    const lowerSource = source.toLowerCase().replace(/\\/g, '/');
+    
+    // Extract semester
+    let semester = 0;
+    const semMatch = lowerDocId.match(/semester_?(\d+)/);
+    if (semMatch) semester = parseInt(semMatch[1], 10);
+    
+    // Extract subject name
+    let subject = extractSubjectName(docId, source);
+    
+    // Determine category and isHub
+    let category = 'content';
+    let isHub = false;
+    let unit = null;
+    let order = 0;
+    
+    // Check for unit pages first (most specific)
+    const unitMatch = lowerDocId.match(/unit[_-]?(\d+)/i) || lowerSource.match(/unit[_-]?(\d+)/i);
+    if (unitMatch) {
+        category = 'unit';
+        unit = parseInt(unitMatch[1], 10);
+        order = unit;
+    }
+    // Check for handout
+    else if (lowerDocId.includes('handout') || lowerSource.includes('/handout')) {
+        category = 'handout';
+        order = 1;
+    }
+    // Check for notes index (not a unit page)
+    else if (lowerDocId.includes('notes')) {
+        if (lowerSource.endsWith('/index.html') || lowerDocId.endsWith('_notes')) {
+            category = 'notesIndex';
+            isHub = true;
+            order = 2;
+        } else {
+            category = 'notes';
+            order = 2;
+        }
+    }
+    // Check for assignments
+    else if (lowerDocId.includes('assignment') || lowerSource.includes('/assignment')) {
+        category = 'assignments';
+        order = 3;
+    }
+    // Check for misc
+    else if (lowerDocId.includes('misc') || lowerSource.includes('/misc')) {
+        category = 'misc';
+        order = 4;
+    }
+    // Check for PYQ
+    else if (lowerDocId.includes('pyq') || lowerSource.includes('/pyq')) {
+        category = 'pyq';
+        order = 5;
+    }
+    // Check for projects
+    else if (lowerDocId.includes('project') || lowerSource.includes('/project')) {
+        category = 'projects';
+        order = 6;
+    }
+    // Check for subject index
+    else if (isSubjectIndex(lowerDocId, lowerSource)) {
+        category = 'subjectIndex';
+        isHub = true;
+        order = 0;
+    }
+    // Check for semester index
+    else if (isSemesterIndex(lowerDocId, lowerSource)) {
+        category = 'semesterIndex';
+        isHub = true;
+        order = 0;
+    }
+    
+    // Generate title
+    const title = generateTitle(docId, category, unit, subject);
+    
+    return { title, semester, subject, category, unit, isHub, order };
+}
+
+function isSubjectIndex(docId, source) {
     const parts = docId.split('_');
-    if (parts.length >= 2) {
-        return parts.slice(1, -1).join(' ').replace(/\b\w/g, c => c.toUpperCase());
+    if (parts.length === 3 && parts[0] === 'semester' && !isNaN(parseInt(parts[1]))) {
+        return true;
+    }
+    if (source.match(/semester[_\s]?\d+\/[^/]+\/index\.html$/i)) {
+        return true;
+    }
+    return false;
+}
+
+function isSemesterIndex(docId, source) {
+    return docId.match(/^semester_?\d+$/i) || source.match(/semester[_\s]?\d+\/index\.html$/i);
+}
+
+function extractSubjectName(docId, source) {
+    const pathMatch = source.replace(/\\/g, '/').match(/semester[_\s]?\d+\/([^/]+)/i);
+    if (pathMatch) {
+        return pathMatch[1].replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+    }
+    const parts = docId.split('_');
+    if (parts.length >= 3 && parts[0] === 'semester') {
+        return parts[2].replace(/\b\w/g, c => c.toUpperCase());
     }
     return 'General';
 }
 
-function extractType(docId) {
-    if (docId.includes('handout')) return 'handout';
-    if (docId.includes('notes')) return 'notes';
-    if (docId.includes('pyq')) return 'pyq';
-    if (docId.includes('index')) return 'index';
-    return 'content';
+function generateTitle(docId, category, unit, subject) {
+    if (category === 'unit' && unit) {
+        return `Unit ${unit}`;
+    }
+    if (category === 'handout') return 'Handout';
+    if (category === 'notesIndex') return 'Notes';
+    if (category === 'assignments') return 'Assignments';
+    if (category === 'misc') return 'Misc';
+    if (category === 'pyq') return 'PYQ';
+    if (category === 'projects') return 'Projects';
+    if (category === 'subjectIndex' && subject) return subject;
+    
+    return docId.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
+        .replace(/Pyq/g, 'PYQ').replace(/Cfoa/g, 'CFOA').replace(/Dld/g, 'DLD');
 }
 
 // Run if called directly

@@ -22,6 +22,7 @@ const archiver = require('archiver');
 // Import other modules
 const { exportDocs } = require('./export_docs');
 const { generateManifest } = require('./generate_manifest');
+const { generateHubs } = require('./generate_hubs');
 
 // Paths
 const REPO_ROOT = path.resolve(__dirname, '..');
@@ -231,7 +232,11 @@ async function buildPack(options = {}) {
         console.log('\n📋 Generating manifest...');
         const manifest = generateManifest();
 
-        // Step 5: Copy assets
+        // Step 5: Generate hub pages
+        console.log('\n🏠 Generating hub pages...');
+        const hubResult = generateHubs();
+
+        // Step 6: Copy assets
         copyAssets();
 
         // Step 6: Validate

@@ -3,10 +3,10 @@
  * 
  * Generates the index.json manifest for the content pack with:
  * - docs: all document metadata
- * - sidebarTree: minimal sidebar navigation (essentials only)
- * - indexGraph: deep navigation structure (index → children)
+ * - tree: navigation tree with hubDocId for parent nodes
  * - relations.nextPrev: prev/next/up for sequential docs
- * - backlinksGraph: manual curated links (optional)
+ * 
+ * Automation Level 2: Parent nodes have hubDocId, index pages hidden from nav
  * 
  * Usage: node generate_manifest.js
  */
@@ -31,258 +31,183 @@ function loadRegistry() {
 }
 
 /**
- * Detect doc type from docId and path
- */
-function detectDocType(docId, source) {
-    const lowerDocId = docId.toLowerCase();
-    const lowerSource = source.toLowerCase();
-    
-    // Check if it's an index page
-    if (lowerDocId.endsWith('_index') || 
-        lowerSource.match(/semester_?\d+[\\\/]index\.html$/i) ||
-        lowerSource.match(/[\\\/]index\.html$/)) {
-        return 'index';
-    }
-    
-    // Check for units (unit1, unit2, etc.)
-    if (lowerDocId.match(/unit\d+$/) || lowerDocId.match(/_u\d+$/)) {
-        return 'unit';
-    }
-    
-    // Check for specific types
-    if (lowerDocId.includes('handout')) return 'handout';
-    if (lowerDocId.includes('pyq')) return 'pyq';
-    if (lowerDocId.includes('notes')) return 'notes';
-    if (lowerDocId.includes('assignment')) return 'assignments';
-    if (lowerDocId.includes('project')) return 'projects';
-    
-    return 'doc';
-}
-
-/**
- * Extract semester number from docId
- */
-function extractSemester(docId) {
-    const match = docId.match(/semester_?(\d+)/i);
-    return match ? parseInt(match[1], 10) : 0;
-}
-
-/**
- * Extract subject name from docId
- */
-function extractSubject(docId) {
-    // Pattern: semester_X_SUBJECT_...
-    const parts = docId.split('_');
-    if (parts.length >= 3 && parts[0] === 'semester') {
-        return parts[2]; // e.g., "c" from "semester_1_c_programming"
-    }
-    return null;
-}
-
-/**
- * Build docs map with enhanced metadata
+ * Build docs map from registry
  */
 function buildDocsMap(registry) {
     const docs = {};
     
     for (const [docId, meta] of Object.entries(registry)) {
-        const type = detectDocType(docId, meta.source);
-        const semester = extractSemester(docId);
-        
         docs[docId] = {
             title: meta.title || docId.replace(/_/g, ' '),
-            type,
+            category: meta.category || 'content',
             html: `docs/${docId}.html`,
-            semester,
+            semester: meta.semester || 0,
+            subject: meta.subject || 'General',
+            unit: meta.unit || null,
+            isHub: meta.isHub || false,
+            order: meta.order || 0
         };
-        
-        // Add unit metadata for unit docs
-        if (type === 'unit') {
-            const unitMatch = docId.match(/unit(\d+)/i) || docId.match(/_u(\d+)$/);
-            if (unitMatch) {
-                const courseMatch = docId.match(/^(.+?)_notes_unit/i) || docId.match(/^(.+?)_u\d+$/);
-                docs[docId].unit = {
-                    course: courseMatch ? courseMatch[1] : docId.split('_').slice(0, -1).join('_'),
-                    number: parseInt(unitMatch[1], 10)
-                };
-            }
-        }
     }
     
     return docs;
 }
 
 /**
- * Build sidebar tree (minimal - essentials only)
- * Structure: Semester → Subject → (Handout, Notes, PYQ)
+ * Build navigation tree with hubDocId for parent nodes
+ * Index pages are NOT shown as leaf items
  */
-function buildSidebarTree(docs) {
+function buildNavigationTree(registry) {
     const semesters = {};
     
-    for (const [docId, meta] of Object.entries(docs)) {
+    // Group by semester and subject
+    for (const [docId, meta] of Object.entries(registry)) {
         const semester = meta.semester;
-        if (!semester) continue;
+        if (!semester || semester === 0) continue;
         
-        // Only include essential entry points
-        const type = meta.type;
-        if (!['index', 'handout', 'notes', 'pyq', 'assignments', 'projects'].includes(type)) {
-            continue;
-        }
-        
-        // Skip unit docs in sidebar
-        if (type === 'unit') continue;
-        
-        // Extract subject from docId
-        const parts = docId.split('_');
-        if (parts.length < 3) continue;
-        
-        let subject = null;
-        // Pattern: semester_X_SUBJECT_...
-        if (parts[0] === 'semester' && !isNaN(parseInt(parts[1]))) {
-            subject = parts[2];
-        }
-        if (!subject) continue;
+        const subject = meta.subject;
+        if (!subject || subject === 'General') continue;
         
         // Initialize semester
         if (!semesters[semester]) {
             semesters[semester] = {
-                id: `sem${semester}`,
-                title: `Semester ${semester}`,
-                items: {}
+                subjects: {}
             };
         }
         
         // Initialize subject
-        if (!semesters[semester].items[subject]) {
-            semesters[semester].items[subject] = {
-                id: `s${semester}_${subject}`,
-                title: formatTitle(subject),
-                items: []
+        if (!semesters[semester].subjects[subject]) {
+            semesters[semester].subjects[subject] = {
+                docs: []
             };
         }
         
-        // Add essential items (not index pages - those are entry points)
-        if (type === 'index' && docId.match(/semester_\d+_[^_]+$/)) {
-            // Subject index - make this the link for the subject
-            semesters[semester].items[subject].docId = docId;
-        } else if (['handout', 'notes', 'pyq', 'assignments', 'projects'].includes(type)) {
-            semesters[semester].items[subject].items.push({
-                id: docId,
-                title: formatTitle(type),
-                docId: docId
-            });
-        }
+        semesters[semester].subjects[subject].docs.push({
+            docId,
+            ...meta
+        });
     }
     
-    // Convert to array format
-    return Object.values(semesters)
-        .sort((a, b) => parseInt(a.id.replace('sem', '')) - parseInt(b.id.replace('sem', '')))
-        .map(sem => ({
-            id: sem.id,
-            title: sem.title,
-            items: Object.values(sem.items)
-                .map(subj => ({
-                    id: subj.id,
-                    title: subj.title,
-                    docId: subj.docId,
-                    items: subj.items.length > 0 ? subj.items : undefined
-                }))
-        }));
-}
-
-/**
- * Build index graph (deep navigation)
- * Maps: indexDocId → [childDocIds]
- */
-function buildIndexGraph(docs, registry) {
-    const graph = {};
+    // Build tree structure
+    const tree = [];
     
-    for (const [docId, meta] of Object.entries(docs)) {
-        if (meta.type !== 'index') continue;
+    for (const [semester, semData] of Object.entries(semesters).sort((a, b) => a[0] - b[0])) {
+        const semSlug = `s${semester}`;
+        const semHubId = `${semSlug}_hub`;
         
-        // Find children based on path hierarchy
-        const children = findChildren(docId, docs, registry);
-        if (children.length > 0) {
-            graph[docId] = children;
-        }
-    }
-    
-    return graph;
-}
-
-/**
- * Find children of an index document
- */
-function findChildren(indexDocId, docs, registry) {
-    const children = [];
-    const indexPath = registry[indexDocId]?.source || '';
-    const indexDir = path.dirname(indexPath).replace(/\\/g, '/');
-    
-    for (const [docId, meta] of Object.entries(registry)) {
-        if (docId === indexDocId) continue;
+        const semesterNode = {
+            id: semSlug,
+            title: `Semester ${semester}`,
+            type: 'semester',
+            hubDocId: semHubId,
+            items: []
+        };
         
-        const docPath = path.dirname(meta.source).replace(/\\/g, '/');
-        
-        // Direct children: parent dir matches and not deeper
-        if (docPath.startsWith(indexDir + '/')) {
-            const remaining = docPath.substring(indexDir.length + 1);
-            const depth = remaining.split('/').filter(p => p).length;
+        for (const [subject, subjData] of Object.entries(semData.subjects)) {
+            const subjSlug = subject.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '');
+            const subjHubId = `${semSlug}_${subjSlug}_hub`;
+            const notesHubId = `${semSlug}_${subjSlug}_notes_hub`;
             
-            // Only immediate children (depth 0 or 1 for index pages)
-            if (depth <= 1) {
-                children.push(docId);
+            const subjectNode = {
+                id: `${semSlug}_${subjSlug}`,
+                title: subject,
+                type: 'subject',
+                hubDocId: subjHubId,
+                items: []
+            };
+            
+            // Group docs by category
+            const unitDocs = subjData.docs.filter(d => d.category === 'unit').sort((a, b) => (a.unit || 0) - (b.unit || 0));
+            const hasUnits = unitDocs.length > 0;
+            
+            // Add leaf items (NOT index pages, NOT units directly - units go through notes hub)
+            const leafCategories = ['handout', 'assignments', 'misc', 'pyq', 'projects'];
+            
+            for (const doc of subjData.docs) {
+                if (leafCategories.includes(doc.category)) {
+                    subjectNode.items.push({
+                        id: doc.docId,
+                        title: doc.title,
+                        type: 'leaf',
+                        docId: doc.docId
+                    });
+                }
+            }
+            
+            // Add Notes folder with units (if units exist)
+            if (hasUnits) {
+                const notesFolder = {
+                    id: `${semSlug}_${subjSlug}_notes`,
+                    title: 'Notes',
+                    type: 'folder',
+                    hubDocId: notesHubId,
+                    items: unitDocs.map(doc => ({
+                        id: doc.docId,
+                        title: doc.title,
+                        type: 'leaf',
+                        docId: doc.docId
+                    }))
+                };
+                subjectNode.items.unshift(notesFolder); // Notes first
+            }
+            
+            // Sort items: Notes first, then by order
+            subjectNode.items.sort((a, b) => {
+                if (a.type === 'folder' && b.type !== 'folder') return -1;
+                if (b.type === 'folder' && a.type !== 'folder') return 1;
+                return 0;
+            });
+            
+            if (subjectNode.items.length > 0 || hasUnits) {
+                semesterNode.items.push(subjectNode);
             }
         }
+        
+        if (semesterNode.items.length > 0) {
+            tree.push(semesterNode);
+        }
     }
     
-    // Sort children
-    return children.sort((a, b) => {
-        // Units should be sorted by number
-        const aUnit = a.match(/unit(\d+)/i);
-        const bUnit = b.match(/unit(\d+)/i);
-        if (aUnit && bUnit) {
-            return parseInt(aUnit[1]) - parseInt(bUnit[1]);
-        }
-        return a.localeCompare(b);
-    });
+    return tree;
 }
 
 /**
  * Build relations (prev/next/up for units)
  */
-function buildRelations(docs) {
+function buildRelations(registry) {
     const nextPrev = {};
-    
-    // Group units by course
     const courseUnits = {};
     
-    for (const [docId, meta] of Object.entries(docs)) {
-        if (meta.type !== 'unit' || !meta.unit) continue;
+    for (const [docId, meta] of Object.entries(registry)) {
+        if (meta.category !== 'unit' || !meta.unit) continue;
         
-        const course = meta.unit.course;
+        // Extract course key from docId
+        const courseMatch = docId.match(/^(s\d+_[^_]+)/i);
+        const course = courseMatch ? courseMatch[1] : meta.subject;
+        
         if (!courseUnits[course]) {
             courseUnits[course] = [];
         }
+        
         courseUnits[course].push({
             docId,
-            number: meta.unit.number
+            number: meta.unit,
+            semester: meta.semester,
+            subject: meta.subject
         });
     }
     
-    // Generate prev/next/up for each course
     for (const [course, units] of Object.entries(courseUnits)) {
-        // Sort by unit number
         units.sort((a, b) => a.number - b.number);
         
-        // Find the notes index for this course
-        const notesIndex = findNotesIndex(course, docs);
+        // Find notes hub for this course
+        const notesHub = findNotesHub(course, registry);
         
         for (let i = 0; i < units.length; i++) {
             const unit = units[i];
             nextPrev[unit.docId] = {
                 prev: i > 0 ? units[i - 1].docId : null,
                 next: i < units.length - 1 ? units[i + 1].docId : null,
-                up: notesIndex
+                up: notesHub
             };
         }
     }
@@ -291,42 +216,24 @@ function buildRelations(docs) {
 }
 
 /**
- * Find notes index for a course
+ * Find notes hub for a course
  */
-function findNotesIndex(course, docs) {
-    // Try to find: course_notes or course_notes_index
-    const candidates = [
-        `${course}_notes`,
-        `${course}_notes_index`,
-        course.replace(/_[^_]+$/, '_notes')
-    ];
-    
-    for (const candidate of candidates) {
-        if (docs[candidate]) {
-            return candidate;
-        }
+function findNotesHub(course, registry) {
+    // Look for generated notes hub
+    const notesHubId = `${course}_notes_hub`;
+    if (registry[notesHubId]) {
+        return notesHubId;
     }
     
-    // Fallback: find any notes index that starts with course
-    for (const docId of Object.keys(docs)) {
-        if (docId.startsWith(course) && docId.includes('notes') && !docId.match(/unit\d+/i)) {
+    // Look for notes index
+    for (const [docId, meta] of Object.entries(registry)) {
+        if (docId.startsWith(course) && 
+            (meta.category === 'notesIndex' || meta.category === 'notesHub')) {
             return docId;
         }
     }
     
     return null;
-}
-
-/**
- * Format title from slug
- */
-function formatTitle(slug) {
-    return slug
-        .replace(/_/g, ' ')
-        .replace(/\b\w/g, c => c.toUpperCase())
-        .replace(/Pyq/g, 'PYQ')
-        .replace(/Cfoa/g, 'CFOA')
-        .replace(/Dld/g, 'DLD');
 }
 
 /**
@@ -342,16 +249,12 @@ function generateManifest() {
     const docs = buildDocsMap(registry);
     console.log(`📄 Built docs map with ${Object.keys(docs).length} entries`);
     
-    // Build sidebar tree
-    const sidebarTree = buildSidebarTree(docs);
-    console.log(`📂 Built sidebar tree with ${sidebarTree.length} semesters`);
-    
-    // Build index graph
-    const indexGraph = buildIndexGraph(docs, registry);
-    console.log(`🔗 Built index graph with ${Object.keys(indexGraph).length} index pages`);
+    // Build navigation tree
+    const tree = buildNavigationTree(registry);
+    console.log(`🌲 Built navigation tree with ${tree.length} semesters`);
     
     // Build relations
-    const relations = buildRelations(docs);
+    const relations = buildRelations(registry);
     console.log(`↔️  Built relations for ${Object.keys(relations.nextPrev).length} units`);
     
     // Generate pack version from date
@@ -363,13 +266,11 @@ function generateManifest() {
         packVersion,
         generatedAt: now.toISOString(),
         docs,
-        sidebarTree,
-        indexGraph,
-        relations,
-        backlinksGraph: {} // Placeholder for manual links
+        tree,
+        relations
     };
     
-    // Validate: check all referenced docIds exist
+    // Validate
     validateManifest(manifest);
     
     // Write manifest
@@ -380,22 +281,29 @@ function generateManifest() {
 }
 
 /**
- * Validate manifest - ensure all referenced docIds exist
+ * Validate manifest
  */
 function validateManifest(manifest) {
     const errors = [];
     const docIds = new Set(Object.keys(manifest.docs));
     
-    // Check indexGraph
-    for (const [indexId, children] of Object.entries(manifest.indexGraph)) {
-        if (!docIds.has(indexId)) {
-            errors.push(`indexGraph: index "${indexId}" not in docs`);
+    // Check tree
+    function checkNode(node) {
+        if (node.docId && !docIds.has(node.docId)) {
+            errors.push(`tree: docId "${node.docId}" not in docs`);
         }
-        for (const childId of children) {
-            if (!docIds.has(childId)) {
-                errors.push(`indexGraph: child "${childId}" of "${indexId}" not in docs`);
+        if (node.hubDocId && !docIds.has(node.hubDocId)) {
+            // Hub might be generated later, just warn
+            console.log(`   ℹ️  Hub "${node.hubDocId}" will be generated`);
+        }
+        if (node.items) {
+            for (const item of node.items) {
+                checkNode(item);
             }
         }
+    }
+    for (const semester of manifest.tree) {
+        checkNode(semester);
     }
     
     // Check relations
@@ -404,29 +312,11 @@ function validateManifest(manifest) {
             errors.push(`relations: doc "${docId}" not in docs`);
         }
         if (rel.prev && !docIds.has(rel.prev)) {
-            errors.push(`relations: prev "${rel.prev}" of "${docId}" not in docs`);
+            errors.push(`relations: prev "${rel.prev}" not in docs`);
         }
         if (rel.next && !docIds.has(rel.next)) {
-            errors.push(`relations: next "${rel.next}" of "${docId}" not in docs`);
+            errors.push(`relations: next "${rel.next}" not in docs`);
         }
-        if (rel.up && !docIds.has(rel.up)) {
-            errors.push(`relations: up "${rel.up}" of "${docId}" not in docs`);
-        }
-    }
-    
-    // Check sidebarTree
-    function checkSidebarNode(node) {
-        if (node.docId && !docIds.has(node.docId)) {
-            errors.push(`sidebarTree: docId "${node.docId}" not in docs`);
-        }
-        if (node.items) {
-            for (const item of node.items) {
-                checkSidebarNode(item);
-            }
-        }
-    }
-    for (const semester of manifest.sidebarTree) {
-        checkSidebarNode(semester);
     }
     
     if (errors.length > 0) {

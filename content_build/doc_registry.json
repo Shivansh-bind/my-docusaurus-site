@@ -1068,5 +1068,13 @@
         "category": "semesterHub",
         "isHub": true,
         "isGenerated": true
+    },
+    "homepage": {
+        "title": "Reference Library",
+        "semester": 0,
+        "subject": "General",
+        "category": "homepage",
+        "isHub": true,
+        "isGenerated": true
     }
 }

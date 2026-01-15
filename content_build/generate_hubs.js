@@ -288,6 +288,75 @@ ${cards}
 }
 
 /**
+ * Generate the homepage with welcome message and semester cards
+ */
+function generateHomepage(semesters) {
+    const semesterCards = Object.entries(semesters)
+        .sort((a, b) => parseInt(a[0]) - parseInt(b[0]))
+        .map(([semester, subjects]) => {
+            const subjectCount = Object.keys(subjects).length;
+            return `
+    <a href="app://doc/s${semester}_hub" class="hub-card">
+        <div class="card-icon">🎓</div>
+        <div class="card-content">
+            <div class="card-title">Semester ${semester}</div>
+            <div class="card-desc">${subjectCount} subjects</div>
+        </div>
+        <div class="card-arrow">→</div>
+    </a>`;
+        }).join('\n');
+
+    return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reference Library</title>
+${HUB_STYLES}
+<style>
+.welcome-section {
+    text-align: center;
+    padding: 40px 20px 30px;
+}
+.welcome-title {
+    font-size: 2em;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+.welcome-subtitle {
+    font-size: 1.1em;
+    opacity: 0.9;
+    line-height: 1.5;
+}
+.section-title {
+    font-size: 1em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.8;
+    margin-bottom: 16px;
+    padding-left: 4px;
+}
+</style>
+</head>
+<body>
+<div class="hub-container">
+    <div class="welcome-section">
+        <div class="hub-icon">📚</div>
+        <h1 class="welcome-title">Reference Library</h1>
+        <p class="welcome-subtitle">Your complete study companion.<br/>Access all course materials offline.</p>
+    </div>
+    
+    <p class="section-title">Browse by Semester</p>
+    <div class="hub-cards">
+${semesterCards}
+    </div>
+</div>
+</body>
+</html>`;
+}
+
+/**
  * Main hub generation function
  */
 function generateHubs() {
@@ -414,6 +483,22 @@ function generateHubs() {
             };
         }
     }
+    
+    // Generate homepage with welcome + semester cards
+    const homepageHtml = generateHomepage(semesters);
+    const homepagePath = path.join(DOCS_DIR, 'homepage.html');
+    fs.writeFileSync(homepagePath, homepageHtml, 'utf-8');
+    console.log(`✅ Generated homepage: homepage.html`);
+    hubCount++;
+    
+    generatedHubs['homepage'] = {
+        title: 'Reference Library',
+        semester: 0,
+        subject: 'General',
+        category: 'homepage',
+        isHub: true,
+        isGenerated: true
+    };
     
     // Merge generated hubs into registry
     const updatedRegistry = { ...registry, ...generatedHubs };

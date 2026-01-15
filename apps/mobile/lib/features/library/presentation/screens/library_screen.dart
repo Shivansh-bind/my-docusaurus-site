@@ -1,288 +1,319 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 import '../../domain/index_models.dart';
 import '../../../../core/providers/pack_providers.dart';
 
-/// LibraryScreen - Main navigation screen using sidebarTree
+/// LibraryScreen - Website-style navigation with WebView + Drawer
 ///
-/// Uses the new v2.1 manifest format:
-/// - sidebarTree: minimal sidebar (Semester → Subject → Essentials)
-/// - Index pages open in ReaderScreen where users can navigate deeper
-class LibraryScreen extends ConsumerWidget {
+/// Entry point: Loads homepage.html
+/// Navigation: Hamburger sidebar with doc tree
+/// Back: Web history navigation
+class LibraryScreen extends ConsumerStatefulWidget {
   const LibraryScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<LibraryScreen> createState() => _LibraryScreenState();
+}
+
+class _LibraryScreenState extends ConsumerState<LibraryScreen> {
+  WebViewController? _webController;
+  bool _canGoBack = false;
+  String _currentTitle = 'Reference Library';
+  bool _initialized = false;
+  String? _packPath;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_initialized) {
+      _initialized = true;
+      _initWebView();
+    }
+  }
+
+  Future<void> _initWebView() async {
+    // Wait for pack path to be available
+    final packPath = await ref.read(packPathProvider.future);
+    if (packPath == null) return;
+    _packPath = packPath;
+
+    final controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setBackgroundColor(Colors.white)
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onPageStarted: (url) {
+            _updateBackButton();
+          },
+          onPageFinished: (url) {
+            _updateBackButton();
+            _updateTitle();
+          },
+          onNavigationRequest: (request) {
+            final url = request.url;
+
+            // Handle app://doc/ links
+            if (url.startsWith('app://doc/')) {
+              final docId = url.replaceFirst('app://doc/', '');
+              _loadDoc(docId);
+              return NavigationDecision.prevent;
+            }
+
+            // Allow file:// URLs (local content)
+            if (url.startsWith('file://')) {
+              return NavigationDecision.navigate;
+            }
+
+            // Block external URLs
+            return NavigationDecision.prevent;
+          },
+        ),
+      );
+
+    setState(() {
+      _webController = controller;
+    });
+
+    // Load homepage
+    _loadDoc('homepage');
+  }
+
+  void _loadDoc(String docId) {
+    if (_packPath == null || _webController == null) return;
+
+    final filePath = '$_packPath/docs/$docId.html';
+    final file = File(filePath);
+
+    if (file.existsSync()) {
+      final uri = Uri.file(filePath);
+      _webController!.loadRequest(uri);
+    } else {
+      // Fallback: show error
+      debugPrint('File not found: $filePath');
+      _webController!.loadHtmlString('''
+        <html>
+        <head><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+        <body style="font-family: sans-serif; padding: 40px; text-align: center;">
+          <h2>Document not found</h2>
+          <p>$docId</p>
+        </body>
+        </html>
+      ''');
+    }
+  }
+
+  Future<void> _updateBackButton() async {
+    if (_webController == null) return;
+    final canGoBack = await _webController!.canGoBack();
+    if (mounted && canGoBack != _canGoBack) {
+      setState(() {
+        _canGoBack = canGoBack;
+      });
+    }
+  }
+
+  Future<void> _updateTitle() async {
+    if (_webController == null) return;
+    final title = await _webController!.getTitle();
+    if (mounted && title != null && title.isNotEmpty) {
+      setState(() {
+        _currentTitle = title;
+      });
+    }
+  }
+
+  Future<bool> _onWillPop() async {
+    if (_webController != null && await _webController!.canGoBack()) {
+      _webController!.goBack();
+      return false;
+    }
+    return true;
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final manifestAsync = ref.watch(manifestProvider);
     final packVersion = ref.watch(packVersionProvider);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Reference Library'),
-        actions: [
-          // Pack version badge
-          if (packVersion != null)
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) async {
+        if (didPop) return;
+        final shouldPop = await _onWillPop();
+        if (shouldPop && context.mounted) {
+          Navigator.of(context).pop();
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            _currentTitle,
+            style: const TextStyle(fontSize: 18),
+            overflow: TextOverflow.ellipsis,
+          ),
+          leading: Builder(
+            builder: (context) => IconButton(
+              icon: const Icon(Icons.menu),
+              onPressed: () => Scaffold.of(context).openDrawer(),
+              tooltip: 'Menu',
+            ),
+          ),
+          actions: [
+            if (_canGoBack)
+              IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: () => _webController?.goBack(),
+                tooltip: 'Back',
+              ),
+            if (packVersion != null)
+              Container(
+                margin: const EdgeInsets.only(right: 8),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primaryContainer,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  'v$packVersion',
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: Theme.of(context).colorScheme.onPrimaryContainer,
+                  ),
+                ),
+              ),
+            IconButton(
+              icon: const Icon(Icons.home),
+              onPressed: () => _loadDoc('homepage'),
+              tooltip: 'Home',
+            ),
+          ],
+        ),
+        drawer: manifestAsync.when(
+          data: (manifest) => manifest != null
+              ? _buildDrawer(context, manifest)
+              : const Drawer(child: Center(child: Text('No content'))),
+          loading: () => const Drawer(
+            child: Center(child: CircularProgressIndicator()),
+          ),
+          error: (e, _) => Drawer(
+            child: Center(child: Text('Error: $e')),
+          ),
+        ),
+        body: _webController == null
+            ? const Center(child: CircularProgressIndicator())
+            : WebViewWidget(controller: _webController!),
+      ),
+    );
+  }
+
+  Widget _buildDrawer(BuildContext context, ContentManifest manifest) {
+    return Drawer(
+      child: SafeArea(
+        child: Column(
+          children: [
+            // Drawer header
             Container(
-              margin: const EdgeInsets.only(right: 8),
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              width: double.infinity,
+              padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primaryContainer,
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Text(
-                'v$packVersion',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Theme.of(context).colorScheme.onPrimaryContainer,
+                gradient: LinearGradient(
+                  colors: [
+                    Theme.of(context).colorScheme.primary,
+                    Theme.of(context).colorScheme.secondary,
+                  ],
                 ),
               ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Icon(Icons.menu_book, size: 40, color: Colors.white),
+                  const SizedBox(height: 12),
+                  const Text(
+                    'Reference Library',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  if (ref.watch(packVersionProvider) != null)
+                    Text(
+                      'v${ref.watch(packVersionProvider)}',
+                      style: TextStyle(
+                        color: Colors.white.withOpacity(0.8),
+                        fontSize: 12,
+                      ),
+                    ),
+                ],
+              ),
             ),
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () => context.push('/settings'),
-            tooltip: 'Settings',
-          ),
-        ],
-      ),
-      body: manifestAsync.when(
-        data: (manifest) {
-          if (manifest == null) {
-            return _buildNoPack(context);
-          }
-          return _buildNavigation(context, manifest);
-        },
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(
-          child: Padding(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.error_outline, size: 64, color: Colors.red[300]),
-                const SizedBox(height: 16),
-                Text(
-                  'Error loading content',
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  error.toString(),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.grey[600]),
-                ),
-              ],
+
+            // Home button
+            ListTile(
+              leading: const Icon(Icons.home),
+              title: const Text('Home'),
+              onTap: () {
+                Navigator.pop(context);
+                _loadDoc('homepage');
+              },
             ),
-          ),
+            const Divider(height: 1),
+
+            // Doc tree
+            Expanded(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: _buildTreeItems(context, manifest.tree),
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
 
-  Widget _buildNoPack(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(Icons.download_rounded, size: 64, color: Colors.grey[400]),
-          const SizedBox(height: 16),
-          const Text('No content pack installed'),
-          const SizedBox(height: 24),
-          FilledButton.icon(
-            onPressed: () => context.go('/'),
-            icon: const Icon(Icons.download),
-            label: const Text('Get Content'),
-          ),
-        ],
-      ),
-    );
+  List<Widget> _buildTreeItems(BuildContext context, List<TreeNode> nodes) {
+    return nodes.map((node) => _buildTreeNode(context, node, 0)).toList();
   }
 
-  Widget _buildNavigation(BuildContext context, ContentManifest manifest) {
-    // Automation Level 2: Use tree with hubDocId support
-    if (manifest.tree.isNotEmpty) {
-      return _buildTree(context, manifest.tree, manifest);
-    } else if (manifest.sidebarTree.isNotEmpty) {
-      // Fallback to sidebarTree if no tree
-      return _buildSidebarTree(context, manifest.sidebarTree, manifest);
-    } else {
-      // Last resort: build from docs map
-      return _buildFromDocs(context, manifest);
-    }
-  }
-
-  /// Build navigation from tree with hubDocId support
-  Widget _buildTree(
-    BuildContext context,
-    List<TreeNode> nodes,
-    ContentManifest manifest,
-  ) {
-    return ListView.builder(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      itemCount: nodes.length,
-      itemBuilder: (context, index) {
-        return _buildTreeNode(context, nodes[index], manifest, 0);
-      },
-    );
-  }
-
-  Widget _buildTreeNode(
-    BuildContext context,
-    TreeNode node,
-    ContentManifest manifest,
-    int depth,
-  ) {
+  Widget _buildTreeNode(BuildContext context, TreeNode node, int depth) {
     final hasChildren = node.items.isNotEmpty;
-    final hasHubDocId = node.hubDocId != null;
-    final hasDocId = node.docId != null;
-    IconData icon = _getNodeIcon(node.title);
-
-    // Parent node with hubDocId: tap opens hub, can also expand children
-    if (hasChildren && hasHubDocId) {
-      return ExpansionTile(
-        leading: GestureDetector(
-          onTap: () => _openDoc(context, node.hubDocId!),
-          child: Icon(icon, color: Theme.of(context).colorScheme.primary),
-        ),
-        title: GestureDetector(
-          onTap: () => _openDoc(context, node.hubDocId!),
-          child: Text(
-            node.title,
-            style: TextStyle(
-              fontWeight: depth == 0 ? FontWeight.bold : FontWeight.w500,
-            ),
-          ),
-        ),
-        trailing: const Icon(Icons.expand_more),
-        initiallyExpanded:
-            false, // Don't expand by default, user should tap to open hub
-        children: node.items
-            .map((child) => _buildTreeNode(context, child, manifest, depth + 1))
-            .toList(),
-      );
-    }
-    // Parent node without hubDocId: just expand
-    else if (hasChildren) {
-      return ExpansionTile(
-        leading: Icon(icon, color: Theme.of(context).colorScheme.primary),
-        title: Text(
-          node.title,
-          style: TextStyle(
-            fontWeight: depth == 0 ? FontWeight.bold : FontWeight.w500,
-          ),
-        ),
-        initiallyExpanded: depth == 0,
-        children: node.items
-            .map((child) => _buildTreeNode(context, child, manifest, depth + 1))
-            .toList(),
-      );
-    }
-    // Leaf node with docId
-    else if (hasDocId) {
-      return ListTile(
-        leading: Icon(icon, size: 20),
-        title: Text(node.title),
-        contentPadding: EdgeInsets.only(left: 16.0 + (depth * 16.0), right: 16),
-        trailing: const Icon(Icons.chevron_right, size: 20),
-        onTap: () => _openDoc(context, node.docId!),
-      );
-    }
-    // Fallback: just display
-    else {
-      return ListTile(
-        leading: Icon(icon),
-        title: Text(node.title),
-        contentPadding: EdgeInsets.only(left: 16.0 + (depth * 16.0), right: 16),
-      );
-    }
-  }
-
-  /// Build navigation from new sidebarTree (v2.1)
-  Widget _buildSidebarTree(
-    BuildContext context,
-    List<SidebarNode> nodes,
-    ContentManifest manifest,
-  ) {
-    if (nodes.isEmpty) {
-      return const Center(child: Text('No content available'));
-    }
-
-    return ListView.builder(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      itemCount: nodes.length,
-      itemBuilder: (context, index) {
-        return _buildSidebarNode(context, nodes[index], manifest, 0);
-      },
-    );
-  }
-
-  Widget _buildSidebarNode(
-    BuildContext context,
-    SidebarNode node,
-    ContentManifest manifest,
-    int depth,
-  ) {
-    final hasChildren = node.items.isNotEmpty;
-    final hasDocId = node.docId != null;
-
-    // Get icon based on title or type
-    IconData icon = _getNodeIcon(node.title);
+    final docId = node.openDocId; // hubDocId for parents, docId for leaves
 
     if (hasChildren) {
-      // Branch with children - use ExpansionTile
       return ExpansionTile(
-        leading: Icon(icon, color: Theme.of(context).colorScheme.primary),
+        leading: Icon(_getNodeIcon(node.title)),
         title: Text(
           node.title,
           style: TextStyle(
-            fontWeight: depth == 0 ? FontWeight.bold : FontWeight.w500,
+            fontWeight: depth == 0 ? FontWeight.bold : FontWeight.normal,
           ),
         ),
-        initiallyExpanded: depth == 0, // Expand semesters by default
+        tilePadding: EdgeInsets.only(left: 16 + (depth * 8), right: 16),
         children: node.items
-            .map((child) =>
-                _buildSidebarNode(context, child, manifest, depth + 1))
+            .map((child) => _buildTreeNode(context, child, depth + 1))
             .toList(),
       );
-    } else if (hasDocId) {
-      // Leaf node - open doc
-      final doc = manifest.getDoc(node.docId!);
+    } else if (docId != null) {
       return ListTile(
-        leading: Icon(icon, size: 20),
+        leading: Icon(_getNodeIcon(node.title), size: 20),
         title: Text(node.title),
-        subtitle: doc != null
-            ? Text(doc.category, style: const TextStyle(fontSize: 12))
-            : null,
-        contentPadding: EdgeInsets.only(left: 16.0 + (depth * 16.0), right: 16),
-        onTap: () => _openDoc(context, node.docId!),
+        contentPadding: EdgeInsets.only(left: 16 + (depth * 12), right: 16),
+        onTap: () {
+          Navigator.pop(context); // Close drawer
+          _loadDoc(docId);
+        },
       );
     } else {
-      // Empty node (shouldn't happen, but handle gracefully)
       return ListTile(
-        leading: Icon(icon),
+        leading: Icon(_getNodeIcon(node.title)),
         title: Text(node.title),
-        contentPadding: EdgeInsets.only(left: 16.0 + (depth * 16.0), right: 16),
+        contentPadding: EdgeInsets.only(left: 16 + (depth * 12), right: 16),
       );
     }
-  }
-
-  /// Fallback: Build from docs map
-  Widget _buildFromDocs(BuildContext context, ContentManifest manifest) {
-    final docs = manifest.docs.entries.toList()
-      ..sort((a, b) => a.key.compareTo(b.key));
-
-    return ListView.builder(
-      padding: const EdgeInsets.all(16),
-      itemCount: docs.length,
-      itemBuilder: (context, index) {
-        final entry = docs[index];
-        return ListTile(
-          title: Text(entry.value.title),
-          subtitle: Text(entry.key),
-          onTap: () => _openDoc(context, entry.key),
-        );
-      },
-    );
   }
 
   IconData _getNodeIcon(String title) {
@@ -294,16 +325,14 @@ class LibraryScreen extends ConsumerWidget {
     if (lower.contains('assignment')) return Icons.assignment;
     if (lower.contains('project')) return Icons.folder_special;
     if (lower.contains('programming')) return Icons.code;
-    if (lower.contains('math') || lower.contains('discrete'))
+    if (lower.contains('math') || lower.contains('discrete')) {
       return Icons.calculate;
+    }
     if (lower.contains('english')) return Icons.language;
     if (lower.contains('dld') || lower.contains('digital')) return Icons.memory;
-    if (lower.contains('cfoa') || lower.contains('computer'))
+    if (lower.contains('cfoa') || lower.contains('computer')) {
       return Icons.computer;
+    }
     return Icons.article;
-  }
-
-  void _openDoc(BuildContext context, String docId) {
-    context.push('/reader', extra: {'docId': docId});
   }
 }

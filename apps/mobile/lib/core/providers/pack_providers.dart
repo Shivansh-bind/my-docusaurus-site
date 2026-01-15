@@ -34,3 +34,12 @@ final packVersionProvider = FutureProvider<String?>((ref) async {
   final manifest = await ref.watch(manifestProvider.future);
   return manifest?.packVersion;
 });
+
+/// Provider for the content pack path (for WebView file access)
+final packPathProvider = FutureProvider<String?>((ref) async {
+  final storage = ref.watch(packStorageProvider);
+  final hasValidPack = await storage.hasValidPack();
+  if (!hasValidPack) return null;
+  final packDir = await storage.getCurrentPackDir();
+  return packDir.path;
+});

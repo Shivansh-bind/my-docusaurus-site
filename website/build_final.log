@@ -1,0 +1,42 @@
+
+> my-docusaurus-site@0.0.0 build
+> docusaurus build
+
+[INFO] [en] Creating an optimized production build...
+[90m[[90mwebpackbar[90m][39m [36mℹ[39m Compiling Client
+[90m[[90mwebpackbar[90m][39m [36mℹ[39m Compiling Server
+[90m[[90mwebpackbar[90m][39m [32m✔[39m Server: Compiled successfully in 2.73s
+[90m[[90mwebpackbar[90m][39m [32m✔[39m Client: Compiled successfully in 3.65s
+
+[ERROR] Error: Unable to build website for locale en.
+    at tryToBuildLocale (C:\Users\UDAY\Documents\WORK media\Projects\my-docusaurus-site\website\node_modules\@docusaurus\core\lib\commands\build\build.js:83:15)
+    at async C:\Users\UDAY\Documents\WORK media\Projects\my-docusaurus-site\website\node_modules\@docusaurus\core\lib\commands\build\build.js:35:9
+    at async mapAsyncSequential (C:\Users\UDAY\Documents\WORK media\Projects\my-docusaurus-site\website\node_modules\@docusaurus\utils\lib\jsUtils.js:21:24)
+    at async Command.build (C:\Users\UDAY\Documents\WORK media\Projects\my-docusaurus-site\website\node_modules\@docusaurus\core\lib\commands\build\build.js:34:5)
+    at async Promise.all (index 0)
+    at async runCLI (C:\Users\UDAY\Documents\WORK media\Projects\my-docusaurus-site\website\node_modules\@docusaurus\core\lib\commands\cli.js:56:5)
+    at async file:///C:/Users/UDAY/Documents/WORK%20media/Projects/my-docusaurus-site/website/node_modules/@docusaurus/core/bin/docusaurus.mjs:44:3 {
+  [cause]: Error: Docusaurus found broken links!
+  
+  Please check the pages of your site in the list below, and make sure you don't reference any path that does not exist.
+  Note: it's possible to ignore broken links with the 'onBrokenLinks' Docusaurus configuration, and let the build pass.
+  
+  Exhaustive list of all broken links found:
+  - Broken link on source page path = /docs/Semester 1/C-Programming/Notes/:
+     -> linking to ./if-else--else-if--switch-and-nested-ifs (resolved as: /docs/Semester%201/C-Programming/Notes/if-else--else-if--switch-and-nested-ifs)
+  - Broken link on source page path = /docs/Semester 1/Psychology/Notes/:
+     -> linking to ./Methods-Of-Psychology (resolved as: /docs/Semester%201/Psychology/Notes/Methods-Of-Psychology)
+  
+      at throwError (C:\Users\UDAY\Documents\WORK media\Projects\my-docusaurus-site\website\node_modules\@docusaurus\logger\lib\logger.js:80:11)
+      at reportBrokenLinks (C:\Users\UDAY\Documents\WORK media\Projects\my-docusaurus-site\website\node_modules\@docusaurus\core\lib\server\brokenLinks.js:250:47)
+      at handleBrokenLinks (C:\Users\UDAY\Documents\WORK media\Projects\my-docusaurus-site\website\node_modules\@docusaurus\core\lib\server\brokenLinks.js:282:5)
+      at executeBrokenLinksCheck (C:\Users\UDAY\Documents\WORK media\Projects\my-docusaurus-site\website\node_modules\@docusaurus\core\lib\commands\build\buildLocale.js:119:47)
+      at C:\Users\UDAY\Documents\WORK media\Projects\my-docusaurus-site\website\node_modules\@docusaurus\core\lib\commands\build\buildLocale.js:94:67
+      at Object.async (C:\Users\UDAY\Documents\WORK media\Projects\my-docusaurus-site\website\node_modules\@docusaurus\logger\lib\perfLogger.js:42:47)
+      at buildLocale (C:\Users\UDAY\Documents\WORK media\Projects\my-docusaurus-site\website\node_modules\@docusaurus\core\lib\commands\build\buildLocale.js:94:31)
+      at async runBuildLocaleTask (C:\Users\UDAY\Documents\WORK media\Projects\my-docusaurus-site\website\node_modules\@docusaurus\core\lib\commands\build\build.js:98:5)
+      at async C:\Users\UDAY\Documents\WORK media\Projects\my-docusaurus-site\website\node_modules\@docusaurus\core\lib\commands\build\build.js:79:13
+      at async tryToBuildLocale (C:\Users\UDAY\Documents\WORK media\Projects\my-docusaurus-site\website\node_modules\@docusaurus\core\lib\commands\build\build.js:75:9)
+}
+[INFO] Docusaurus version: 3.9.2
+Node version: v22.19.0

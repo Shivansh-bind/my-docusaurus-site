@@ -1,0 +1,171 @@
+﻿
+> my-docusaurus-site@0.0.0 build
+> docusaurus build
+
+[INFO] [en] Creating an optimized production build...
+[90m[[90mwebpackbar[90m][39m [36mℹ[39m Compiling Client
+[90m[[90mwebpackbar[90m][39m [36mℹ[39m Compiling Server
+[90m[[90mwebpackbar[90m][39m [32m✔[39m Server: Compiled successfully in 2.29s
+[90m[[90mwebpackbar[90m][39m [32m✔[39m Client: Compiled successfully in 2.90s
+
+node.exe : [ERROR] Error: 
+Unable to build website for 
+locale en.
+At line:1 char:1
++ & "C:\Program 
+Files\nodejs/node.exe" "C:\Use
+rs\UDAY\AppData\Roaming\n ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~
+    + CategoryInfo          : 
+    NotSpecified: ([ERROR] E  
+  rror: ... for locale en.:   
+ String) [], RemoteExcepti    
+on
+    + FullyQualifiedErrorId : 
+    NativeCommandError
+ 
+    at tryToBuildLocale 
+(C:\Users\UDAY\Documents\WORK 
+media\Projects\my-docusaurus-s
+ite\website\node_modules\@docu
+saurus\core\lib\commands\build
+\build.js:83:15)
+    at async 
+C:\Users\UDAY\Documents\WORK m
+edia\Projects\my-docusaurus-si
+te\website\node_modules\@docus
+aurus\core\lib\commands\build\
+build.js:35:9
+    at async 
+mapAsyncSequential 
+(C:\Users\UDAY\Documents\WORK 
+media\Projects\my-docusaurus-s
+ite\website\node_modules\@docu
+saurus\utils\lib\jsUtils.js:21
+:24)
+    at async Command.build 
+(C:\Users\UDAY\Documents\WORK 
+media\Projects\my-docusaurus-s
+ite\website\node_modules\@docu
+saurus\core\lib\commands\build
+\build.js:34:5)
+    at async Promise.all 
+(index 0)
+    at async runCLI 
+(C:\Users\UDAY\Documents\WORK 
+media\Projects\my-docusaurus-s
+ite\website\node_modules\@docu
+saurus\core\lib\commands\cli.j
+s:56:5)
+    at async file:///C:/Users/
+UDAY/Documents/WORK%20media/Pr
+ojects/my-docusaurus-site/webs
+ite/node_modules/@docusaurus/c
+ore/bin/docusaurus.mjs:44:3 {
+  [cause]: Error: Docusaurus 
+found broken links!
+  
+  Please check the pages of 
+your site in the list below, 
+and make sure you don't 
+reference any path that does 
+not exist.
+  Note: it's possible to 
+ignore broken links with the 
+'onBrokenLinks' Docusaurus 
+configuration, and let the 
+build pass.
+  
+  Exhaustive list of all 
+broken links found:
+  - Broken link on source 
+page path = /docs/Semester 
+1/C-Programming/Notes/:
+     -> linking to 
+/docs/c-programming-unit1
+     -> linking to 
+/docs/c-programming-unit2
+     -> linking to 
+/docs/c-programming-unit3
+     -> linking to 
+/docs/c-programming-unit4
+     -> linking to 
+/docs/c-programming-unit5
+  - Broken link on source 
+page path = /docs/Semester 
+1/Psychology/Notes/:
+     -> linking to 
+/docs/psychology-unit1
+     -> linking to 
+/docs/psychology-unit2
+     -> linking to 
+/docs/psychology-unit3
+  
+      at throwError 
+(C:\Users\UDAY\Documents\WORK 
+media\Projects\my-docusaurus-s
+ite\website\node_modules\@docu
+saurus\logger\lib\logger.js:80
+:11)
+      at reportBrokenLinks 
+(C:\Users\UDAY\Documents\WORK 
+media\Projects\my-docusaurus-s
+ite\website\node_modules\@docu
+saurus\core\lib\server\brokenL
+inks.js:250:47)
+      at handleBrokenLinks 
+(C:\Users\UDAY\Documents\WORK 
+media\Projects\my-docusaurus-s
+ite\website\node_modules\@docu
+saurus\core\lib\server\brokenL
+inks.js:282:5)
+      at 
+executeBrokenLinksCheck 
+(C:\Users\UDAY\Documents\WORK 
+media\Projects\my-docusaurus-s
+ite\website\node_modules\@docu
+saurus\core\lib\commands\build
+\buildLocale.js:119:47)
+      at 
+C:\Users\UDAY\Documents\WORK m
+edia\Projects\my-docusaurus-si
+te\website\node_modules\@docus
+aurus\core\lib\commands\build\
+buildLocale.js:94:67
+      at Object.async 
+(C:\Users\UDAY\Documents\WORK 
+media\Projects\my-docusaurus-s
+ite\website\node_modules\@docu
+saurus\logger\lib\perfLogger.j
+s:42:47)
+      at buildLocale 
+(C:\Users\UDAY\Documents\WORK 
+media\Projects\my-docusaurus-s
+ite\website\node_modules\@docu
+saurus\core\lib\commands\build
+\buildLocale.js:94:31)
+      at async 
+runBuildLocaleTask 
+(C:\Users\UDAY\Documents\WORK 
+media\Projects\my-docusaurus-s
+ite\website\node_modules\@docu
+saurus\core\lib\commands\build
+\build.js:98:5)
+      at async 
+C:\Users\UDAY\Documents\WORK m
+edia\Projects\my-docusaurus-si
+te\website\node_modules\@docus
+aurus\core\lib\commands\build\
+build.js:79:13
+      at async 
+tryToBuildLocale 
+(C:\Users\UDAY\Documents\WORK 
+media\Projects\my-docusaurus-s
+ite\website\node_modules\@docu
+saurus\core\lib\commands\build
+\build.js:75:9)
+}
+[INFO] Docusaurus version: 3.9.2
+Node version: v22.19.0

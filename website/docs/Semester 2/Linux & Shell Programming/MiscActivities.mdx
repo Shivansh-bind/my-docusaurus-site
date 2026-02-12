@@ -1,3 +1,311 @@
 ---
 title: Miscellaneous Activities
 ---
+
+
+Linux and Shell Programming
+
+1. Introduction to Linux
+
+(i) What is Linux?
+
+Linux is a free and open-source operating system used to run computers, servers, mobile devices, and even supercomputers.
+It was developed by Linus Torvalds in 1991 and is based on the UNIX philosophy.
+
+
+---
+
+(ii) Components of Linux
+
+1. Core of Linux (Kernel) – Manages hardware resources
+
+
+2. Shell – Interface to communicate with the kernel
+
+
+3. File System – Organizes data into directories
+
+
+4. Utilities – Tools like ls, cp, mv, grep
+
+
+
+
+---
+
+(iii) Linux Distributions (Distros)
+
+Linux comes in many versions called distributions, such as:
+
+Ubuntu
+
+Fedora
+
+Debian
+
+Linux Mint
+
+Arch Linux
+
+
+
+---
+
+(iv) Applications of Linux
+
+Personal computers and laptops
+
+Web servers (Google, Facebook, Amazon use Linux)
+
+Android phones (Android is Linux-based)
+
+Embedded systems (ATMs, Smart TVs)
+
+
+
+---
+
+(v) Linux for Students (like BCA students)
+
+Linux is very useful for:
+
+Learning C, C++, Java, Python
+
+Understanding Operating Systems
+
+Practicing Networking and Cyber Security
+
+Working with servers and cloud
+
+
+Conclusion:
+Linux is a powerful, secure, free, and flexible operating system widely used in education, industry, and technology.
+
+
+---
+
+2. Architecture of Linux
+
+The Linux architecture is a layered structure where each layer performs a specific function. These layers work together to allow users to interact with computer hardware efficiently and securely.
+
+Basic Architecture Layers:
+
+User
+
+Shell
+
+Software
+
+Kernel
+
+Hardware (CPU, RAM, Storage, I/O)
+
+
+
+---
+
+3. Hardware Layer
+
+The hardware layer is the lowest level in Linux architecture. It includes all physical components of the computer.
+
+Components of Computer:
+
+CPU (Central Processing Unit) – Executes instructions
+
+RAM (Memory) – Stores data and programs temporarily
+
+Hard Disk / SSD – Permanent data storage
+
+Input Devices – Keyboard, mouse, scanner
+
+Output Devices – Monitor, printer
+
+
+Role of Hardware:
+
+Provides physical resources
+
+Does not interact directly with users
+
+Controlled by the Linux kernel
+
+
+
+---
+
+4. Software – Linux Kernel
+
+The kernel is the core (heart) of the Linux operating system. It directly communicates with hardware and manages all system resources.
+
+Functions of Kernel:
+
+Process Management – Controls execution of processes
+
+Memory Management – Allocates and deallocates memory
+
+Device Management – Uses device drivers to control hardware
+
+File System Management – Manages files and directories
+
+System Calls – Interface between user programs and hardware
+
+
+Features of Linux Kernel:
+
+Monolithic kernel (but modular)
+
+Secure and stable
+
+Controls access to hardware
+
+
+Without the kernel, Linux cannot function.
+
+
+---
+
+5. Shell
+
+The shell is a command interpreter that acts as a bridge between the user and the kernel.
+
+What does a shell do?
+
+Takes commands from the user
+
+Interprets them
+
+Passes them to the kernel for execution
+
+Displays output to the user
+
+
+Types of Shell:
+
+Bash (Bourne Again Shell) – Most common
+
+Zsh
+
+C Shell (csh)
+
+Korn Shell (ksh)
+
+
+Example:
+
+ls
+
+Command used to list all files.
+
+
+---
+
+6. User
+
+The user layer is the topmost level of Linux architecture.
+
+Who is a user?
+
+Human users
+
+System administrators
+
+Programmers
+
+
+User Interaction:
+
+Uses commands, applications, or GUI
+
+Does not interact directly with hardware
+
+Communicates through the shell
+
+
+User Types:
+
+1. Root User
+
+Full system access
+
+Can install software, change system files, manage users, configure hardware
+
+
+
+2. Normal User
+
+Limited permissions
+
+Regular user account
+
+
+
+
+
+---
+
+7. Features of Linux
+
+1. Open Source
+
+Released under GNU Public License (GPL)
+
+Source code is publicly available
+
+Developers can modify, compile, and redistribute
+
+Community review improves quality and security
+
+
+2. Multiuser Support
+
+Each user has a User ID (UID) and Group ID (GID)
+
+Every process runs under a specific user
+
+File permissions (read, write, execute) control access
+
+Kernel enforces user isolation
+
+
+3. Multitasking
+
+Uses preemptive multitasking
+
+CPU time is shared using time slicing
+
+Multiple processes appear to run simultaneously
+
+
+4. Portability
+
+Mostly written in C language
+
+Hardware-dependent code is separated from core kernel
+
+Can be recompiled for different hardware platforms
+
+
+5. Security
+
+Strong file permission model (owner, group, others)
+
+Separation between user mode and kernel mode
+
+Security modules like SELinux and AppArmor
+
+Root access is restricted and controlled
+
+
+6. Stability and Reliability
+
+User applications run in user space, separate from kernel space
+
+Crashing programs do not crash the kernel
+
+Uses journaling file systems
+
+Efficient memory management prevents data corruption
+
+
+
+---
